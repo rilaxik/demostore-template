@@ -1,0 +1,23 @@
+@import '../../consts/fonts.module';
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .875rem;
+
+  cursor: pointer;
+  background-color: $bgcolor-accent;
+  font-size: $button-fs;
+  font-weight: $button-fw;
+  color: $color-accent;
+
+  &.disabled {
+    cursor: not-allowed;
+    background-color: $color-sec;
+  }
+
+  &.fullSize {
+    align-self: stretch;
+  }
+}

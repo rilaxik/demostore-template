@@ -1,3 +1,5 @@
 import Navbar from './Navbar';
+import ProductCard from './ProductCard';
+import Button from './Button';
 
-export { Navbar };
+export { Navbar, ProductCard, Button };

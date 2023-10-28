@@ -1,0 +1,124 @@
+@import '../../consts/fonts.module';
+
+.productCardWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  width: 305px;
+  max-width: 305px;
+  height: 650px;
+  max-height: 650px;
+
+  outline: 1px solid $color-sec;
+
+  .topContent {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 1.5rem;
+
+    .imageWrapper {
+      display: flex;
+      align-self: stretch;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 275px;
+        max-width: 275px;
+        aspect-ratio: auto;
+      }
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .625px;
+
+      .name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: $card-name-fs;
+        font-weight: $card-name-fw;
+        color: $color-main;
+      }
+
+      .detail {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: $card-detail-fs;
+        font-weight: $card-detail-fw;
+        color: $color-main;
+      }
+    }
+  }
+
+  .descriptionWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .description {
+      display: flex;
+      overflow: hidden;
+    }
+
+    .content {
+      display: flex;
+      text-overflow: clip;
+
+      font-size: $card-desc-fs;
+      font-weight: $card-desc-fw;
+      color: $color-main;
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    .other {
+      display: flex;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      font-size: $card-other-fs;
+      font-weight: $card-other-fw;
+      color: $color-main;
+
+      span {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .buy {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+
+    .price {
+      display: flex;
+
+      font-size: $card-price-fs;
+      font-weight: $card-price-fw;
+      color: $color-main;
+    }
+  }
+}
