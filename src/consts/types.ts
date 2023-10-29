@@ -14,6 +14,7 @@ export type Product = {
 };
 
 export type ProductShort = {
+  id: string;
   name: string;
   sizingShort?: number | string;
   measurement?: string;

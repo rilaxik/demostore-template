@@ -34,7 +34,11 @@ const Navbar = () => {
       <div className={s.categories}>
         {(Object.keys(shopCategories) as Array<keyof typeof shopCategories>).map(
           (item: keyof typeof shopCategories) => {
-            return <div className={s.category}>{shopCategories[item]}</div>;
+            return (
+              <div className={s.category} key={`category-${item}`}>
+                {shopCategories[item]}
+              </div>
+            );
           }
         )}
       </div>

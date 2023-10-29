@@ -1,10 +1,10 @@
 import s from './style.module.scss';
 import image from '../../assets/Example Product.png';
 import { Button } from '../../components';
-import { shopInfo } from '../../consts/data';
-import { ProductShort } from '../../consts/types';
+import { store, shopInfo, ProductShort } from '../../consts';
 
 const ProductCard = ({
+  id,
   name,
   sizingShort,
   measurement,
@@ -32,7 +32,7 @@ const ProductCard = ({
       <div className={s.descriptionWrapper}>
         <div className={s.description}>{description}</div>
         <div className={s.content}>
-          <span>Content: </span>
+          <span>Content:&nbsp;</span>
           {content}&nbsp;{content === 1 ? 'unit' : 'units'}{' '}
           {content > 1 && pricePerPiece ? `(${shopInfo.currency}${pricePerPiece}/per unit)` : null}
         </div>
@@ -40,7 +40,7 @@ const ProductCard = ({
           Variants from&nbsp;
           <span>
             {shopInfo.currency}
-            {price * 0.9}*
+            {Math.floor(price * 0.9)}*
           </span>
         </div>
       </div>
@@ -59,7 +59,5 @@ const ProductCard = ({
     </div>
   );
 };
-
-function handleButtonClick() {}
 
 export default ProductCard;

@@ -1,6 +1,6 @@
 import s from './style.module.scss';
 import { Navbar, ProductCard } from '../../components';
-import { products } from '../../consts/data';
+import { products } from '../../consts';
 
 const ListingPage = () => {
   return (
@@ -10,6 +10,7 @@ const ListingPage = () => {
         {products.map((item) => {
           return (
             <ProductCard
+              id={item.id}
               name={item.name}
               sizingShort={item.sizingShort}
               measurement={item.measurement}
@@ -18,6 +19,7 @@ const ListingPage = () => {
               pricePerPiece={item.pricePerPiece}
               price={item.price}
               isInStock={item.isInStock}
+              key={`product-${item.id}`}
             />
           );
         })}
