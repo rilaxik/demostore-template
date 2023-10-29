@@ -1,15 +1,18 @@
 import s from './style.module.scss';
-import { shopInfo, shopCategories } from '../../consts/data';
-import store from '../../consts/store';
+import { shopInfo, shopCategories, store } from '../../consts';
 import { searchIcon, wishlistIcon, profileIcon, cartIcon } from '../../assets';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [currency] = store((state) => [state.currency]);
 
   return (
     <div className={s.navbarWrapper}>
       <div className={s.header}>
-        <div className={s.title}>{shopInfo.name}</div>
+        <div className={s.title} onClick={handleLogoClick}>
+          {shopInfo.name}
+        </div>
         <div className={s.searchbar}>
           <input type="text" placeholder="search for.." />
           <img src={searchIcon} alt="search" />
@@ -44,6 +47,10 @@ const Navbar = () => {
       </div>
     </div>
   );
+
+  function handleLogoClick() {
+    navigate('/');
+  }
 };
 
 export default Navbar;

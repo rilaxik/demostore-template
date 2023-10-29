@@ -19,6 +19,7 @@
       justify-content: center;
       align-items: center;
 
+      cursor: pointer;
       font-size: $navbar-title-fs;
       font-weight: $navbar-title-fw;
       color: $color-main
@@ -82,7 +83,7 @@
 
         font-size: $navbar-money-fs;
         font-weight: $navbar-money-fw;
-        color: $color-accent;
+        color: $bgcolor-accent;
       }
     }
   }
@@ -104,6 +105,10 @@
       font-size: $navbar-category-fs;
       font-weight: $navbar-category-fw;
       color: $color-main;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
