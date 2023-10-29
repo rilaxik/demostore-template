@@ -14,6 +14,8 @@ const ProductCard = ({
   price,
   isInStock
 }: ProductShort) => {
+  const [incCart] = store((state) => [state.incCart]);
+
   return (
     <div className={s.productCardWrapper}>
       <div className={s.topContent}>
@@ -58,6 +60,10 @@ const ProductCard = ({
       </div>
     </div>
   );
+
+  function handleButtonClick() {
+    incCart(id);
+  }
 };
 
 export default ProductCard;
