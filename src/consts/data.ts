@@ -3,7 +3,28 @@ import { Product } from './types';
 const shopInfo = {
   name: 'DemoStore',
   money: 3.33,
-  currency: '€'
+  currency: '€',
+  service: [
+    { label: 'Newsletter', link: 'link' },
+    { label: 'Merchant login', link: 'link' },
+    { label: 'Contact', link: 'link' },
+    { label: 'Return', link: 'link' },
+    { label: 'Repair Request', link: 'link' }
+  ],
+  information: [
+    { label: 'General terms', link: 'link' },
+    { label: 'Privacy', link: 'link' },
+    { label: 'Shipping and payment', link: 'link' },
+    { label: 'Right of rescission', link: 'link' },
+    { label: 'About', link: 'link' }
+  ],
+  direct: [
+    { label: 'Privacy', link: 'link' },
+    { label: 'Shop Service', link: 'link' },
+    { label: 'Information', link: 'link' },
+    { label: 'AGB', link: 'link' },
+    { label: 'Contact', link: 'link' }
+  ]
 };
 
 enum shopCategories {

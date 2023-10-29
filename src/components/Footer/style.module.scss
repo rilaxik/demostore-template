@@ -1,0 +1,107 @@
+@import '../../consts/fonts.module';
+
+.footerWrapper {
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+
+  hr {
+    width: 100%;
+    height: 1px;
+    background: $color-sec;
+  }
+
+  .footerWrapperShort {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-self: center;
+    justify-content: space-between;
+    width: 1000px;
+    max-width: 1000px;
+
+    .infoBlock {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        font-size: $footer-title-fs;
+        font-weight: $footer-title-fw;
+        color: $bgcolor-accent
+      }
+
+      .links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: .5rem;
+      }
+
+      .link {
+        display: flex;
+
+        font-size: $footer-link-fs;
+        font-weight: $footer-link-fw;
+        color: $color-main;
+
+        &.number {
+          font-size: $footer-number-fs;
+          font-weight: $footer-number-fw;
+        }
+
+        &.visible {
+          font-size: $footer-number-fs;
+          color: $bgcolor-accent;
+        }
+      }
+    }
+  }
+
+  .footerEnding {
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 2rem;
+    padding: 2rem 0 1rem;
+    background-color: $footer-bottom-bg;
+
+    .important {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+
+      .link {
+        display: flex;
+
+        font-size: $footer-important-fs;
+        font-weight: $footer-important-fw;
+        color: $color-main;
+      }
+    }
+
+    .vat {
+      display: flex;
+
+      font-size: $footer-vat-fs;
+      font-weight: $footer-vat-fw;
+      color: $color-main;
+
+      .accent {
+        color: $bgcolor-accent;
+      }
+    }
+  }
+}
