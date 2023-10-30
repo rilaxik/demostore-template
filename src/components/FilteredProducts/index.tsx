@@ -7,7 +7,8 @@ const FilteredProducts = ({ filter }: Props) => {
 
   return !filter && searchPrompt === '' ? (
     <>
-      {products.map((item) => {
+      {(Object.keys(products) as Array<never>).map((key) => {
+        const item = products[key];
         return (
           <ProductCard
             id={item.id}
@@ -27,7 +28,8 @@ const FilteredProducts = ({ filter }: Props) => {
     </>
   ) : !filter && searchPrompt !== '' ? (
     <>
-      {products.map((item) => {
+      {(Object.keys(products) as Array<keyof typeof products>).map((key) => {
+        const item = products[key];
         const searchList = item.tags.concat(item.name.split(' '));
         return searchPrompt.split(' ').map((s) => {
           return searchList.includes(s) ? (
@@ -50,7 +52,8 @@ const FilteredProducts = ({ filter }: Props) => {
     </>
   ) : filter ? (
     <>
-      {products.map((item) => {
+      {(Object.keys(products) as Array<never>).map((key) => {
+        const item = products[key];
         return item.tags.includes(filter) ? (
           <ProductCard
             id={item.id}
