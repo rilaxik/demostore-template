@@ -36,8 +36,8 @@ const shopInfo = {
   ]
 };
 
-const products: Product[] = [
-  {
+const products: Product = {
+  '1': {
     id: '1',
     name: 'Heavy-Duty Shovel',
     sizingShort: 106,
@@ -53,7 +53,7 @@ const products: Product[] = [
     tags: ['Tools', 'Garden', 'steel', 'shovel'],
     image: img1
   },
-  {
+  '2': {
     id: '2',
     name: 'Wooden Dining Table',
     sizingShort: '183x91x76',
@@ -69,7 +69,7 @@ const products: Product[] = [
     tags: ['Home', 'wood', 'table'],
     image: img2
   },
-  {
+  '3': {
     id: '3',
     name: 'Solar-Powered Garden Lanterns',
     sizingShort: '30',
@@ -85,7 +85,7 @@ const products: Product[] = [
     tags: ['Garden', 'lantern', 'metal'],
     image: img3
   },
-  {
+  '4': {
     id: '4',
     name: 'Artificial Grass Turf',
     sizingShort: '2x4',
@@ -101,7 +101,7 @@ const products: Product[] = [
     tags: ['Misc', 'grass', 'fibers', 'synthetic'],
     image: img4
   },
-  {
+  '5': {
     id: '5',
     name: 'Camping Tent',
     sizingShort: '6',
@@ -117,7 +117,7 @@ const products: Product[] = [
     tags: ['Misc', 'tent', 'polyester'],
     image: img5
   },
-  {
+  '6': {
     id: '6',
     name: 'Inflatable Swimming Pool',
     sizingShort: '152',
@@ -133,7 +133,7 @@ const products: Product[] = [
     tags: ['Garden', 'Misc', 'pool', 'vinyl'],
     image: img6
   },
-  {
+  '7': {
     id: '7',
     name: 'Angel Garden Statue',
     sizingShort: '90',
@@ -149,7 +149,7 @@ const products: Product[] = [
     tags: ['Garden', 'statue', 'stone'],
     image: img7
   },
-  {
+  '8': {
     id: '8',
     name: 'Garden Bushes Care Kit',
     sizingShort: '6-piece',
@@ -165,7 +165,7 @@ const products: Product[] = [
     tags: ['Garden', 'Tools', 'steel', 'resin'],
     image: img8
   },
-  {
+  '9': {
     id: '9',
     name: 'Metal Outdoor Chair',
     sizingShort: '42x45x90',
@@ -180,6 +180,6 @@ const products: Product[] = [
     tags: ['Garden', 'Home', 'Misc', 'chair', 'metal', 'plastic'],
     image: img9
   }
-];
+};
 
 export { shopInfo, products };

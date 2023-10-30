@@ -25,7 +25,7 @@ const Navbar = () => {
           <div className={s.iconWrapper}>
             <img src={profileIcon} alt="profile" />
           </div>
-          <div className={s.iconWrapper}>
+          <div className={s.iconWrapper} onClick={() => navigate('cart')}>
             <img src={cartIcon} alt="cart" />
           </div>
           <div className={s.money}>
