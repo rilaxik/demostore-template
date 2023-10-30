@@ -19,6 +19,7 @@
       justify-content: center;
       align-items: center;
 
+      user-select: none;
       cursor: pointer;
       font-size: $navbar-title-fs;
       font-weight: $navbar-title-fw;
@@ -101,10 +102,15 @@
       align-items: center;
       justify-content: center;
 
+      user-select: none;
       cursor: pointer;
       font-size: $navbar-category-fs;
       font-weight: $navbar-category-fw;
       color: $color-main;
+
+      &.active {
+        font-weight: $navbar-categoryActive-fw;
+      }
 
       &:hover {
         text-decoration: underline;

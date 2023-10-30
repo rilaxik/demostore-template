@@ -27,13 +27,6 @@ const shopInfo = {
   ]
 };
 
-enum shopCategories {
-  HOME = 'Home',
-  GARDEN = 'Garden',
-  TOOLS = 'Tools',
-  MISC = 'Misc'
-}
-
 const products: Product[] = [
   {
     id: '1',
@@ -48,7 +41,7 @@ const products: Product[] = [
     pricePerPiece: 19.99,
     price: 19.99,
     isInStock: true,
-    tags: ['tools', 'garden', 'steel', 'shovel']
+    tags: ['Tools', 'Garden', 'steel', 'shovel']
   },
   {
     id: '2',
@@ -63,7 +56,7 @@ const products: Product[] = [
     pricePerPiece: 299.99,
     price: 299.99,
     isInStock: true,
-    tags: ['home', 'wood', 'table']
+    tags: ['Home', 'wood', 'table']
   },
   {
     id: '3',
@@ -78,7 +71,7 @@ const products: Product[] = [
     pricePerPiece: 19.99,
     price: 59.97,
     isInStock: true,
-    tags: ['garden', 'lantern', 'metal']
+    tags: ['Garden', 'lantern', 'metal']
   },
   {
     id: '4',
@@ -93,7 +86,7 @@ const products: Product[] = [
     pricePerPiece: 29.99,
     price: 149.95,
     isInStock: true,
-    tags: ['misc', 'grass', 'fibers', 'synthetic']
+    tags: ['Misc', 'grass', 'fibers', 'synthetic']
   },
   {
     id: '5',
@@ -108,7 +101,7 @@ const products: Product[] = [
     pricePerPiece: 129.99,
     price: 129.99,
     isInStock: true,
-    tags: ['misc', 'tent', 'polyester']
+    tags: ['Misc', 'tent', 'polyester']
   },
   {
     id: '6',
@@ -123,7 +116,7 @@ const products: Product[] = [
     pricePerPiece: 29.99,
     price: 29.99,
     isInStock: true,
-    tags: ['garden', 'misc', 'pool', 'vinyl']
+    tags: ['Garden', 'Misc', 'pool', 'vinyl']
   },
   {
     id: '7',
@@ -138,7 +131,7 @@ const products: Product[] = [
     pricePerPiece: 79.99,
     price: 79.99,
     isInStock: true,
-    tags: ['garden', 'statue', 'stone']
+    tags: ['Garden', 'statue', 'stone']
   },
   {
     id: '8',
@@ -153,7 +146,7 @@ const products: Product[] = [
     pricePerPiece: 39.99,
     price: 39.99,
     isInStock: true,
-    tags: ['garden', 'tools', 'steel', 'resin']
+    tags: ['Garden', 'Tools', 'steel', 'resin']
   },
   {
     id: '9',
@@ -167,8 +160,8 @@ const products: Product[] = [
     pricePerPiece: 49.99,
     price: 49.99,
     isInStock: true,
-    tags: ['garden', 'home', 'misc', 'chair', 'metal', 'plastic']
+    tags: ['Garden', 'Home', 'Misc', 'chair', 'metal', 'plastic']
   }
 ];
 
-export { shopInfo, shopCategories, products };
+export { shopInfo, products };

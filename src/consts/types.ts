@@ -24,3 +24,10 @@ export type ProductShort = {
   price: number;
   isInStock: boolean;
 };
+
+export enum ShopCategories {
+  HOME = 'Home',
+  GARDEN = 'Garden',
+  TOOLS = 'Tools',
+  MISC = 'Misc'
+}

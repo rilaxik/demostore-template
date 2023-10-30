@@ -1,5 +1,5 @@
-import { shopInfo, shopCategories, products } from './data.ts';
-import { Product, ProductShort } from './types.ts';
+import { shopInfo, products } from './data.ts';
+import { Product, ProductShort, ShopCategories } from './types.ts';
 import store from './store.ts';
 
-export { shopInfo, shopCategories, products, type Product, type ProductShort, store };
+export { shopInfo, ShopCategories, products, type Product, type ProductShort, store };

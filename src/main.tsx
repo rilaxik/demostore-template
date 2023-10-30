@@ -2,12 +2,36 @@ import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { ListingPage, ProductPage, CartPage, CheckoutPage } from './pages';
+import { CartPage, CheckoutPage, ListingPage, ProductPage } from './pages';
+import { FilteredProducts } from './components';
+import { ShopCategories } from './consts';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <ListingPage />
+    element: <ListingPage />,
+    children: [
+      {
+        index: true,
+        element: <FilteredProducts />
+      },
+      {
+        path: 'category=Home',
+        element: <FilteredProducts filter={ShopCategories.HOME} />
+      },
+      {
+        path: 'category=Garden',
+        element: <FilteredProducts filter={ShopCategories.GARDEN} />
+      },
+      {
+        path: 'category=Tools',
+        element: <FilteredProducts filter={ShopCategories.TOOLS} />
+      },
+      {
+        path: 'category=Misc',
+        element: <FilteredProducts filter={ShopCategories.MISC} />
+      }
+    ]
   },
   {
     path: 'cart',

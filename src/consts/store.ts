@@ -1,14 +1,17 @@
 import { create } from 'zustand';
+import { ShopCategories } from './';
 
 type State = {
   balance: number;
   currency: string;
+  category: ShopCategories | null;
   cart: Map<string, number>;
 };
 
 type Action = {
   updBalance: (balance: State['balance']) => void;
   updCurrency: (currency: State['currency']) => void;
+  updCategory: (category: State['category']) => void;
   incCart: (key: string) => void;
   decCart: (key: string) => void;
   removeCartItem: (key: string) => void;
@@ -20,6 +23,8 @@ const store = create<State & Action>((set) => ({
   updBalance: (newBalance) => set(() => ({ balance: newBalance })),
   currency: '€',
   updCurrency: (newCurrency) => set(() => ({ currency: newCurrency })),
+  category: null,
+  updCategory: (newCategory) => set(() => ({ category: newCategory })),
   cart: new Map(),
   incCart: (key: string) => {
     set((state) => {

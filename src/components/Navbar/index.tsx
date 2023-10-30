@@ -1,5 +1,5 @@
 import s from './style.module.scss';
-import { shopInfo, shopCategories, store } from '../../consts';
+import { shopInfo, ShopCategories, store } from '../../consts';
 import { searchIcon, wishlistIcon, profileIcon, cartIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,11 +35,15 @@ const Navbar = () => {
       </div>
 
       <div className={s.categories}>
-        {(Object.keys(shopCategories) as Array<keyof typeof shopCategories>).map(
-          (item: keyof typeof shopCategories) => {
+        {(Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
+          (item: keyof typeof ShopCategories) => {
             return (
-              <div className={s.category} key={`category-${item}`}>
-                {shopCategories[item]}
+              <div
+                className={s.category}
+                key={`category-${item}`}
+                onClick={() => handleChangeCategory(ShopCategories[item])}
+              >
+                {ShopCategories[item]}
               </div>
             );
           }
@@ -50,6 +54,10 @@ const Navbar = () => {
 
   function handleLogoClick() {
     navigate('/');
+  }
+
+  function handleChangeCategory(item: ShopCategories) {
+    navigate(`/category=${item}`);
   }
 };
 
