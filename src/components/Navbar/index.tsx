@@ -1,3 +1,4 @@
+import React from 'react';
 import s from './style.module.scss';
 import { shopInfo, ShopCategories, store } from '../../consts';
 import { searchIcon, wishlistIcon, profileIcon, cartIcon } from '../../assets';
@@ -5,18 +6,18 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [currency] = store((state) => [state.currency]);
+  const [currency, updSearchPrompt] = store((state) => [state.currency, state.updSearchPrompt]);
 
   return (
-    <div className={s.navbarWrapper}>
-      <div className={s.header}>
+    <header className={s.navbarWrapper}>
+      <nav className={s.header}>
         <div className={s.title} onClick={handleLogoClick}>
           {shopInfo.name}
         </div>
-        <div className={s.searchbar}>
-          <input type="text" placeholder="search for.." />
+        <search className={s.searchbar}>
+          <input type="text" onKeyDown={(e) => handleSearch(e)} placeholder="search for.." />
           <img src={searchIcon} alt="search" />
-        </div>
+        </search>
         <div className={s.personal}>
           <div className={s.iconWrapper}>
             <img src={wishlistIcon} alt="wishlist" />
@@ -32,7 +33,7 @@ const Navbar = () => {
             {shopInfo.money}
           </div>
         </div>
-      </div>
+      </nav>
 
       <div className={s.categories}>
         {(Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
@@ -49,7 +50,7 @@ const Navbar = () => {
           }
         )}
       </div>
-    </div>
+    </header>
   );
 
   function handleLogoClick() {
@@ -58,6 +59,18 @@ const Navbar = () => {
 
   function handleChangeCategory(item: ShopCategories) {
     navigate(`/category=${item}`);
+    updSearchPrompt('');
+  }
+
+  function handleSearch(e: React.KeyboardEvent<HTMLInputElement>) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const prompt = e.target.value.trim();
+    if (e.key !== 'Enter' || prompt === '') {
+      return;
+    }
+    console.log(prompt);
+    updSearchPrompt(prompt);
   }
 };
 

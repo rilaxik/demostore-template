@@ -3,7 +3,7 @@ import { shopInfo } from '../../consts';
 
 const Footer = ({ isShortened }: Props) => {
   return (
-    <div className={s.footerWrapper}>
+    <footer className={s.footerWrapper}>
       {!isShortened ? (
         <>
           <hr />
@@ -17,7 +17,7 @@ const Footer = ({ isShortened }: Props) => {
             </div>
             <div className={s.infoBlock}>
               <div className={s.title}>Shop Service</div>
-              <div className={s.links}>
+              <nav className={s.links}>
                 {shopInfo.service.map((item, index) => {
                   return (
                     <a href={item.link} className={s.link} key={`service-${index}`}>
@@ -25,11 +25,11 @@ const Footer = ({ isShortened }: Props) => {
                     </a>
                   );
                 })}
-              </div>
+              </nav>
             </div>
             <div className={s.infoBlock}>
               <div className={s.title}>Information</div>
-              <div className={s.links}>
+              <nav className={s.links}>
                 {shopInfo.information.map((item, index) => {
                   return (
                     <a href={item.link} className={s.link} key={`service-${index}`}>
@@ -37,13 +37,13 @@ const Footer = ({ isShortened }: Props) => {
                     </a>
                   );
                 })}
-              </div>
+              </nav>
             </div>
           </div>
         </>
       ) : null}
       <div className={s.footerEnding}>
-        <div className={s.important}>
+        <nav className={s.important}>
           {shopInfo.direct.map((item, index) => {
             return (
               <a href={item.link} className={s.link} key={`direct-link-${index}`}>
@@ -51,13 +51,13 @@ const Footer = ({ isShortened }: Props) => {
               </a>
             );
           })}
-        </div>
+        </nav>
         <div className={s.vat}>
           * All prices incl. VAT plus&nbsp;<span className={s.accent}>shipping costs</span>&nbsp;and
           possible delivery charges, if not stated otherwise.
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

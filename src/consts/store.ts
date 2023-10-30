@@ -5,6 +5,7 @@ type State = {
   balance: number;
   currency: string;
   category: ShopCategories | null;
+  searchPrompt: string;
   cart: Map<string, number>;
 };
 
@@ -12,6 +13,7 @@ type Action = {
   updBalance: (balance: State['balance']) => void;
   updCurrency: (currency: State['currency']) => void;
   updCategory: (category: State['category']) => void;
+  updSearchPrompt: (searchPrompt: State['searchPrompt']) => void;
   incCart: (key: string) => void;
   decCart: (key: string) => void;
   removeCartItem: (key: string) => void;
@@ -25,6 +27,8 @@ const store = create<State & Action>((set) => ({
   updCurrency: (newCurrency) => set(() => ({ currency: newCurrency })),
   category: null,
   updCategory: (newCategory) => set(() => ({ category: newCategory })),
+  searchPrompt: '',
+  updSearchPrompt: (newSearchPrompt) => set(() => ({ searchPrompt: newSearchPrompt })),
   cart: new Map(),
   incCart: (key: string) => {
     set((state) => {
