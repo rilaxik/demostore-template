@@ -1,0 +1,55 @@
+@import '../../consts/fonts.module';
+
+.summaryWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  gap: 1rem;
+  padding: 1rem 1rem 2rem;
+  background-color: $bgcolor-summary;
+
+  .title {
+    display: flex;
+    align-items: center;
+
+    font-size: $summary-title-fs;
+    font-weight: $summary-title-fw;
+    color: $color-main;
+  }
+
+  .costDetails {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    gap: .5rem;
+
+    hr {
+      display: flex;
+      height: 1px;
+      width: 100%;
+      background: $color-sec;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .unit {
+        display: flex;
+        align-items: center;
+        font-size: $summary-subtle-fs;
+        font-weight: $summary-subtle-fw;
+        color: $color-main;
+      }
+
+      &.total {
+        .unit {
+          font-weight: $summary-result-fw;
+        }
+      }
+    }
+  }
+}
