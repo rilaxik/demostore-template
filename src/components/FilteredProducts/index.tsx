@@ -17,6 +17,7 @@ const FilteredProducts = ({ filter }: Props) => {
             pricePerPiece={item.pricePerPiece}
             price={item.price}
             isInStock={item.isInStock}
+            image={item.image}
             key={`product-${item.id}`}
           />
         );
@@ -36,6 +37,7 @@ const FilteredProducts = ({ filter }: Props) => {
             pricePerPiece={item.pricePerPiece}
             price={item.price}
             isInStock={item.isInStock}
+            image={item.image}
             key={`product-${item.id}`}
           />
         ) : null;

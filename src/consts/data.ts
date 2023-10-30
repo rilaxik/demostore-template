@@ -1,4 +1,13 @@
 import { Product } from './types';
+import img1 from '../assets/products/1.webp';
+import img2 from '../assets/products/2.webp';
+import img3 from '../assets/products/3.jpg';
+import img4 from '../assets/products/4.webp';
+import img5 from '../assets/products/5.jpg';
+import img6 from '../assets/products/6.jpg';
+import img7 from '../assets/products/7.jpg';
+import img8 from '../assets/products/8.jpg';
+import img9 from '../assets/products/9.jpg';
 
 const shopInfo = {
   name: 'DemoStore',
@@ -41,7 +50,8 @@ const products: Product[] = [
     pricePerPiece: 19.99,
     price: 19.99,
     isInStock: true,
-    tags: ['Tools', 'Garden', 'steel', 'shovel']
+    tags: ['Tools', 'Garden', 'steel', 'shovel'],
+    image: img1
   },
   {
     id: '2',
@@ -56,7 +66,8 @@ const products: Product[] = [
     pricePerPiece: 299.99,
     price: 299.99,
     isInStock: true,
-    tags: ['Home', 'wood', 'table']
+    tags: ['Home', 'wood', 'table'],
+    image: img2
   },
   {
     id: '3',
@@ -71,7 +82,8 @@ const products: Product[] = [
     pricePerPiece: 19.99,
     price: 59.97,
     isInStock: true,
-    tags: ['Garden', 'lantern', 'metal']
+    tags: ['Garden', 'lantern', 'metal'],
+    image: img3
   },
   {
     id: '4',
@@ -86,7 +98,8 @@ const products: Product[] = [
     pricePerPiece: 29.99,
     price: 149.95,
     isInStock: true,
-    tags: ['Misc', 'grass', 'fibers', 'synthetic']
+    tags: ['Misc', 'grass', 'fibers', 'synthetic'],
+    image: img4
   },
   {
     id: '5',
@@ -101,7 +114,8 @@ const products: Product[] = [
     pricePerPiece: 129.99,
     price: 129.99,
     isInStock: true,
-    tags: ['Misc', 'tent', 'polyester']
+    tags: ['Misc', 'tent', 'polyester'],
+    image: img5
   },
   {
     id: '6',
@@ -116,7 +130,8 @@ const products: Product[] = [
     pricePerPiece: 29.99,
     price: 29.99,
     isInStock: true,
-    tags: ['Garden', 'Misc', 'pool', 'vinyl']
+    tags: ['Garden', 'Misc', 'pool', 'vinyl'],
+    image: img6
   },
   {
     id: '7',
@@ -131,7 +146,8 @@ const products: Product[] = [
     pricePerPiece: 79.99,
     price: 79.99,
     isInStock: true,
-    tags: ['Garden', 'statue', 'stone']
+    tags: ['Garden', 'statue', 'stone'],
+    image: img7
   },
   {
     id: '8',
@@ -146,7 +162,8 @@ const products: Product[] = [
     pricePerPiece: 39.99,
     price: 39.99,
     isInStock: true,
-    tags: ['Garden', 'Tools', 'steel', 'resin']
+    tags: ['Garden', 'Tools', 'steel', 'resin'],
+    image: img8
   },
   {
     id: '9',
@@ -160,7 +177,8 @@ const products: Product[] = [
     pricePerPiece: 49.99,
     price: 49.99,
     isInStock: true,
-    tags: ['Garden', 'Home', 'Misc', 'chair', 'metal', 'plastic']
+    tags: ['Garden', 'Home', 'Misc', 'chair', 'metal', 'plastic'],
+    image: img9
   }
 ];
 

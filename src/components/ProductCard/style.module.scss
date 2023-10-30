@@ -30,10 +30,13 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
+      width: 275px;
+      max-width: 275px;
+      height: 275px;
+      max-height: 275px;
 
       img {
-        width: 275px;
-        max-width: 275px;
+        width: 100%;
         aspect-ratio: auto;
       }
     }

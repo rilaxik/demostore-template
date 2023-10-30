@@ -1,5 +1,4 @@
 import s from './style.module.scss';
-import image from '../../assets/Example Product.png';
 import { Button } from '../../components';
 import { store, shopInfo, ProductShort } from '../../consts';
 
@@ -12,7 +11,8 @@ const ProductCard = ({
   content,
   pricePerPiece,
   price,
-  isInStock
+  isInStock,
+  image
 }: ProductShort) => {
   const [incCart] = store((state) => [state.incCart]);
 

@@ -11,6 +11,7 @@ export type Product = {
   price: number;
   isInStock: boolean;
   tags: string[];
+  image: string;
 };
 
 export type ProductShort = {
@@ -23,6 +24,7 @@ export type ProductShort = {
   pricePerPiece?: number;
   price: number;
   isInStock: boolean;
+  image: string;
 };
 
 export enum ShopCategories {
