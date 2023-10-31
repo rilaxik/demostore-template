@@ -13,7 +13,7 @@ const Footer = ({ isShortened }: Props) => {
               <div className={s.link}>Support and counselling via:</div>
               <div className={`${s.link} ${s.number}`}>0180 - 000000</div>
               <div className={s.link}>Mon - Fri, 9am - 5pm</div>
-              <div className={`${s.link} ${s.visible}`}>Or via our contact form.</div>
+              <a className={`${s.link} ${s.visible}`}>Or via our contact form.</a>
             </div>
             <div className={s.infoBlock}>
               <div className={s.title}>Shop Service</div>

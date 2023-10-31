@@ -32,6 +32,11 @@
         padding: .625rem;
         user-select: none;
         cursor: pointer;
+        transition: all .25s;
+
+        &:nth-child(odd):hover {
+          background-color: $bgcolor-light-accent;
+        }
 
         img {
           width: 24px;
@@ -53,6 +58,12 @@
         padding: .625rem;
         user-select: none;
         cursor: pointer;
+        transition: all .25s;
+
+        &:hover {
+          background-color: $bgcolor-light-accent;
+          border-radius: 4px;
+        }
 
         img {
           width: 24px;

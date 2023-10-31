@@ -7,10 +7,17 @@
   padding: .875rem;
 
   cursor: pointer;
+  user-select: none;
   background-color: $bgcolor-accent;
   font-size: $button-fs;
   font-weight: $button-fw;
   color: $color-accent;
+  transition: all .5s;
+
+  &:hover {
+    color: $bgcolor-accent;
+    background-color: $color-accent;
+  }
 
   &.disabled {
     cursor: not-allowed;

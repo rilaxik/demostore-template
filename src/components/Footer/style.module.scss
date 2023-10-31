@@ -59,6 +59,7 @@
         }
 
         &.visible {
+          cursor: pointer;
           font-size: $footer-number-fs;
           color: $bgcolor-accent;
         }
