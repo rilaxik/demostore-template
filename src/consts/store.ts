@@ -48,11 +48,15 @@ const store = create<State & Action>((set) => ({
     set((state) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore wrong 'possibly undefined'
-      if (state.cart.has(key) && state.cart.get(key) > 0) {
+      if (state.cart.has(key) && state.cart.get(key) > 1) {
         const upd = new Map(state.cart);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore wrong 'possibly undefined'
+        // @ts-ignore
         upd.set(key, state.cart.get(key) - 1);
+        return { cart: upd };
+      } else if (state.cart.has(key) && state.cart.get(key) === 1) {
+        const upd = new Map(state.cart);
+        upd.delete(key);
         return { cart: upd };
       } else {
         return { cart: state.cart };
@@ -63,11 +67,11 @@ const store = create<State & Action>((set) => ({
     set((state) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      if (state.cart.has(key) && state.cart.get(key) > 0) {
+      if (state.cart.has(key)) {
         const upd = new Map(state.cart);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore wrong 'possibly undefined'
-        upd.set(key, 0);
+        upd.delete(key);
         return { cart: upd };
       } else {
         return { cart: state.cart };

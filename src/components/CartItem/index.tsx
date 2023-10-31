@@ -1,8 +1,14 @@
 import s from './style.module.scss';
+import { plusIcon, minusIcon, crossIcon } from '../../assets';
 import { ProductShort, store } from '../../consts';
 
 const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
-  const [currency] = store((state) => [state.currency]);
+  const [currency, incCart, decCart, removeCartItem] = store((state) => [
+    state.currency,
+    state.incCart,
+    state.decCart,
+    state.removeCartItem
+  ]);
 
   return (
     <div className={s.cartItemWrapper}>
@@ -16,17 +22,44 @@ const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
           <div className={s.detail}>Id:&nbsp;{id}</div>
         </div>
       </div>
-      <div className={s.productInfo}>{quantity}</div>
       <div className={s.productInfo}>
-        {currency}
-        {Math.floor(price * 0.2 * 100) / 100}
+        <div className={s.buttons}>
+          <div className={s.button} onClick={() => handleCartDec(id)}>
+            <img src={minusIcon} alt="minus" />
+          </div>
+          <div className={s.button}>{quantity}</div>
+          <div className={s.button} onClick={() => handleCartInc(id)}>
+            <img src={plusIcon} alt="plus" />
+          </div>
+        </div>
       </div>
       <div className={s.productInfo}>
         {currency}
-        {price}
+        {Math.floor(price * 0.2)}
+      </div>
+      <div className={`${s.productInfo} ${s.delete}`}>
+        <span>
+          {currency}
+          {price}
+        </span>
+        <div className={s.iconWrapper} onClick={() => handleCartDel(id)}>
+          <img src={crossIcon} alt="delete" />
+        </div>
       </div>
     </div>
   );
+
+  function handleCartDec(id: string) {
+    decCart(id);
+  }
+
+  function handleCartInc(id: string) {
+    incCart(id);
+  }
+
+  function handleCartDel(id: string) {
+    removeCartItem(id);
+  }
 };
 
 export default CartItem;

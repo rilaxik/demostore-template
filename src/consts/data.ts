@@ -48,7 +48,7 @@ const products: Product = {
     material: ['Steel', 'Wooden handle'],
     content: 1,
     pricePerPiece: 19.99,
-    price: 19.99,
+    price: 20,
     isInStock: true,
     tags: ['Tools', 'Garden', 'steel', 'shovel'],
     image: img1
@@ -64,7 +64,7 @@ const products: Product = {
     material: ['Wood', 'Metal Legs'],
     content: 1,
     pricePerPiece: 299.99,
-    price: 299.99,
+    price: 300,
     isInStock: true,
     tags: ['Home', 'wood', 'table'],
     image: img2
@@ -80,7 +80,7 @@ const products: Product = {
     material: ['Metal', 'Glass'],
     content: 3,
     pricePerPiece: 19.99,
-    price: 59.97,
+    price: 60,
     isInStock: true,
     tags: ['Garden', 'lantern', 'metal'],
     image: img3
@@ -96,7 +96,7 @@ const products: Product = {
     material: ['Synthetic Fibers', 'Rubber Base'],
     content: 5,
     pricePerPiece: 29.99,
-    price: 149.95,
+    price: 150,
     isInStock: true,
     tags: ['Misc', 'grass', 'fibers', 'synthetic'],
     image: img4
@@ -112,7 +112,7 @@ const products: Product = {
     material: ['Polyester', 'Fiberglass Poles'],
     content: 1,
     pricePerPiece: 129.99,
-    price: 129.99,
+    price: 130,
     isInStock: true,
     tags: ['Misc', 'tent', 'polyester'],
     image: img5
@@ -128,7 +128,7 @@ const products: Product = {
     material: ['Vinyl', 'Plastic'],
     content: 1,
     pricePerPiece: 29.99,
-    price: 29.99,
+    price: 30,
     isInStock: true,
     tags: ['Garden', 'Misc', 'pool', 'vinyl'],
     image: img6
@@ -144,7 +144,7 @@ const products: Product = {
     material: ['Stone', 'Resin'],
     content: 1,
     pricePerPiece: 79.99,
-    price: 79.99,
+    price: 80,
     isInStock: true,
     tags: ['Garden', 'statue', 'stone'],
     image: img7
@@ -160,7 +160,7 @@ const products: Product = {
     material: ['Steel', 'Resin Handles'],
     content: 1,
     pricePerPiece: 39.99,
-    price: 39.99,
+    price: 40,
     isInStock: true,
     tags: ['Garden', 'Tools', 'steel', 'resin'],
     image: img8
@@ -175,7 +175,7 @@ const products: Product = {
     material: ['Metal', 'Plastic Seat'],
     content: 1,
     pricePerPiece: 49.99,
-    price: 49.99,
+    price: 50,
     isInStock: true,
     tags: ['Garden', 'Home', 'Misc', 'chair', 'metal', 'plastic'],
     image: img9

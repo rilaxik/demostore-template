@@ -32,7 +32,7 @@ const CartSummary = () => {
           <div className={s.unit}>Including VAT</div>
           <div className={s.unit}>
             {currency}
-            {Math.round(calcTotal() * 0.2 * 100) / 100}
+            {Math.round(calcTotal() * 0.2)}
           </div>
         </div>
         <hr />
@@ -40,7 +40,7 @@ const CartSummary = () => {
           <div className={s.unit}>Grand total</div>
           <div className={s.unit}>
             {currency}
-            {Math.round(calcTotal() * 0.2 * 100) / 100 + calcTotal()}
+            {Math.round(calcTotal() * 0.2 + calcTotal())}
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@ const CartSummary = () => {
     cart.forEach((value, key) => {
       sum += products[key].price * value;
     });
-    return sum;
+    return Math.round(sum);
   }
 };
 

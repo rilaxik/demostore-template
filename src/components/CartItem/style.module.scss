@@ -18,6 +18,52 @@
       flex: 2;
     }
 
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      outline: 1px solid $color-sec;
+
+      .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: .625rem;
+        user-select: none;
+        cursor: pointer;
+
+        img {
+          width: 24px;
+          height: 24px;
+          max-width: 24px;
+          max-height: 24px;
+        }
+      }
+    }
+
+    &.delete {
+      justify-content: space-between;
+
+      .iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: .625rem;
+        user-select: none;
+        cursor: pointer;
+
+        img {
+          width: 24px;
+          height: 24px;
+          max-width: 24px;
+          max-height: 24px;
+        }
+      }
+    }
+
+
     img {
       width: 100px;
       height: 100px;

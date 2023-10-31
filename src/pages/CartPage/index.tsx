@@ -1,7 +1,10 @@
 import { PageWrapper, Navbar, Footer, CartSummary, CartItem } from '../../components';
 import s from './style.module.scss';
+import { store, products } from '../../consts';
 
 const CartPage = () => {
+  const [cart] = store((state) => [state.cart]);
+
   return (
     <PageWrapper>
       <PageWrapper container>
@@ -17,14 +20,18 @@ const CartPage = () => {
                 <div className={s.title}>Subtotal</div>
               </div>
               <hr />
-              {/*<CartItem*/}
-              {/*  image={'https://i.pinimg.com/564x/07/fe/fa/07fefafae63f381efe0ab4d02128cf13.jpg'}*/}
-              {/*  name={'product name'}*/}
-              {/*  content={100}*/}
-              {/*  id={'1'}*/}
-              {/*  price={2000}*/}
-              {/*  quantity={2}*/}
-              {/*/>*/}
+              {Array.from(cart.keys()).map((id) => {
+                return (
+                  <CartItem
+                    image={products[id].image}
+                    name={products[id].name}
+                    content={products[id].content}
+                    id={id}
+                    price={products[id].price}
+                    quantity={cart.get(id) ?? 0}
+                  />
+                );
+              })}
             </section>
             <CartSummary />
           </div>
