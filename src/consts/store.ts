@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import toast from 'react-hot-toast';
 import { ShopCategories } from './';
 
 type State = {
@@ -35,11 +36,15 @@ const store = create<State & Action>((set) => ({
       const upd = new Map(state.cart);
       if (!state.cart.has(key)) {
         upd.set(key, 1);
+        toast.success('Item added to cart');
         return { cart: upd };
       } else {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         upd.set(key, 1 + state.cart.get(key));
+        toast('Item quantity changed', {
+          icon: '🔄'
+        });
         return { cart: upd };
       }
     });
@@ -53,10 +58,14 @@ const store = create<State & Action>((set) => ({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         upd.set(key, state.cart.get(key) - 1);
+        toast('Item quantity changed', {
+          icon: '🔄'
+        });
         return { cart: upd };
       } else if (state.cart.has(key) && state.cart.get(key) === 1) {
         const upd = new Map(state.cart);
         upd.delete(key);
+        toast.error('Item deleted from cart');
         return { cart: upd };
       } else {
         return { cart: state.cart };
@@ -72,6 +81,7 @@ const store = create<State & Action>((set) => ({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore wrong 'possibly undefined'
         upd.delete(key);
+        toast.error('Item deleted from cart');
         return { cart: upd };
       } else {
         return { cart: state.cart };

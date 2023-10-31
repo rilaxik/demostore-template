@@ -1,15 +1,21 @@
 import React from 'react';
 import s from './style.module.scss';
 import { shopInfo, ShopCategories, store } from '../../consts';
-import { searchIcon, wishlistIcon, profileIcon, cartIcon } from '../../assets';
+import { searchIcon, wishlistIcon, profileIcon, cartIcon, highlightedCartIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [currency, updSearchPrompt] = store((state) => [state.currency, state.updSearchPrompt]);
+  const [currency, updSearchPrompt, cart] = store((state) => [
+    state.currency,
+    state.updSearchPrompt,
+    state.cart
+  ]);
 
   return (
     <header className={s.navbarWrapper}>
+      <Toaster position="top-right" reverseOrder={false} />
       <nav className={s.header}>
         <div className={s.title} onClick={handleLogoClick}>
           {shopInfo.name}
@@ -26,7 +32,7 @@ const Navbar = () => {
             <img src={profileIcon} alt="profile" />
           </div>
           <div className={s.iconWrapper} onClick={() => navigate('cart')}>
-            <img src={cartIcon} alt="cart" />
+            <img src={cart.size ? highlightedCartIcon : cartIcon} alt="cart" />
           </div>
           <div className={s.money}>
             {currency}
