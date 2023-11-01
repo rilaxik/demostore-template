@@ -26,35 +26,6 @@
       color: $color-main
     }
 
-    .searchbar {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-
-      gap: .25rem;
-      padding: .75rem;
-      outline: 1px solid $color-sec;
-
-      input, input::placeholder {
-        all: unset;
-        width: 20rem;
-
-        font-size: $navbar-searchbar-fs;
-        font-weight: $navbar-searchbar-fw;
-        color: $color-main;
-      }
-
-      img {
-        width: 20px;
-        height: 20px;
-        max-width: 20px;
-        max-height: 20px;
-
-        cursor: pointer;
-      }
-    }
-
     .personal {
       display: flex;
       flex-direction: row;

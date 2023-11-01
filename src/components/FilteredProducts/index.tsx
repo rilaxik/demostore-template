@@ -54,7 +54,7 @@ const FilteredProducts = ({ filter }: Props) => {
     <>
       {(Object.keys(products) as Array<never>).map((key) => {
         const item = products[key];
-        return item.tags.includes(filter) ? (
+        return item.tags.includes(filter.toLowerCase()) ? (
           <ProductCard
             id={item.id}
             name={item.name}

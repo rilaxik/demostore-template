@@ -1,0 +1,47 @@
+@import '../../consts/fonts.module';
+
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: .25rem;
+  padding-left: .75rem;
+  height: 44px;
+  max-height: 44px;
+  outline: 1px solid $color-sec;
+
+  input, input::placeholder {
+    all: unset;
+
+    font-size: $input-fs;
+    font-weight: $input-fw;
+    color: $color-main;
+  }
+
+  .iconWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    user-select: none;
+    width: 44px;
+    max-width: 44px;
+    height: 44px;
+    max-height: 44px;
+
+    &.filled {
+      background-color: $bgcolor-input-filled;
+    }
+
+    img {
+      display: flex;
+      width: 20px;
+      height: 20px;
+      max-width: 20px;
+      max-height: 20px;
+    }
+  }
+}

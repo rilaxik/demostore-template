@@ -1,6 +1,6 @@
-import React from 'react';
 import s from './style.module.scss';
 import { shopInfo, ShopCategories, store } from '../../consts';
+import { Input } from '../';
 import { searchIcon, wishlistIcon, profileIcon, cartIcon, highlightedCartIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
@@ -20,10 +20,7 @@ const Navbar = () => {
         <div className={s.title} onClick={handleLogoClick}>
           {shopInfo.name}
         </div>
-        <search className={s.searchbar}>
-          <input type="text" onKeyDown={(e) => handleSearch(e)} placeholder="search for.." />
-          <img src={searchIcon} alt="search" />
-        </search>
+        <Input placeholder={'search for..'} icon={searchIcon} callback={(v) => handleSearch(v)} />
         <div className={s.personal}>
           <div className={s.iconWrapper}>
             <img src={wishlistIcon} alt="wishlist" />
@@ -68,15 +65,9 @@ const Navbar = () => {
     updSearchPrompt('');
   }
 
-  function handleSearch(e: React.KeyboardEvent<HTMLInputElement>) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const prompt = e.target.value.trim();
-    if (e.key !== 'Enter' || prompt === '') {
-      return;
-    }
-    console.log(prompt);
-    updSearchPrompt(prompt);
+  function handleSearch(value: string) {
+    updSearchPrompt(value);
+    navigate('/');
   }
 };
 

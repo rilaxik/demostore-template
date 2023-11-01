@@ -6,6 +6,7 @@ import FilteredProducts from './FilteredProducts';
 import PageWrapper from './PageWrapper';
 import CartSummary from './CartSummary';
 import CartItem from './CartItem';
+import Input from './Input';
 
 export {
   Navbar,
@@ -15,5 +16,6 @@ export {
   FilteredProducts,
   PageWrapper,
   CartSummary,
-  CartItem
+  CartItem,
+  Input
 };

@@ -50,7 +50,7 @@ const products: Product = {
     pricePerPiece: 19.99,
     price: 20,
     isInStock: true,
-    tags: ['Tools', 'Garden', 'steel', 'shovel'],
+    tags: ['tools', 'garden', 'steel', 'shovel'],
     image: img1
   },
   '2': {
@@ -66,7 +66,7 @@ const products: Product = {
     pricePerPiece: 299.99,
     price: 300,
     isInStock: true,
-    tags: ['Home', 'wood', 'table'],
+    tags: ['home', 'wood', 'table'],
     image: img2
   },
   '3': {
@@ -82,7 +82,7 @@ const products: Product = {
     pricePerPiece: 19.99,
     price: 60,
     isInStock: true,
-    tags: ['Garden', 'lantern', 'metal'],
+    tags: ['garden', 'lantern', 'metal'],
     image: img3
   },
   '4': {
@@ -98,7 +98,7 @@ const products: Product = {
     pricePerPiece: 29.99,
     price: 150,
     isInStock: true,
-    tags: ['Misc', 'grass', 'fibers', 'synthetic'],
+    tags: ['misc', 'grass', 'fibers', 'synthetic'],
     image: img4
   },
   '5': {
@@ -114,7 +114,7 @@ const products: Product = {
     pricePerPiece: 129.99,
     price: 130,
     isInStock: true,
-    tags: ['Misc', 'tent', 'polyester'],
+    tags: ['misc', 'tent', 'polyester'],
     image: img5
   },
   '6': {
@@ -130,7 +130,7 @@ const products: Product = {
     pricePerPiece: 29.99,
     price: 30,
     isInStock: true,
-    tags: ['Garden', 'Misc', 'pool', 'vinyl'],
+    tags: ['garden', 'misc', 'pool', 'vinyl'],
     image: img6
   },
   '7': {
@@ -146,7 +146,7 @@ const products: Product = {
     pricePerPiece: 79.99,
     price: 80,
     isInStock: true,
-    tags: ['Garden', 'statue', 'stone'],
+    tags: ['garden', 'statue', 'stone'],
     image: img7
   },
   '8': {
@@ -162,7 +162,7 @@ const products: Product = {
     pricePerPiece: 39.99,
     price: 40,
     isInStock: true,
-    tags: ['Garden', 'Tools', 'steel', 'resin'],
+    tags: ['garden', 'tools', 'steel', 'resin'],
     image: img8
   },
   '9': {
@@ -177,7 +177,7 @@ const products: Product = {
     pricePerPiece: 49.99,
     price: 50,
     isInStock: true,
-    tags: ['Garden', 'Home', 'Misc', 'chair', 'metal', 'plastic'],
+    tags: ['garden', 'home', 'misc', 'chair', 'metal', 'plastic'],
     image: img9
   }
 };
