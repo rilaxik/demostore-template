@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 import toast from 'react-hot-toast';
-import { ShopCategories } from './';
+import {
+  ShopCategories,
+  Discounts,
+  UserPrivacy,
+  UserBilling,
+  UserPrivacySalutations,
+  UserBillingShipping,
+  UserBillingPayment
+} from './';
 
 type State = {
   balance: number;
@@ -8,6 +16,14 @@ type State = {
   category: ShopCategories | null;
   searchPrompt: string;
   cart: Map<string, number>;
+  checkout: {
+    cart: State['cart'];
+    discount: Discounts | null;
+    user: UserPrivacy;
+    billing: UserBilling;
+    isPaid: boolean;
+    isCompleted: boolean;
+  };
 };
 
 type Action = {
@@ -19,6 +35,12 @@ type Action = {
   decCart: (key: string) => void;
   removeCartItem: (key: string) => void;
   clearCart: () => void;
+  updCheckoutCart: (cart: State['checkout']['cart']) => void;
+  updCheckoutDiscount: (cart: State['checkout']['discount']) => void;
+  updCheckoutUser: (cart: State['checkout']['user']) => void;
+  updCheckoutBilling: (cart: State['checkout']['billing']) => void;
+  updCheckoutPaid: () => void;
+  updCheckoutCompleted: () => void;
 };
 
 const store = create<State & Action>((set) => ({
@@ -93,7 +115,49 @@ const store = create<State & Action>((set) => ({
       const upd = new Map();
       return { cart: upd };
     });
-  }
+  },
+  checkout: {
+    cart: new Map(),
+    discount: {},
+    user: {
+      id: '',
+      salutation: UserPrivacySalutations.NONE,
+      firstName: '',
+      lastName: '',
+      email: '',
+      address: {
+        street: '',
+        zip: '',
+        city: '',
+        country: '',
+        state: ''
+      }
+    },
+    billing: {
+      shipping: UserBillingShipping.STANDARD,
+      payment: UserBillingPayment.CREDIT_CARD,
+      details: {
+        cardNumber: '',
+        cardDate: '',
+        cvv: '',
+        cardHolder: ''
+      }
+    },
+    isPaid: false,
+    isCompleted: false
+  },
+  updCheckoutCart: (newCart) =>
+    set((state) => ({ checkout: { ...state.checkout, cart: newCart } })),
+  updCheckoutDiscount: (newDiscount) =>
+    set((state) => ({ checkout: { ...state.checkout, discount: newDiscount } })),
+  updCheckoutUser: (newUser) =>
+    set((state) => ({ checkout: { ...state.checkout, user: newUser } })),
+  updCheckoutBilling: (newBilling) =>
+    set((state) => ({ checkout: { ...state.checkout, billing: newBilling } })),
+  updCheckoutPaid: () =>
+    set((state) => ({ checkout: { ...state.checkout, isPaid: !state.checkout.isPaid } })),
+  updCheckoutCompleted: () =>
+    set((state) => ({ checkout: { ...state.checkout, isCompleted: !state.checkout.isCompleted } }))
 }));
 
 export default store;
