@@ -98,6 +98,7 @@ const products: Product = {
     price: 60,
     isInStock: true,
     tags: ['garden', 'lantern', 'metal'],
+    variants: ['Black', 'White'],
     image: img3
   },
   '4': {

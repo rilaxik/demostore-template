@@ -1,1 +1,139 @@
 @import '../../consts/fonts.module';
+
+.productWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3rem;
+
+  .title {
+    display: flex;
+
+    font-size: $product-name-fs;
+    font-weight: $product-name-fw;
+    color: $color-main;
+  }
+
+  .product {
+    display: flex;
+    align-self: stretch;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.5rem;
+
+    .imageWrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      max-height: 440px;
+
+      img {
+        max-width: 440px;
+      }
+    }
+
+    .detailsWrapper {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: .5rem;
+
+      .price {
+        display: flex;
+
+        font-size: $product-price-fs;
+        font-weight: $product-price-fw;
+        color: $color-main;
+      }
+
+      .info {
+        display: flex;
+
+        font-size: $product-detail-fs;
+        font-weight: $product-detail-fw;
+      }
+
+      .vat {
+        display: flex;
+
+        font-size: $product-vat-fs;
+        font-weight: $product-vat-fw;
+        color: $bgcolor-accent;
+      }
+
+      .variantTitle {
+        display: flex;
+
+        font-size: $product-variant-fs;
+        font-weight: $product-variantBold-fw;
+        color: $color-main;
+      }
+
+      .variantsWrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: .5rem;
+
+        .variant {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: .75rem;
+
+          font-size: $product-variant-fs;
+          font-weight: $product-variant-fw;
+          color: $color-main;
+
+          user-select: none;
+          cursor: pointer;
+          background-color: #fff;
+          outline: 1px solid $color-sec;
+
+          &.selected {
+            background-color: $bgcolor-accent;
+            color: $color-accent;
+          }
+        }
+      }
+    }
+  }
+
+  .informationWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .625rem;
+
+    .title {
+      display: flex;
+
+      font-size: $product-info-title-fs;
+      font-weight: $product-info-title-fw;
+      color: $color-main
+    }
+
+    .desc {
+      display: flex;
+
+      font-size: $product-info-fs;
+      font-weight: $product-info-fw;
+      color: $color-main
+    }
+
+    table tbody {
+      td, th {
+        padding: .5rem;
+      }
+
+      tr:nth-child(odd) {
+        background-color: $bgcolor-product-table;
+      }
+    }
+  }
+}

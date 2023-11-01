@@ -3,11 +3,14 @@ $color-sec: #798490;
 $color-label: #32B470;
 
 $color-accent: white;
+
+// button
 $bgcolor-accent: #0B539B;
 $bgcolor-light-accent: #dbdbdb;
 $button-fs: 1rem;
 $button-fw: 600;
 
+// navbar
 $navbar-title-fs: 3rem;
 $navbar-title-fw: 700;
 $navbar-money-fs: 1rem;
@@ -16,21 +19,7 @@ $navbar-category-fs: 1rem;
 $navbar-category-fw: 400;
 $navbar-categoryActive-fw: 700;
 
-$input-fs: .875rem;
-$input-fw: 400;
-$bgcolor-input-filled: #3D444D;
-
-$card-name-fs: 1.125rem;
-$card-name-fw: 700;
-$card-detail-fs: .75rem;
-$card-detail-fw: 400;
-$card-desc-fs: .875rem;
-$card-desc-fw: 400;
-$card-other-fs: .75rem;
-$card-other-fw: 400;
-$card-price-fs: 1.125rem;
-$card-price-fw: 700;
-
+// footer
 $footer-title-fs: 1rem;
 $footer-title-fw: 700;
 $footer-link-fs: .875rem;
@@ -43,11 +32,30 @@ $footer-important-fw: 600;
 $footer-vat-fs: .875rem;
 $footer-vat-fw: 400;
 
+// input (searchbar + cart)
+$input-fs: .875rem;
+$input-fw: 400;
+$bgcolor-input-filled: #3D444D;
+
+// product card
+$card-name-fs: 1.125rem;
+$card-name-fw: 700;
+$card-detail-fs: .75rem;
+$card-detail-fw: 400;
+$card-desc-fs: .875rem;
+$card-desc-fw: 400;
+$card-other-fs: .75rem;
+$card-other-fw: 400;
+$card-price-fs: 1.125rem;
+$card-price-fw: 700;
+
+// cart warning
 $bgcolor-cart-warning: #D4F0F5;
 $bgcolor-cart-warning-accent: #26B6CF;
 $cart-warning-fs: .875rem;
 $cart-warning-fw: 400;
 
+// cart
 $cart-title-fs: 2.25rem;
 $cart-title-fw: 700;
 $cart-subcategory-fs: 1rem;
@@ -56,6 +64,15 @@ $bgcolor-cart-checkmark: #3D444D;
 $cart-link-fs: .875rem;
 $cart-link-fw: 700;
 
+// cart product
+$cart-product-primary-fs: .875rem;
+$cart-product-primary-fw: 400;
+$cart-product-nameBold-fw: 600;
+$cart-product-subcategory-fs: .75rem;
+$cart-product-subcategory-fw: 400;
+$cart-product-subcategoryBold-fw: 700;
+
+// summary (cart + checkout)
 $summary-title-fs: 1.75rem;
 $summary-title-fw: 700;
 $summary-subtle-fs: .825rem;
@@ -63,9 +80,24 @@ $summary-subtle-fw: 400;
 $summary-result-fw: 700;
 $bgcolor-summary: #f9f9f9;
 
-$cart-product-primary-fs: .875rem;
-$cart-product-primary-fw: 400;
-$cart-product-nameBold-fw: 600;
-$cart-product-subcategory-fs: .75rem;
-$cart-product-subcategory-fw: 400;
-$cart-product-subcategoryBold-fw: 700;
+// product page
+$product-name-fs: 2.25rem;
+$product-name-fw: 600;
+$product-price-fs: 1.75rem;
+$product-price-fw: 700;
+$product-detail-fs: .75rem;
+$product-detail-fw: 400;
+$product-vat-fs: .875rem;
+$product-vat-fw: 400;
+$product-variant-fs: .875rem;
+$product-variant-fw: 400;
+$product-variantBold-fw: 700;
+$product-info-title-fs: 1.5rem;
+$product-info-title-fw: 700;
+$product-info-fs: .875rem;
+$product-info-fw: 400;
+$product-table-title-fs: .875rem;
+$product-table-title-fw: 700;
+$product-table-fs: .875rem;
+$product-table-fw: 400;
+$bgcolor-product-table: #EEEEEE;

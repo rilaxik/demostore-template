@@ -1,6 +1,92 @@
+import { useParams } from 'react-router-dom';
 import s from './style.module.scss';
+import { PageWrapper, Navbar, Footer, Button } from '../../components';
+import { products, store } from '../../consts';
+import { useState } from 'react';
+
 const ProductPage = () => {
-  return <div className={s.f}>product page</div>;
+  const params = useParams();
+  const item = products[String(params.id)];
+  const [currency, incCart] = store((state) => [state.currency, state.incCart]);
+  const [selectedVariant, setSelectedVariant] = useState(item.variants ? item.variants[0] : '');
+
+  return (
+    <PageWrapper>
+      <PageWrapper container>
+        <Navbar />
+        <div className={s.productWrapper}>
+          <span className={s.title}>{item.name}</span>
+          <div className={s.product}>
+            <div className={s.imageWrapper}>
+              <img src={item.image} alt={item.name} />
+            </div>
+            <div className={s.detailsWrapper}>
+              <span className={s.price}>
+                {currency}
+                {item.price}
+              </span>
+              <span className={s.info}>
+                Content:&nbsp;{item.content}&nbsp;{item.content === 1 ? 'piece' : 'pieces'}
+              </span>
+              <a className={s.vat}>Prices incl. VAT plus shipping costs</a>
+              <span className={s.info}>{item.isInStock ? 'Available' : 'Not in stock'}</span>
+              {item.variants ? (
+                <>
+                  <span className={s.variantTitle}>Variants</span>
+                  <div className={s.variantsWrapper}>
+                    {item.variants.map((variant, index) => {
+                      return (
+                        <div
+                          className={`${s.variant} ${
+                            selectedVariant === variant ? s.selected : ''
+                          }`}
+                          key={`variant-${index}`}
+                          onClick={() => handleSelectVariant(variant)}
+                        >
+                          {variant}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              ) : null}
+              <Button
+                label={'Add to shopping cart'}
+                isFullSize
+                callback={() => handleAddToCart(item.id)}
+              />
+              <span className={s.info}>Product id: {item.id}</span>
+            </div>
+          </div>
+          <div className={s.informationWrapper}>
+            <span className={s.title}>Product information</span>
+            <span className={s.desc}>{item.description}</span>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Materials</th>
+                  <td>{item.material.join(', ')}</td>
+                </tr>
+                <tr>
+                  <th>Sizing</th>
+                  <td>{item.sizing.join(', ')}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </PageWrapper>
+      <Footer />
+    </PageWrapper>
+  );
+
+  function handleSelectVariant(v: string) {
+    setSelectedVariant(v);
+  }
+
+  function handleAddToCart(id: string) {
+    incCart(id);
+  }
 };
 
 export default ProductPage;

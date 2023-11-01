@@ -1,6 +1,8 @@
+import React from 'react';
 import s from './style.module.scss';
 import { Button } from '../../components';
 import { store, shopInfo, ProductShort } from '../../consts';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({
   id,
@@ -14,10 +16,11 @@ const ProductCard = ({
   isInStock,
   image
 }: ProductShort) => {
+  const navigate = useNavigate();
   const [incCart] = store((state) => [state.incCart]);
 
   return (
-    <div className={s.productCardWrapper}>
+    <div className={s.productCardWrapper} onClick={(e) => handleViewProduct(e, id)}>
       <div className={s.topContent}>
         <div className={s.imageWrapper}>
           <img src={image} alt="product" />
@@ -63,6 +66,11 @@ const ProductCard = ({
 
   function handleButtonClick() {
     incCart(id);
+  }
+
+  function handleViewProduct(e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) {
+    navigate(`/product/${id}`);
+    e.stopPropagation();
   }
 };
 
