@@ -7,6 +7,7 @@ import plusIcon from './icon-plus.svg';
 import minusIcon from './icon-minus.svg';
 import checkmarkIcon from './icon-checkmark.svg';
 import crossIcon from './icon-cross.svg';
+import infoIcon from './icon-info.svg';
 
 export {
   searchIcon,
@@ -17,5 +18,6 @@ export {
   plusIcon,
   minusIcon,
   checkmarkIcon,
-  crossIcon
+  crossIcon,
+  infoIcon
 };

@@ -1,5 +1,40 @@
 @import '../../consts/fonts.module';
 
+.warningWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  gap: 1rem;
+
+  background-color: $bgcolor-cart-warning;
+
+  .iconWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 44px;
+    height: 44px;
+    max-width: 44px;
+    max-height: 44px;
+    background-color: $bgcolor-cart-warning-accent;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+
+    font-size: $cart-warning-fs;
+    font-weight: $cart-warning-fw;
+    color: $bgcolor-cart-warning-accent
+  }
+}
+
 .cartWrapper {
   display: flex;
   flex: 1;
@@ -58,6 +93,18 @@
         width: 100%;
         height: 1px;
         background: $color-sec;
+      }
+
+      .cartExtras {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 2.5rem;
+
+        font-size: $footer-title-fs;
+        font-weight: $footer-title-fw;
+        color: $bgcolor-accent;
       }
     }
   }

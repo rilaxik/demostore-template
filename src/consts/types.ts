@@ -29,6 +29,15 @@ export type ProductShort = {
   image: string;
 };
 
+export type Discounts = {
+  [key: string]: {
+    discount: number;
+    system: string;
+    systemReadable: string;
+    expired: boolean;
+  };
+};
+
 export enum ShopCategories {
   HOME = 'Home',
   GARDEN = 'Garden',

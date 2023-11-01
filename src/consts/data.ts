@@ -1,4 +1,4 @@
-import { Product } from './types';
+import { Discounts, Product } from './types';
 import img1 from '../assets/products/1.webp';
 import img2 from '../assets/products/2.webp';
 import img3 from '../assets/products/3.jpg';
@@ -34,6 +34,21 @@ const shopInfo = {
     { label: 'AGB', link: 'link' },
     { label: 'Contact', link: 'link' }
   ]
+};
+
+const discounts: Discounts = {
+  code: {
+    discount: 25,
+    system: 'percent',
+    systemReadable: '%',
+    expired: false
+  },
+  discount: {
+    discount: 5,
+    system: 'number',
+    systemReadable: shopInfo['currency'],
+    expired: false
+  }
 };
 
 const products: Product = {
@@ -182,4 +197,4 @@ const products: Product = {
   }
 };
 
-export { shopInfo, products };
+export { shopInfo, discounts, products };
