@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import s from './style.module.scss';
-import { PageWrapper, Navbar, Footer, Button } from '../../components';
+import { PageWrapper, Navbar, Footer, Button, QuantityPanel } from '../../components';
 import { products, store } from '../../consts';
 import { useState } from 'react';
 
@@ -30,6 +30,7 @@ const ProductPage = () => {
               </span>
               <a className={s.vat}>Prices incl. VAT plus shipping costs</a>
               <span className={s.info}>{item.isInStock ? 'Available' : 'Not in stock'}</span>
+
               {item.variants ? (
                 <>
                   <span className={s.variantTitle}>Variants</span>
@@ -50,11 +51,15 @@ const ProductPage = () => {
                   </div>
                 </>
               ) : null}
-              <Button
-                label={'Add to shopping cart'}
-                isFullSize
-                callback={() => handleAddToCart(item.id)}
-              />
+
+              <div className={s.buttonsWrapper}>
+                <QuantityPanel id={item.id} />
+                <Button
+                  label={'Add to shopping cart'}
+                  isFullSize
+                  callback={() => handleAddToCart(item.id)}
+                />
+              </div>
               <span className={s.info}>Product id: {item.id}</span>
             </div>
           </div>

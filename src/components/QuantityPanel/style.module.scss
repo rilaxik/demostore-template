@@ -1,0 +1,33 @@
+@import '../../consts/fonts.module';
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  outline: 1px solid $color-sec;
+
+  .button {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 44px;
+    min-height: 44px;
+
+    user-select: none;
+    cursor: pointer;
+    transition: all .25s;
+
+    &:nth-child(odd):hover {
+      background-color: $bgcolor-light-accent;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      max-width: 24px;
+      max-height: 24px;
+    }
+  }
+}

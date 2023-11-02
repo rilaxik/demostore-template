@@ -1,16 +1,12 @@
 import s from './style.module.scss';
-import { plusIcon, minusIcon, crossIcon } from '../../assets';
+import { crossIcon } from '../../assets';
 import { ProductShort, store } from '../../consts';
 import { useNavigate } from 'react-router-dom';
+import QuantityPanel from '../QuantityPanel';
 
-const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
+const CartItem = ({ image, name, content, id, price }: Props) => {
   const navigate = useNavigate();
-  const [currency, incCart, decCart, removeCartItem] = store((state) => [
-    state.currency,
-    state.incCart,
-    state.decCart,
-    state.removeCartItem
-  ]);
+  const [currency, removeCartItem] = store((state) => [state.currency, state.removeCartItem]);
 
   return (
     <div className={s.cartItemWrapper}>
@@ -30,15 +26,7 @@ const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
         </div>
       </div>
       <div className={s.productInfo}>
-        <div className={s.buttons}>
-          <div className={s.button} onClick={() => handleCartDec(id)}>
-            <img src={minusIcon} alt="minus" />
-          </div>
-          <div className={s.button}>{quantity}</div>
-          <div className={s.button} onClick={() => handleCartInc(id)}>
-            <img src={plusIcon} alt="plus" />
-          </div>
-        </div>
+        <QuantityPanel id={id} />
       </div>
       <div className={s.productInfo}>
         {currency}
@@ -55,14 +43,6 @@ const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
       </div>
     </div>
   );
-
-  function handleCartDec(id: string) {
-    decCart(id);
-  }
-
-  function handleCartInc(id: string) {
-    incCart(id);
-  }
 
   function handleCartDel(id: string) {
     removeCartItem(id);

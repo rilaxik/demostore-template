@@ -7,6 +7,7 @@ import PageWrapper from './PageWrapper';
 import CartSummary from './CartSummary';
 import CartItem from './CartItem';
 import Input from './Input';
+import QuantityPanel from './QuantityPanel';
 
 export {
   Navbar,
@@ -17,5 +18,6 @@ export {
   PageWrapper,
   CartSummary,
   CartItem,
-  Input
+  Input,
+  QuantityPanel
 };
