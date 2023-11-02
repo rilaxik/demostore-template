@@ -1,14 +1,18 @@
 import s from './style.module.scss';
 import { Input, Button } from '../';
-import { store, discounts, products } from '../../consts';
+import { store, discounts, products, Discounts } from '../../consts';
 import { checkmarkIcon } from '../../assets';
-// import toast from 'react-hot-toast';
-import { Discounts } from '../../consts/types.ts';
-// import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const CartSummary = ({ isCartPage }: Props) => {
-  // const navigate = useNavigate();
-  const [currency, cart] = store((state) => [state.currency, state.cart]);
+  const navigate = useNavigate();
+  const [currency, cart, updCheckoutCart, updCheckoutDiscount] = store((state) => [
+    state.currency,
+    state.cart,
+    state.updCheckoutCart,
+    state.updCheckoutDiscount
+  ]);
   const total = calcTotal();
 
   return (
@@ -67,13 +71,19 @@ const CartSummary = ({ isCartPage }: Props) => {
   );
 
   function handleDiscount(value: string, discountsObj: Discounts) {
-    if (Object.prototype.hasOwnProperty.call(discountsObj, value)) {
-      // !discountsObj[value].expired ? : toast.error('Code expired')
+    if (!Object.prototype.hasOwnProperty.call(discountsObj, value)) {
+      toast.error('Code expired');
+      return;
+    }
+    if (!discountsObj[value].expired) {
+      updCheckoutDiscount(discountsObj[value]);
+      toast('Code redeemed successfully');
     }
   }
 
   function handleCheckout() {
-    // navigate('/checkout')
+    updCheckoutCart(cart);
+    navigate('/checkout');
   }
 
   function calcTotal(): number {

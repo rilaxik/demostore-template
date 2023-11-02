@@ -40,6 +40,13 @@ export type Discounts = {
   };
 };
 
+export type CartDiscount = {
+  discount: number;
+  system: string;
+  systemReadable: string;
+  expired: boolean;
+};
+
 export type UserPrivacy = {
   id: string;
   salutation: UserPrivacySalutations;
