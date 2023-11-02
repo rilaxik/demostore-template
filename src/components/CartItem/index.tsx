@@ -1,8 +1,10 @@
 import s from './style.module.scss';
 import { plusIcon, minusIcon, crossIcon } from '../../assets';
 import { ProductShort, store } from '../../consts';
+import { useNavigate } from 'react-router-dom';
 
 const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
+  const navigate = useNavigate();
   const [currency, incCart, decCart, removeCartItem] = store((state) => [
     state.currency,
     state.incCart,
@@ -12,7 +14,12 @@ const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
 
   return (
     <div className={s.cartItemWrapper}>
-      <div className={s.productInfo}>
+      <div
+        className={s.productInfo}
+        onClick={() => {
+          handleCartItemClick(id);
+        }}
+      >
         <img src={image} alt={name} />
         <div className={s.details}>
           <div className={`${s.detail} ${s.head}`}>{name}</div>
@@ -59,6 +66,10 @@ const CartItem = ({ image, name, content, id, price, quantity }: Props) => {
 
   function handleCartDel(id: string) {
     removeCartItem(id);
+  }
+
+  function handleCartItemClick(id: string) {
+    navigate(`/product/${id}`);
   }
 };
 
