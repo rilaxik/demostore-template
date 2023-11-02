@@ -1,72 +1,96 @@
 @import '../../consts/fonts.module';
 
+.header {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .25rem;
+
+    .text {
+      display: flex;
+
+      font-size: $navbar-info-fs;
+      font-weight: $navbar-info-fw;
+      color: $color-main;
+
+      &.bold {
+        font-weight: $navbar-infoBold-fw;
+
+        .accent {
+          color: $bgcolor-accent
+        }
+      }
+    }
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+    cursor: pointer;
+    font-size: $navbar-title-fs;
+    font-weight: $navbar-title-fw;
+    color: $color-main
+  }
+
+  .personal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+
+    .iconWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: .5rem;
+
+      user-select: none;
+      cursor: pointer;
+      transition: all .25s;
+
+      &:hover {
+        background-color: $bgcolor-light-accent;
+        border-radius: 4px;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+
+    .money {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: $navbar-money-fs;
+      font-weight: $navbar-money-fw;
+      color: $bgcolor-accent;
+    }
+  }
+}
+
 .navbarWrapper {
   display: flex;
   flex: 1;
   flex-direction: column;
   gap: 1.5rem;
   padding: 1rem;
-
-  .header {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    .title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      user-select: none;
-      cursor: pointer;
-      font-size: $navbar-title-fs;
-      font-weight: $navbar-title-fw;
-      color: $color-main
-    }
-
-    .personal {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: .5rem;
-
-      .iconWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: .5rem;
-
-        user-select: none;
-        cursor: pointer;
-        transition: all .25s;
-
-        &:hover {
-          background-color: $bgcolor-light-accent;
-          border-radius: 4px;
-        }
-
-        img {
-          width: 24px;
-          height: 24px;
-          max-width: 24px;
-          max-height: 24px;
-        }
-      }
-
-      .money {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: $navbar-money-fs;
-        font-weight: $navbar-money-fw;
-        color: $bgcolor-accent;
-      }
-    }
-  }
 
   .categories {
     display: flex;

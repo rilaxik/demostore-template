@@ -4,7 +4,7 @@ import { store } from '../../consts';
 
 const QuantityPanel = ({ id }: Props) => {
   const [cart, incCart, decCart] = store((state) => [state.cart, state.incCart, state.decCart]);
-  const quantity = cart.get(id);
+  const quantity = cart.get(id) || 0;
 
   return (
     <div className={s.buttons}>

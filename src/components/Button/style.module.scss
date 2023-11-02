@@ -27,4 +27,10 @@
   &.fullSize {
     align-self: stretch;
   }
+
+  &.unfilled {
+    border: 2px solid $bgcolor-accent;
+    background-color: $color-accent;
+    color: $bgcolor-accent
+  }
 }

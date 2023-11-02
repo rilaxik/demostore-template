@@ -1,11 +1,11 @@
 import s from './style.module.scss';
 import { shopInfo, ShopCategories, store } from '../../consts';
-import { Input } from '../';
+import { Button, Input } from '../';
 import { searchIcon, wishlistIcon, profileIcon, cartIcon, highlightedCartIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-const Navbar = () => {
+const Navbar = ({ isCheckout }: Props) => {
   const navigate = useNavigate();
   const [currency, updSearchPrompt, cart] = store((state) => [
     state.currency,
@@ -13,7 +13,21 @@ const Navbar = () => {
     state.cart
   ]);
 
-  return (
+  return isCheckout ? (
+    <header className={s.header} style={{ padding: '1rem' }}>
+      <Toaster position="top-right" reverseOrder={false} />
+      <div className={s.title} onClick={handleLogoClick}>
+        {shopInfo.name}
+      </div>
+      <div className={s.info}>
+        <span className={s.text}>Questions regarding your order?</span>
+        <div className={`${s.text} ${s.bold}`}>
+          <span className={s.accent}>12345-123456789</span>&nbsp; Daily from 7:30 am to 10:00 pm
+        </div>
+      </div>
+      <Button label={'Back to shop'} isUnfilled callback={handleLogoClick} />
+    </header>
+  ) : (
     <header className={s.navbarWrapper}>
       <Toaster position="top-right" reverseOrder={false} />
       <nav className={s.header}>
@@ -72,3 +86,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+type Props = {
+  isCheckout?: boolean;
+};

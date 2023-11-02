@@ -1,11 +1,11 @@
 import s from './style.module.scss';
 
-const Button = ({ label, isDisabled, isFullSize, callback }: Props) => {
+const Button = ({ label, isDisabled, isFullSize, isUnfilled, callback }: Props) => {
   return (
     <div
       className={`${isDisabled ? s.disabled : ''} ${isFullSize ? s.fullSize : ''} ${
-        s.buttonWrapper
-      }`}
+        isUnfilled ? s.unfilled : ''
+      } ${s.buttonWrapper}`}
       onClick={callback}
     >
       {label}
@@ -19,5 +19,6 @@ type Props = {
   label: string;
   isDisabled?: boolean;
   isFullSize?: boolean;
+  isUnfilled?: boolean;
   callback: () => void;
 };
