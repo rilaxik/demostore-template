@@ -48,7 +48,6 @@ export type CartDiscount = {
 };
 
 export type UserPrivacy = {
-  id?: string;
   firstName: string;
   lastName: string;
   email: string;

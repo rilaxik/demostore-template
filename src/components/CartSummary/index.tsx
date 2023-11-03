@@ -1,4 +1,5 @@
 import s from './style.module.scss';
+import { v4 as uuidv4 } from 'uuid';
 import { Input, Button } from '../';
 import { store, discounts, products, Discounts } from '../../consts';
 import { checkmarkIcon } from '../../assets';
@@ -7,11 +8,12 @@ import { useNavigate } from 'react-router-dom';
 
 const CartSummary = ({ isCartPage }: Props) => {
   const navigate = useNavigate();
-  const [currency, cart, updCheckoutCart, updCheckoutDiscount] = store((state) => [
+  const [currency, cart, updCheckoutCart, updCheckoutDiscount, updCheckoutId] = store((state) => [
     state.currency,
     state.cart,
     state.updCheckoutCart,
-    state.updCheckoutDiscount
+    state.updCheckoutDiscount,
+    state.updCheckoutId
   ]);
   const total = calcTotal();
 
@@ -83,6 +85,7 @@ const CartSummary = ({ isCartPage }: Props) => {
 
   function handleCheckout() {
     updCheckoutCart(cart);
+    updCheckoutId(uuidv4());
     navigate('/checkout');
   }
 

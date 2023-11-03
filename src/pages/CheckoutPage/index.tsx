@@ -1,13 +1,13 @@
 import s from './style.module.scss';
-import { v4 as uuidv4 } from 'uuid';
 import { Footer, Navbar, PageWrapper, CartSummary, CheckoutField, Button } from '../../components';
 import { store } from '../../consts';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage = () => {
-  const [updCheckoutUser] = store((state) => [state.updCheckoutUser]);
+  const navigate = useNavigate();
+  const [checkout, updCheckoutUser] = store((state) => [state.checkout, state.updCheckoutUser]);
   const [tempUser, setTempUser] = useState({
-    id: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -155,7 +155,8 @@ const CheckoutPage = () => {
   );
 
   function handleContinueCheckout() {
-    updCheckoutUser({ ...tempUser, id: uuidv4() });
+    updCheckoutUser(tempUser);
+    navigate(`${checkout.id}`);
   }
 };
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { CartPage, CheckoutPage, ListingPage, ProductPage } from './pages';
+import { CartPage, CheckoutFinalPage, CheckoutPage, ListingPage, ProductPage } from './pages';
 import { FilteredProducts } from './components';
 import { ShopCategories } from './consts';
 
@@ -40,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: 'checkout',
     element: <CheckoutPage />
+  },
+  {
+    path: 'checkout/:cartId',
+    element: <CheckoutFinalPage />
   },
   {
     path: 'product/:id',

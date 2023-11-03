@@ -16,6 +16,7 @@ type State = {
   searchPrompt: string;
   cart: Map<string, number>;
   checkout: {
+    id: string;
     cart: State['cart'];
     discount: CartDiscount | null;
     user: UserPrivacy;
@@ -34,6 +35,7 @@ type Action = {
   decCart: (key: string) => void;
   removeCartItem: (key: string) => void;
   clearCart: () => void;
+  updCheckoutId: (cart: State['checkout']['id']) => void;
   updCheckoutCart: (cart: State['checkout']['cart']) => void;
   updCheckoutDiscount: (cart: State['checkout']['discount']) => void;
   updCheckoutUser: (cart: State['checkout']['user']) => void;
@@ -116,10 +118,10 @@ const store = create<State & Action>((set) => ({
     });
   },
   checkout: {
+    id: '',
     cart: new Map(),
     discount: null,
     user: {
-      id: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -144,6 +146,7 @@ const store = create<State & Action>((set) => ({
     isPaid: false,
     isCompleted: false
   },
+  updCheckoutId: (newId) => set((state) => ({ checkout: { ...state.checkout, id: newId } })),
   updCheckoutCart: (newCart) =>
     set((state) => ({ checkout: { ...state.checkout, cart: newCart } })),
   updCheckoutDiscount: (newDiscount) =>
