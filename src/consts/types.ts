@@ -48,8 +48,7 @@ export type CartDiscount = {
 };
 
 export type UserPrivacy = {
-  id: string;
-  salutation: UserPrivacySalutations;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -61,12 +60,6 @@ export type UserPrivacy = {
     state: string;
   };
 };
-
-export enum UserPrivacySalutations {
-  MISTER = 'Mr.',
-  MISS = 'Ms.',
-  NONE = 'Dear'
-}
 
 export type UserBilling = {
   shipping: UserBillingShipping;

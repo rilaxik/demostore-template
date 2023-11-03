@@ -5,7 +5,6 @@ import {
   CartDiscount,
   UserPrivacy,
   UserBilling,
-  UserPrivacySalutations,
   UserBillingShipping,
   UserBillingPayment
 } from './';
@@ -20,7 +19,7 @@ type State = {
     cart: State['cart'];
     discount: CartDiscount | null;
     user: UserPrivacy;
-    billing: UserBilling;
+    billing?: UserBilling;
     isPaid: boolean;
     isCompleted: boolean;
   };
@@ -121,7 +120,6 @@ const store = create<State & Action>((set) => ({
     discount: null,
     user: {
       id: '',
-      salutation: UserPrivacySalutations.NONE,
       firstName: '',
       lastName: '',
       email: '',

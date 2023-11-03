@@ -1,0 +1,17 @@
+@import '../../consts/fonts.module';
+
+.checkoutFieldWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: .5rem;
+
+  .title {
+    display: flex;
+
+    font-size: $checkout-option-fs;
+    font-weight: $checkout-option-fw;
+    color: $color-main;
+  }
+}

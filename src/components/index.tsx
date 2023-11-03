@@ -8,6 +8,7 @@ import CartSummary from './CartSummary';
 import CartItem from './CartItem';
 import Input from './Input';
 import QuantityPanel from './QuantityPanel';
+import CheckoutField from './CheckoutField';
 
 export {
   Navbar,
@@ -19,5 +20,6 @@ export {
   CartSummary,
   CartItem,
   Input,
-  QuantityPanel
+  QuantityPanel,
+  CheckoutField
 };

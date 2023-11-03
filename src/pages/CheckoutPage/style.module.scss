@@ -1,1 +1,77 @@
 @import '../../consts/fonts.module';
+
+.checkoutWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10rem;
+
+  .personalBlock {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .title {
+      display: flex;
+
+      font-size: $checkout-title-fs;
+      font-weight: $checkout-title-fw;
+      color: $color-main;
+    }
+
+    .subtle {
+      display: flex;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid $color-sec;
+
+      font-size: $checkout-subtle-fs;
+      font-weight: $checkout-subtle-fw;
+      color: $color-main;
+    }
+
+    .rowBlock {
+      display: flex;
+      max-width: 1000px;
+      align-self: stretch;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+
+    .privacyWrapper {
+      display: flex;
+      flex-direction: column;
+
+      font-size: $checkout-privacy-fs;
+      font-weight: $checkout-privacyBold-fw;
+      color: $color-main;
+
+      .text {
+        display: flex;
+
+        font-size: $checkout-privacy-fs;
+        font-weight: $checkout-privacy-fw;
+        color: $color-main;
+      }
+    }
+
+    .buttonWrapper {
+      display: flex;
+      align-self: stretch;
+      align-items: flex-end;
+    }
+  }
+
+  .infoBlock {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+}

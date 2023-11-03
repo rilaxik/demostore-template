@@ -1,29 +1,41 @@
 import s from './style.module.scss';
 import React, { useState } from 'react';
 
-const Input = ({ placeholder, icon, isIconFilled, width, callback }: Props) => {
+const Input = ({
+  placeholder,
+  type = 'text',
+  icon,
+  hasIcon,
+  isIconFilled,
+  width,
+  blockStyle,
+  callback
+}: Props) => {
   const [searchValue, setSearchValue] = useState<string>('');
 
   return (
-    <search className={s.searchbar}>
+    <search className={s.searchbar} style={blockStyle}>
       <input
         style={!width ? { width: '20rem' } : { width: width }}
-        type="text"
+        type={type}
         onChange={(e) => handleSearchChange(e)}
         onKeyDown={(e) => handleSearch(e)}
         placeholder={placeholder}
       />
-      <div
-        className={`${s.iconWrapper} ${isIconFilled ? s.filled : ''}`}
-        onClick={() => handleSearch()}
-      >
-        <img src={icon} alt="icon" />
-      </div>
+      {hasIcon ? (
+        <div
+          className={`${s.iconWrapper} ${isIconFilled ? s.filled : ''}`}
+          onClick={() => handleSearch()}
+        >
+          <img src={icon} alt="icon" />
+        </div>
+      ) : null}
     </search>
   );
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value.trim());
+    callback(e.target.value.trim());
   }
 
   function handleSearch(e?: React.KeyboardEvent<HTMLInputElement>) {
@@ -44,8 +56,11 @@ export default Input;
 
 type Props = {
   placeholder: string;
-  icon: string;
+  type?: string;
+  icon?: string;
+  hasIcon?: boolean;
   isIconFilled?: boolean;
   width?: string;
+  blockStyle?: React.CSSProperties;
   callback: (value: string) => void;
 };
