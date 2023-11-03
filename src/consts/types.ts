@@ -28,7 +28,7 @@ export type ProductShort = {
   price: number;
   isInStock: boolean;
   image: string;
-  variants: string[];
+  variants?: string[];
 };
 
 export type Discounts = {
