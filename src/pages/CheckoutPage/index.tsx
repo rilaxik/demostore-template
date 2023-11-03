@@ -1,11 +1,13 @@
 import s from './style.module.scss';
+import { v4 as uuidv4 } from 'uuid';
 import { Footer, Navbar, PageWrapper, CartSummary, CheckoutField, Button } from '../../components';
-import { store, UserPrivacy } from '../../consts';
+import { store } from '../../consts';
+import { useState } from 'react';
 
 const CheckoutPage = () => {
-  const [updCheckoutUser] = store((state) => [state.updCheckoutUser, state.updCheckoutBilling]);
-
-  const tempUser: UserPrivacy = {
+  const [updCheckoutUser] = store((state) => [state.updCheckoutUser]);
+  const [tempUser, setTempUser] = useState({
+    id: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -16,7 +18,7 @@ const CheckoutPage = () => {
       country: '',
       state: ''
     }
-  };
+  });
 
   return (
     <PageWrapper>
@@ -32,14 +34,14 @@ const CheckoutPage = () => {
                 placeholder={'Enter first name'}
                 inputType={'text'}
                 isFullWidth
-                callback={(v) => (tempUser.firstName = v)}
+                callback={(v) => setTempUser({ ...tempUser, firstName: v })}
               />
               <CheckoutField
                 title={'Last name'}
                 placeholder={'Enter last name'}
                 inputType={'text'}
                 isFullWidth
-                callback={(v) => (tempUser.lastName = v)}
+                callback={(v) => setTempUser({ ...tempUser, lastName: v })}
               />
             </div>
             <div className={s.rowBlock}>
@@ -48,7 +50,7 @@ const CheckoutPage = () => {
                 placeholder={'Enter email address'}
                 inputType={'email'}
                 isFullWidth
-                callback={(v) => (tempUser.email = v)}
+                callback={(v) => setTempUser({ ...tempUser, email: v })}
               />
             </div>
             <span className={s.subtle}>Your address</span>
@@ -58,21 +60,45 @@ const CheckoutPage = () => {
                 placeholder={'Enter street address'}
                 inputType={'text'}
                 isFullWidth
-                callback={(v) => (tempUser.address.street = v)}
+                callback={(v) =>
+                  setTempUser({
+                    ...tempUser,
+                    address: {
+                      ...tempUser.address,
+                      street: v
+                    }
+                  })
+                }
               />
               <CheckoutField
                 title={'Postal code'}
                 placeholder={'Enter postal code'}
                 inputType={'text'}
                 isFullWidth
-                callback={(v) => (tempUser.address.zip = v)}
+                callback={(v) =>
+                  setTempUser({
+                    ...tempUser,
+                    address: {
+                      ...tempUser.address,
+                      zip: v
+                    }
+                  })
+                }
               />
               <CheckoutField
                 title={'City'}
                 placeholder={'Enter city'}
                 inputType={'text'}
                 isFullWidth
-                callback={(v) => (tempUser.address.city = v)}
+                callback={(v) =>
+                  setTempUser({
+                    ...tempUser,
+                    address: {
+                      ...tempUser.address,
+                      city: v
+                    }
+                  })
+                }
               />
             </div>
             <div className={s.rowBlock}>
@@ -81,14 +107,30 @@ const CheckoutPage = () => {
                 placeholder={'Enter country'}
                 inputType={'text'}
                 isFullWidth
-                callback={(v) => (tempUser.address.country = v)}
+                callback={(v) =>
+                  setTempUser({
+                    ...tempUser,
+                    address: {
+                      ...tempUser.address,
+                      country: v
+                    }
+                  })
+                }
               />
               <CheckoutField
                 title={'State'}
                 placeholder={'Enter state'}
                 inputType={'text'}
                 isFullWidth
-                callback={(v) => (tempUser.address.state = v)}
+                callback={(v) =>
+                  setTempUser({
+                    ...tempUser,
+                    address: {
+                      ...tempUser.address,
+                      state: v
+                    }
+                  })
+                }
               />
             </div>
             <span className={s.privacyWrapper}>
@@ -100,7 +142,7 @@ const CheckoutPage = () => {
               </span>
             </span>
             <div className={s.buttonWrapper}>
-              <Button label={'Continue'} callback={() => handleContinueCheckout(tempUser)} />
+              <Button label={'Continue'} callback={() => handleContinueCheckout()} />
             </div>
           </section>
           <section className={s.infoBlock}>
@@ -112,8 +154,8 @@ const CheckoutPage = () => {
     </PageWrapper>
   );
 
-  function handleContinueCheckout(u: UserPrivacy) {
-    updCheckoutUser(u);
+  function handleContinueCheckout() {
+    updCheckoutUser({ ...tempUser, id: uuidv4() });
   }
 };
 
