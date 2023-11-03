@@ -52,7 +52,7 @@ const Navbar = ({ isCheckout }: Props) => {
         </div>
       </nav>
 
-      <div className={s.categories}>
+      <nav className={s.categories}>
         {(Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
           (item: keyof typeof ShopCategories) => {
             return (
@@ -66,7 +66,7 @@ const Navbar = ({ isCheckout }: Props) => {
             );
           }
         )}
-      </div>
+      </nav>
     </header>
   );
 

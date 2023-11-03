@@ -11,7 +11,7 @@ const QuantityPanel = ({ id }: Props) => {
       <div className={s.button} onClick={() => handleCartDec(id)}>
         <img src={minusIcon} alt="minus" />
       </div>
-      <div className={s.button}>{quantity}</div>
+      <span className={s.button}>{quantity}</span>
       <div className={s.button} onClick={() => handleCartInc(id)}>
         <img src={plusIcon} alt="plus" />
       </div>

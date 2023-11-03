@@ -16,7 +16,7 @@ const CartPage = () => {
             <div className={s.iconWrapper}>
               <img src={infoIcon} alt="(i)" />
             </div>
-            <div className={s.message}>Your shopping cart is empty</div>
+            <span className={s.message}>Your shopping cart is empty</span>
           </div>
         ) : (
           <main className={s.cartWrapper}>
@@ -24,10 +24,10 @@ const CartPage = () => {
             <div className={s.detailsWrapper}>
               <section className={s.cartInfoWrapper}>
                 <div className={s.infoTitles}>
-                  <div className={s.title}>Product</div>
-                  <div className={s.title}>Quantity</div>
-                  <div className={s.title}>incl. VAT</div>
-                  <div className={s.title}>Subtotal</div>
+                  <span className={s.title}>Product</span>
+                  <span className={s.title}>Quantity</span>
+                  <span className={s.title}>incl. VAT</span>
+                  <span className={s.title}>Subtotal</span>
                 </div>
                 <hr />
                 {Array.from(cart.keys()).map((id) => {

@@ -26,34 +26,34 @@ const ProductCard = ({
           <img src={image} alt="product" />
         </div>
         <div className={s.title}>
-          <div className={s.name}>{name}</div>
+          <span className={s.name}>{name}</span>
           {sizingShort && measurement ? (
-            <div className={s.detail}>
+            <span className={s.detail}>
               {sizingShort}&nbsp;{measurement}
-            </div>
+            </span>
           ) : null}
         </div>
       </div>
       <div className={s.descriptionWrapper}>
-        <div className={s.description}>{description}</div>
-        <div className={s.content}>
+        <span className={s.description}>{description}</span>
+        <span className={s.content}>
           <span>Content:&nbsp;</span>
           {content}&nbsp;{content === 1 ? 'unit' : 'units'}{' '}
           {content > 1 && pricePerPiece ? `(${shopInfo.currency}${pricePerPiece}/per unit)` : null}
-        </div>
-        <div className={s.other}>
+        </span>
+        <span className={s.other}>
           Variants from&nbsp;
           <span>
             {shopInfo.currency}
             {Math.floor(price * 0.9)}*
           </span>
-        </div>
+        </span>
       </div>
       <div className={s.buy}>
-        <div className={s.price}>
+        <span className={s.price}>
           {shopInfo.currency}
           {price}*
-        </div>
+        </span>
         <Button
           label="Add to shopping cart"
           isFullSize

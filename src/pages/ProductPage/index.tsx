@@ -16,7 +16,7 @@ const ProductPage = () => {
         <Navbar />
         <div className={s.productWrapper}>
           <span className={s.title}>{item.name}</span>
-          <div className={s.product}>
+          <section className={s.product}>
             <div className={s.imageWrapper}>
               <img src={item.image} alt={item.name} />
             </div>
@@ -62,8 +62,8 @@ const ProductPage = () => {
               </div>
               <span className={s.info}>Product id: {item.id}</span>
             </div>
-          </div>
-          <div className={s.informationWrapper}>
+          </section>
+          <section className={s.informationWrapper}>
             <span className={s.title}>Product information</span>
             <span className={s.desc}>{item.description}</span>
             <table>
@@ -78,7 +78,7 @@ const ProductPage = () => {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </section>
         </div>
       </PageWrapper>
       <Footer />

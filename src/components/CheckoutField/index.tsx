@@ -4,7 +4,7 @@ import { Input } from '../';
 const CheckoutField = ({ title, placeholder, inputType, isFullWidth, callback }: Props) => {
   return (
     <div className={s.checkoutFieldWrapper} style={isFullWidth ? { width: '30rem' } : {}}>
-      <div className={s.title}>{title}</div>
+      <span className={s.title}>{title}</span>
       <Input
         placeholder={placeholder}
         type={inputType}

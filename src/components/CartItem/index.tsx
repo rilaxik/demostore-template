@@ -18,20 +18,20 @@ const CartItem = ({ image, name, content, id, price }: Props) => {
       >
         <img src={image} alt={name} />
         <div className={s.details}>
-          <div className={`${s.detail} ${s.head}`}>{name}</div>
-          <div className={s.detail}>
+          <span className={`${s.detail} ${s.head}`}>{name}</span>
+          <span className={s.detail}>
             Content:&nbsp;<span className={s.head}>{content}</span>
-          </div>
-          <div className={s.detail}>Id:&nbsp;{id}</div>
+          </span>
+          <span className={s.detail}>Id:&nbsp;{id}</span>
         </div>
       </div>
       <div className={s.productInfo}>
         <QuantityPanel id={id} />
       </div>
-      <div className={s.productInfo}>
+      <span className={s.productInfo}>
         {currency}
         {Math.floor(price * 0.2)}
-      </div>
+      </span>
       <div className={`${s.productInfo} ${s.delete}`}>
         <span>
           {currency}

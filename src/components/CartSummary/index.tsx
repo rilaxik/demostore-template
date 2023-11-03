@@ -18,40 +18,40 @@ const CartSummary = ({ isCartPage }: Props) => {
   return (
     <section className={s.summaryWrapper}>
       <div className={s.summaryCard}>
-        <div className={s.title}>Summary</div>
+        <span className={s.title}>Summary</span>
         <div className={s.costDetails}>
           <div className={s.details}>
-            <div className={s.unit}>Subtotal</div>
-            <div className={s.unit}>
+            <span className={s.unit}>Subtotal</span>
+            <span className={s.unit}>
               {currency}
               {total}
-            </div>
+            </span>
           </div>
           <div className={s.details}>
-            <div className={s.unit}>Shipping costs</div>
-            <div className={s.unit}>{currency}0.00*</div>
+            <span className={s.unit}>Shipping costs</span>
+            <span className={s.unit}>{currency}0.00*</span>
           </div>
           <div className={s.details}>
-            <div className={s.unit}>Grand total exclusive of VAT</div>
-            <div className={s.unit}>
+            <span className={s.unit}>Grand total exclusive of VAT</span>
+            <span className={s.unit}>
               {currency}
               {total}
-            </div>
+            </span>
           </div>
           <div className={s.details}>
-            <div className={s.unit}>Including VAT</div>
-            <div className={s.unit}>
+            <span className={s.unit}>Including VAT</span>
+            <span className={s.unit}>
               {currency}
               {Math.round(total * 0.2)}
-            </div>
+            </span>
           </div>
           <hr />
           <div className={`${s.details} ${s.total}`}>
-            <div className={s.unit}>Grand total</div>
-            <div className={s.unit}>
+            <span className={s.unit}>Grand total</span>
+            <span className={s.unit}>
               {currency}
               {Math.round(total * 0.2 + total)}
-            </div>
+            </span>
           </div>
         </div>
       </div>

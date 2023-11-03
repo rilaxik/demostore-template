@@ -23,7 +23,7 @@ const CheckoutPage = () => {
       <PageWrapper container>
         <Navbar isCheckout />
         <div className={s.checkoutWrapper}>
-          <div className={s.personalBlock}>
+          <section className={s.personalBlock}>
             <span className={s.title}>Shipping information</span>
             <span className={s.subtle}>Your personal details</span>
             <div className={s.rowBlock}>
@@ -102,10 +102,10 @@ const CheckoutPage = () => {
             <div className={s.buttonWrapper}>
               <Button label={'Continue'} callback={() => handleContinueCheckout(tempUser)} />
             </div>
-          </div>
-          <div className={s.infoBlock}>
+          </section>
+          <section className={s.infoBlock}>
             <CartSummary />
-          </div>
+          </section>
         </div>
       </PageWrapper>
       <Footer isShortened />

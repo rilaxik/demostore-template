@@ -9,14 +9,14 @@ const Footer = ({ isShortened }: Props) => {
           <hr />
           <div className={s.footerWrapperShort}>
             <div className={s.infoBlock}>
-              <div className={s.title}>Service hotline</div>
-              <div className={s.link}>Support and counselling via:</div>
-              <div className={`${s.link} ${s.number}`}>0180 - 000000</div>
-              <div className={s.link}>Mon - Fri, 9am - 5pm</div>
+              <span className={s.title}>Service hotline</span>
+              <span className={s.link}>Support and counselling via:</span>
+              <span className={`${s.link} ${s.number}`}>0180 - 000000</span>
+              <span className={s.link}>Mon - Fri, 9am - 5pm</span>
               <a className={`${s.link} ${s.visible}`}>Or via our contact form.</a>
             </div>
             <div className={s.infoBlock}>
-              <div className={s.title}>Shop Service</div>
+              <span className={s.title}>Shop Service</span>
               <nav className={s.links}>
                 {shopInfo.service.map((item, index) => {
                   return (
@@ -28,7 +28,7 @@ const Footer = ({ isShortened }: Props) => {
               </nav>
             </div>
             <div className={s.infoBlock}>
-              <div className={s.title}>Information</div>
+              <span className={s.title}>Information</span>
               <nav className={s.links}>
                 {shopInfo.information.map((item, index) => {
                   return (
@@ -52,10 +52,10 @@ const Footer = ({ isShortened }: Props) => {
             );
           })}
         </nav>
-        <div className={s.vat}>
+        <span className={s.vat}>
           * All prices incl. VAT plus&nbsp;<span className={s.accent}>shipping costs</span>&nbsp;and
           possible delivery charges, if not stated otherwise.
-        </div>
+        </span>
       </div>
     </footer>
   );
