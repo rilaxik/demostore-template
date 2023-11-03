@@ -7,12 +7,14 @@ const PageWrapper = ({ children, container }: Props) => {
         !container
           ? {
               display: 'flex',
+              flex: '1 1 auto',
               flexDirection: 'column',
               alignItems: 'center',
               gap: '2rem'
             }
           : {
               display: 'flex',
+              flex: '1 1 auto',
               flexDirection: 'column',
               gap: '2rem',
               width: '1400px',

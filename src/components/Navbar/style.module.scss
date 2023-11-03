@@ -2,7 +2,7 @@
 
 .header {
   display: flex;
-  flex: 1;
+  flex: 0 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -87,7 +87,6 @@
 
 .navbarWrapper {
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: 1.5rem;
   padding: 1rem;
