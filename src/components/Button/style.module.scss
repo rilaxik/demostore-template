@@ -31,6 +31,11 @@
   &.unfilled {
     border: 2px solid $bgcolor-accent;
     background-color: $color-accent;
-    color: $bgcolor-accent
+    color: $bgcolor-accent;
+
+    &:hover {
+      background-color: $bgcolor-accent;
+      color: $color-accent;
+    }
   }
 }
