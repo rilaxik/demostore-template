@@ -1,8 +1,9 @@
-import s from './style.module.scss';
-import { Footer, Navbar, PageWrapper, CartSummary, CheckoutField, Button } from '../../components';
-import { store } from '../../consts';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Footer, Navbar, PageWrapper, CartSummary, CheckoutField, Button } from '../../components';
+import { store } from '../../consts';
+import s from './style.module.scss';
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -159,8 +160,25 @@ const CheckoutPage = () => {
   );
 
   function handleContinueCheckout() {
-    updCheckoutUser(tempUser);
-    navigate(`${checkout.id}`);
+    if (allFieldsTaken(tempUser)) {
+      updCheckoutUser(tempUser);
+      navigate(`${checkout.id}`);
+    } else {
+      toast.error('Please fill all the fields to continue');
+    }
+  }
+
+  function allFieldsTaken(obj: { [key: string]: string | null | { [key: string]: string } }) {
+    for (const [key, value] of Object.entries(obj)) {
+      if (!value) {
+        console.log(key + ' = ' + value + ' (no value)');
+        return false;
+      }
+      if (typeof value === 'object') {
+        allFieldsTaken(value);
+      }
+    }
+    return true;
   }
 };
 
