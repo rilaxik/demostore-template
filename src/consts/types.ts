@@ -63,12 +63,6 @@ export type UserPrivacy = {
 export type UserBilling = {
   shipping: UserBillingShipping;
   payment: UserBillingPayment;
-  details?: {
-    cardNumber: string;
-    cardDate: string;
-    cvv: string;
-    cardHolder: string;
-  };
 };
 
 export enum UserBillingShipping {

@@ -20,7 +20,7 @@ type State = {
     cart: State['cart'];
     discount: CartDiscount | null;
     user: UserPrivacy;
-    billing?: UserBilling;
+    billing: UserBilling;
     isPaid: boolean;
     isCompleted: boolean;
   };
@@ -135,13 +135,7 @@ const store = create<State & Action>((set) => ({
     },
     billing: {
       shipping: UserBillingShipping.STANDARD,
-      payment: UserBillingPayment.CREDIT_CARD,
-      details: {
-        cardNumber: '',
-        cardDate: '',
-        cvv: '',
-        cardHolder: ''
-      }
+      payment: UserBillingPayment.CREDIT_CARD
     },
     isPaid: false,
     isCompleted: false
