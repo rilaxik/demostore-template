@@ -1,4 +1,5 @@
 import s from './style.module.scss';
+import React from 'react';
 
 const Button = ({ label, isDisabled, isFullSize, isUnfilled, callback }: Props) => {
   return (
@@ -6,7 +7,7 @@ const Button = ({ label, isDisabled, isFullSize, isUnfilled, callback }: Props) 
       className={`${isDisabled ? s.disabled : ''} ${isFullSize ? s.fullSize : ''} ${
         isUnfilled ? s.unfilled : ''
       } ${s.buttonWrapper}`}
-      onClick={callback}
+      onClick={(e) => callback(e)}
     >
       {label}
     </div>
@@ -20,5 +21,5 @@ type Props = {
   isDisabled?: boolean;
   isFullSize?: boolean;
   isUnfilled?: boolean;
-  callback: () => void;
+  callback: (e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };

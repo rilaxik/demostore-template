@@ -20,7 +20,7 @@ const ProductCard = ({
   const [incCart] = store((state) => [state.incCart]);
 
   return (
-    <div className={s.productCardWrapper} onClick={(e) => handleViewProduct(e, id)}>
+    <div className={s.productCardWrapper} onClick={() => handleViewProduct(id)}>
       <div className={s.topContent}>
         <div className={s.imageWrapper}>
           <img src={image} alt="product" />
@@ -58,19 +58,19 @@ const ProductCard = ({
           label="Add to shopping cart"
           isFullSize
           isDisabled={!isInStock}
-          callback={() => handleButtonClick()}
+          callback={(e) => handleButtonClick(e)}
         />
       </div>
     </div>
   );
 
-  function handleButtonClick() {
+  function handleButtonClick(e?: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e?.stopPropagation();
     incCart(id);
   }
 
-  function handleViewProduct(e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) {
+  function handleViewProduct(id: string) {
     navigate(`/product/${id}`);
-    e.stopPropagation();
   }
 };
 
