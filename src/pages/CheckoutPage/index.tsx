@@ -146,7 +146,11 @@ const CheckoutPage = () => {
             </div>
           </section>
           <section className={s.infoBlock}>
-            <CartSummary />
+            <CartSummary
+              callback={() => {
+                return;
+              }}
+            />
           </section>
         </div>
       </PageWrapper>
