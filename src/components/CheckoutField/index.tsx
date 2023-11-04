@@ -10,6 +10,7 @@ const CheckoutField = ({ title, placeholder, inputType, isFullWidth, callback }:
         type={inputType}
         width={'100%'}
         blockStyle={{ alignSelf: 'stretch' }}
+        callbackOnChange
         callback={(v) => callback(v)}
       />
     </div>

@@ -5,10 +5,10 @@ const Input = ({
   placeholder,
   type = 'text',
   icon,
-  hasIcon,
   isIconFilled,
   width,
   blockStyle,
+  callbackOnChange,
   callback
 }: Props) => {
   const [searchValue, setSearchValue] = useState<string>('');
@@ -22,7 +22,7 @@ const Input = ({
         onKeyDown={(e) => handleSearch(e)}
         placeholder={placeholder}
       />
-      {hasIcon ? (
+      {icon ? (
         <div
           className={`${s.iconWrapper} ${isIconFilled ? s.filled : ''}`}
           onClick={() => handleSearch()}
@@ -35,7 +35,7 @@ const Input = ({
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value.trim());
-    callback(e.target.value.trim());
+    callbackOnChange ? callback(e.target.value.trim()) : null;
   }
 
   function handleSearch(e?: React.KeyboardEvent<HTMLInputElement>) {
@@ -58,9 +58,9 @@ type Props = {
   placeholder: string;
   type?: string;
   icon?: string;
-  hasIcon?: boolean;
   isIconFilled?: boolean;
   width?: string;
   blockStyle?: React.CSSProperties;
+  callbackOnChange?: boolean;
   callback: (value: string) => void;
 };
