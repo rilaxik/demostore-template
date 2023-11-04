@@ -4,10 +4,8 @@ import { Input, Button } from '../';
 import { store, discounts, products, Discounts } from '../../consts';
 import { checkmarkIcon } from '../../assets';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
-const CartSummary = ({ isCartPage }: Props) => {
-  const navigate = useNavigate();
+const CartSummary = ({ hasCodeField, hasButton, callback }: Props) => {
   const [currency, cart, updCheckoutCart, updCheckoutDiscount, updCheckoutId] = store((state) => [
     state.currency,
     state.cart,
@@ -57,17 +55,24 @@ const CartSummary = ({ isCartPage }: Props) => {
           </div>
         </div>
       </div>
-      {isCartPage ? (
-        <>
-          <Input
-            placeholder={'Gift card or discount number'}
-            icon={checkmarkIcon}
-            isIconFilled
-            width={'100%'}
-            callback={(v) => handleDiscount(v, discounts)}
-          />
-          <Button label={'Proceed to checkout'} isFullSize callback={() => handleCheckout()} />
-        </>
+      {hasCodeField ? (
+        <Input
+          placeholder={'Gift card or discount number'}
+          icon={checkmarkIcon}
+          isIconFilled
+          width={'100%'}
+          callback={(v) => handleDiscount(v, discounts)}
+        />
+      ) : null}
+      {hasButton ? (
+        <Button
+          label={'Continue'}
+          isFullSize
+          callback={() => {
+            if (hasCodeField) handleCheckout();
+            callback();
+          }}
+        />
       ) : null}
     </section>
   );
@@ -86,7 +91,6 @@ const CartSummary = ({ isCartPage }: Props) => {
   function handleCheckout() {
     updCheckoutCart(cart);
     updCheckoutId(uuidv4());
-    navigate('/checkout');
   }
 
   function calcTotal(): number {
@@ -101,5 +105,7 @@ const CartSummary = ({ isCartPage }: Props) => {
 export default CartSummary;
 
 type Props = {
-  isCartPage?: boolean;
+  hasCodeField?: boolean;
+  hasButton?: boolean;
+  callback: () => void;
 };

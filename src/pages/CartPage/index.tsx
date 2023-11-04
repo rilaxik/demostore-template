@@ -3,8 +3,10 @@ import s from './style.module.scss';
 import { store, products, shopInfo } from '../../consts';
 import { checkmarkIcon, infoIcon } from '../../assets';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const [cart, incCart] = store((state) => [state.cart, state.incCart]);
 
   return (
@@ -56,7 +58,7 @@ const CartPage = () => {
                 </div>
               </section>
 
-              <CartSummary isCartPage />
+              <CartSummary hasCodeField hasButton callback={() => handleContinue()} />
             </div>
           </main>
         )}
@@ -71,6 +73,10 @@ const CartPage = () => {
     } else {
       toast.error(`Item ${val} could not be found`);
     }
+  }
+
+  function handleContinue() {
+    navigate('/checkout');
   }
 };
 
