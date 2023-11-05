@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { CartPage, CheckoutFinalPage, CheckoutPage, ListingPage, ProductPage } from './pages';
 import { FilteredProducts } from './components';
-import { ShopCategories } from './consts';
 
 const router = createBrowserRouter([
   {
@@ -14,22 +13,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <FilteredProducts />
-      },
-      {
-        path: 'category=Home',
-        element: <FilteredProducts filter={ShopCategories.HOME} />
-      },
-      {
-        path: 'category=Garden',
-        element: <FilteredProducts filter={ShopCategories.GARDEN} />
-      },
-      {
-        path: 'category=Tools',
-        element: <FilteredProducts filter={ShopCategories.TOOLS} />
-      },
-      {
-        path: 'category=Misc',
-        element: <FilteredProducts filter={ShopCategories.MISC} />
       }
     ]
   },

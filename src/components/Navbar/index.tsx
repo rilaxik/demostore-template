@@ -1,17 +1,28 @@
 import s from './style.module.scss';
-import { shopInfo, ShopCategories, store } from '../../consts';
+import { ShopCategories, shopInfo, store } from '../../consts';
 import { Button, Input } from '../';
-import { searchIcon, wishlistIcon, profileIcon, cartIcon, highlightedCartIcon } from '../../assets';
+import { cartIcon, highlightedCartIcon, profileIcon, searchIcon, wishlistIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 
 const Navbar = ({ isCheckout }: Props) => {
   const navigate = useNavigate();
-  const [currency, updSearchPrompt, cart] = store((state) => [
-    state.currency,
-    state.updSearchPrompt,
-    state.cart
-  ]);
+  const [query, setQuery] = useState<string>();
+  const [category, setCategory] = useState<ShopCategories>();
+  const [currency, cart] = store((state) => [state.currency, state.cart]);
+
+  useEffect(() => {
+    if (category && query) {
+      navigate(`/?category=${category}&query=${query}`);
+    } else if (category && !query) {
+      navigate(`/?category=${category}`);
+    } else if (!category && query) {
+      navigate(`/?query=${query}`);
+    } else if (!category && !query) {
+      navigate('/');
+    }
+  }, [category, query, navigate]);
 
   return isCheckout ? (
     <header className={s.header} style={{ padding: '1rem' }}>
@@ -34,7 +45,11 @@ const Navbar = ({ isCheckout }: Props) => {
         <div className={s.title} onClick={handleLogoClick}>
           {shopInfo.name}
         </div>
-        <Input placeholder={'search for..'} icon={searchIcon} callback={(v) => handleSearch(v)} />
+        <Input
+          placeholder={'search for..'}
+          icon={searchIcon}
+          callback={(query) => setQuery(query.trim())}
+        />
         <div className={s.personal}>
           <div className={s.iconWrapper}>
             <img src={wishlistIcon} alt="wishlist" />
@@ -52,21 +67,7 @@ const Navbar = ({ isCheckout }: Props) => {
         </div>
       </nav>
 
-      <nav className={s.categories}>
-        {(Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
-          (item: keyof typeof ShopCategories) => {
-            return (
-              <div
-                className={s.category}
-                key={`category-${item}`}
-                onClick={() => handleChangeCategory(ShopCategories[item])}
-              >
-                {ShopCategories[item]}
-              </div>
-            );
-          }
-        )}
-      </nav>
+      <nav className={s.categories}>{getCategories()}</nav>
     </header>
   );
 
@@ -74,14 +75,26 @@ const Navbar = ({ isCheckout }: Props) => {
     navigate('/');
   }
 
-  function handleChangeCategory(item: ShopCategories) {
-    navigate(`/category=${item}`);
-    updSearchPrompt('');
-  }
-
-  function handleSearch(value: string) {
-    updSearchPrompt(value);
-    navigate('/');
+  function getCategories() {
+    {
+      return (Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
+        (item: keyof typeof ShopCategories) => {
+          return (
+            <div
+              className={`${s.category} ${category === ShopCategories[item] ? s.active : ''}`}
+              key={`category-${item}`}
+              onClick={() =>
+                category !== ShopCategories[item]
+                  ? setCategory(ShopCategories[item])
+                  : setCategory(undefined)
+              }
+            >
+              {ShopCategories[item]}
+            </div>
+          );
+        }
+      );
+    }
   }
 };
 

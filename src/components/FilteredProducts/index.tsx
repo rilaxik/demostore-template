@@ -1,81 +1,85 @@
 import { products } from '../../consts';
 import { ProductCard } from '../index.tsx';
-import { ShopCategories, store } from '../../consts';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-const FilteredProducts = ({ filter }: Props) => {
-  const [searchPrompt] = store((state) => [state.searchPrompt]);
+const FilteredProducts = () => {
+  const location = useLocation();
+  const [searchParams] = useSearchParams(location.search);
+  const [c, setC] = useState<string | null>(null);
+  const [q, setQ] = useState<string | null>(null);
 
-  return !filter && searchPrompt === '' ? (
+  useEffect(() => {
+    setC(null);
+    setQ(null);
+    searchParams.get('category') ? setC(searchParams.get('category')) : null;
+    searchParams.get('query') ? setQ(searchParams.get('query')) : null;
+  }, [searchParams]);
+
+  return (
     <>
-      {(Object.keys(products) as Array<never>).map((key) => {
-        const item = products[key];
-        return (
-          <ProductCard
-            id={item.id}
-            name={item.name}
-            sizingShort={item.sizingShort}
-            measurement={item.measurement}
-            description={item.description}
-            content={item.content}
-            pricePerPiece={item.pricePerPiece}
-            price={item.price}
-            isInStock={item.isInStock}
-            image={item.image}
-            key={`product-${item.id}`}
-          />
-        );
-      })}
+      {!searchParams.size
+        ? (Object.keys(products) as Array<never>).map((key) => {
+            const item = products[key];
+            return (
+              <ProductCard
+                id={item.id}
+                name={item.name}
+                sizingShort={item.sizingShort}
+                measurement={item.measurement}
+                description={item.description}
+                content={item.content}
+                pricePerPiece={item.pricePerPiece}
+                price={item.price}
+                isInStock={item.isInStock}
+                image={item.image}
+                key={`product-${item.id}`}
+              />
+            );
+          })
+        : (Object.keys(products) as Array<string>).map((key) => {
+            const item = products[key];
+            const tags = item.tags.concat(item.name.split(' '), item.material).join(' ');
+            const regex =
+              c && q
+                ? new RegExp(`(?=.*\\b${c}\\b)(?=.*\\b${q}\\b)`, 'i')
+                : c && !q
+                ? new RegExp(c, 'i')
+                : !c && q
+                ? new RegExp(q, 'i')
+                : null;
+            return regex && regex.test(tags) ? (
+              <ProductCard
+                id={item.id}
+                name={item.name}
+                sizingShort={item.sizingShort}
+                measurement={item.measurement}
+                description={item.description}
+                content={item.content}
+                pricePerPiece={item.pricePerPiece}
+                price={item.price}
+                isInStock={item.isInStock}
+                image={item.image}
+                key={`product-${item.id}`}
+              />
+            ) : null;
+          })}
     </>
-  ) : !filter && searchPrompt !== '' ? (
-    <>
-      {(Object.keys(products) as Array<keyof typeof products>).map((key) => {
-        const item = products[key];
-        const searchList = item.tags.concat(item.name.split(' '));
-        return searchPrompt.split(' ').map((s) => {
-          return searchList.includes(s) ? (
-            <ProductCard
-              id={item.id}
-              name={item.name}
-              sizingShort={item.sizingShort}
-              measurement={item.measurement}
-              description={item.description}
-              content={item.content}
-              pricePerPiece={item.pricePerPiece}
-              price={item.price}
-              isInStock={item.isInStock}
-              image={item.image}
-              key={`product-${item.id}`}
-            />
-          ) : null;
-        });
-      })}
-    </>
-  ) : filter ? (
-    <>
-      {(Object.keys(products) as Array<never>).map((key) => {
-        const item = products[key];
-        return item.tags.includes(filter.toLowerCase()) ? (
-          <ProductCard
-            id={item.id}
-            name={item.name}
-            sizingShort={item.sizingShort}
-            measurement={item.measurement}
-            description={item.description}
-            content={item.content}
-            pricePerPiece={item.pricePerPiece}
-            price={item.price}
-            isInStock={item.isInStock}
-            image={item.image}
-            key={`product-${item.id}`}
-          />
-        ) : null;
-      })}
-    </>
-  ) : null;
+  );
 };
 
 export default FilteredProducts;
 
-type Props = {
-  filter?: ShopCategories | string;
-};
+// <ProductCard
+//   id={item.id}
+//   name={item.name}
+//   sizingShort={item.sizingShort}
+//   measurement={item.measurement}
+//   description={item.description}
+//   content={item.content}
+//   pricePerPiece={item.pricePerPiece}
+//   price={item.price}
+//   isInStock={item.isInStock}
+//   image={item.image}
+//   key={`product-${item.id}`}
+// />
