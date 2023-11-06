@@ -1,0 +1,32 @@
+@import '../../consts/fonts.module';
+
+.breadcrumbsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+
+  .link {
+    display: flex;
+
+    cursor: pointer;
+    user-select: none;
+    font-size: $breadcrumbs-fs;
+    font-weight: $breadcrumbs-fw;
+    color: $color-main;
+
+    &.selected {
+      cursor: auto;
+      font-weight: $breadcrumbs-selected-fw;
+      color: $bgcolor-accent;
+    }
+  }
+
+  img {
+    height: 24px;
+    width: 24px;
+    max-height: 24px;
+    max-width: 24px;
+  }
+}

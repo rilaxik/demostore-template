@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import s from './style.module.scss';
-import { PageWrapper, Navbar, Footer, Button, QuantityPanel } from '../../components';
+import { PageWrapper, Navbar, Footer, Button, QuantityPanel, Breadcrumbs } from '../../components';
 import { products, store } from '../../consts';
 import { useState } from 'react';
 
@@ -14,6 +14,7 @@ const ProductPage = () => {
     <PageWrapper>
       <PageWrapper container>
         <Navbar />
+        <Breadcrumbs />
         <div className={s.productWrapper}>
           <span className={s.title}>{item.name}</span>
           <section className={s.product}>

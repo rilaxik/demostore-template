@@ -4,7 +4,7 @@ import { Button, Input } from '../';
 import { cartIcon, highlightedCartIcon, profileIcon, searchIcon, wishlistIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const Navbar = ({ isCheckout }: Props) => {
   const navigate = useNavigate();
@@ -12,17 +12,17 @@ const Navbar = ({ isCheckout }: Props) => {
   const [category, setCategory] = useState<ShopCategories>();
   const [currency, cart] = store((state) => [state.currency, state.cart]);
 
-  useEffect(() => {
-    if (category && query) {
-      navigate(`/?category=${category}&query=${query}`);
-    } else if (category && !query) {
-      navigate(`/?category=${category}`);
-    } else if (!category && query) {
-      navigate(`/?query=${query}`);
-    } else if (!category && !query) {
-      navigate('/');
-    }
-  }, [query, category]);
+  // useEffect(() => {
+  //   if (category && query) {
+  //     navigate(`/?category=${category}&query=${query}`);
+  //   } else if (category && !query) {
+  //     navigate(`/?category=${category}`);
+  //   } else if (!category && query) {
+  //     navigate(`/?query=${query}`);
+  //   } else if (!category && !query) {
+  //     navigate('/');
+  //   }
+  // }, [category, query]);
 
   return isCheckout ? (
     <header className={s.header} style={{ padding: '1rem' }}>
@@ -50,6 +50,7 @@ const Navbar = ({ isCheckout }: Props) => {
           icon={searchIcon}
           callback={(query) => {
             setQuery(query.trim());
+            handleNavigate(query.trim(), category);
           }}
         />
         <div className={s.personal}>
@@ -77,6 +78,18 @@ const Navbar = ({ isCheckout }: Props) => {
     navigate('/');
   }
 
+  function handleNavigate(q: string | undefined, c: ShopCategories | undefined) {
+    if (c && q) {
+      navigate(`/?category=${c}&query=${q}`);
+    } else if (c && !q) {
+      navigate(`/?category=${c}`);
+    } else if (!c && q) {
+      navigate(`/?query=${q}`);
+    } else if (!c && !q) {
+      navigate('/');
+    }
+  }
+
   function getCategories() {
     {
       return (Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
@@ -86,9 +99,16 @@ const Navbar = ({ isCheckout }: Props) => {
               className={`${s.category} ${category === ShopCategories[item] ? s.active : ''}`}
               key={`category-${item}`}
               onClick={() => {
-                category !== ShopCategories[item]
-                  ? setCategory(ShopCategories[item])
-                  : setCategory(undefined);
+                if (category !== ShopCategories[item]) {
+                  setCategory(ShopCategories[item]);
+                  handleNavigate(query, ShopCategories[item]);
+                } else {
+                  setCategory(undefined);
+                  handleNavigate(query, undefined);
+                }
+                // category !== ShopCategories[item]
+                //   ? setCategory(ShopCategories[item])
+                //   : setCategory(undefined);
               }}
             >
               {ShopCategories[item]}
