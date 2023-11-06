@@ -22,7 +22,7 @@ const Navbar = ({ isCheckout }: Props) => {
     } else if (!category && !query) {
       navigate('/');
     }
-  }, [category, query, navigate]);
+  }, [query, category]);
 
   return isCheckout ? (
     <header className={s.header} style={{ padding: '1rem' }}>
@@ -48,7 +48,9 @@ const Navbar = ({ isCheckout }: Props) => {
         <Input
           placeholder={'search for..'}
           icon={searchIcon}
-          callback={(query) => setQuery(query.trim())}
+          callback={(query) => {
+            setQuery(query.trim());
+          }}
         />
         <div className={s.personal}>
           <div className={s.iconWrapper}>
@@ -83,11 +85,11 @@ const Navbar = ({ isCheckout }: Props) => {
             <div
               className={`${s.category} ${category === ShopCategories[item] ? s.active : ''}`}
               key={`category-${item}`}
-              onClick={() =>
+              onClick={() => {
                 category !== ShopCategories[item]
                   ? setCategory(ShopCategories[item])
-                  : setCategory(undefined)
-              }
+                  : setCategory(undefined);
+              }}
             >
               {ShopCategories[item]}
             </div>
