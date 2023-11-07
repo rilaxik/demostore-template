@@ -4,7 +4,7 @@ import { ProductShort, store } from '../../consts';
 import { useNavigate } from 'react-router-dom';
 import QuantityPanel from '../QuantityPanel';
 
-const CartItem = ({ image, name, content, id, price }: Props) => {
+const CartItem = ({ image, name, content, id, price, isShortened }: Props) => {
   const navigate = useNavigate();
   const [currency, removeCartItem] = store((state) => [state.currency, state.removeCartItem]);
 
@@ -25,22 +25,26 @@ const CartItem = ({ image, name, content, id, price }: Props) => {
           <span className={s.detail}>Id:&nbsp;{id}</span>
         </div>
       </div>
-      <div className={s.productInfo}>
-        <QuantityPanel id={id} />
-      </div>
-      <span className={s.productInfo}>
-        {currency}
-        {Math.floor(price * 0.2)}
-      </span>
-      <div className={`${s.productInfo} ${s.delete}`}>
-        <span>
-          {currency}
-          {price}
-        </span>
-        <div className={s.iconWrapper} onClick={() => handleCartDel(id)}>
-          <img src={crossIcon} alt="delete" />
-        </div>
-      </div>
+      {!isShortened ? (
+        <>
+          <div className={s.productInfo}>
+            <QuantityPanel id={id} />
+          </div>
+          <span className={s.productInfo}>
+            {currency}
+            {Math.floor(price * 0.2)}
+          </span>
+          <div className={`${s.productInfo} ${s.delete}`}>
+            <span>
+              {currency}
+              {price}
+            </span>
+            <div className={s.iconWrapper} onClick={() => handleCartDel(id)}>
+              <img src={crossIcon} alt="delete" />
+            </div>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 
@@ -62,4 +66,5 @@ type Props = {
   id: ProductShort['id'];
   price: ProductShort['price'];
   quantity: number;
+  isShortened?: boolean;
 };

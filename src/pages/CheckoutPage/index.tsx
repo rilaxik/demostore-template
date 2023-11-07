@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { Footer, Navbar, PageWrapper, CartSummary, CheckoutField, Button } from '../../components';
-import { store } from '../../consts';
+import {
+  Footer,
+  Navbar,
+  PageWrapper,
+  CartSummary,
+  CheckoutField,
+  Button,
+  CartItem
+} from '../../components';
+import { store, products } from '../../consts';
 import s from './style.module.scss';
 
 const CheckoutPage = () => {
@@ -152,6 +160,19 @@ const CheckoutPage = () => {
                 return;
               }}
             />
+            {Array.from(checkout.cart.keys()).map((id) => {
+              return (
+                <CartItem
+                  image={products[id].image}
+                  name={products[id].name}
+                  content={products[id].content}
+                  id={id}
+                  price={products[id].price}
+                  quantity={checkout.cart.get(id) ?? 0}
+                  isShortened
+                />
+              );
+            })}
           </section>
         </div>
       </PageWrapper>

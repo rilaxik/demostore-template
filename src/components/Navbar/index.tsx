@@ -106,9 +106,6 @@ const Navbar = ({ isCheckout }: Props) => {
                   setCategory(undefined);
                   handleNavigate(query, undefined);
                 }
-                // category !== ShopCategories[item]
-                //   ? setCategory(ShopCategories[item])
-                //   : setCategory(undefined);
               }}
             >
               {ShopCategories[item]}
