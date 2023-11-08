@@ -16,7 +16,7 @@ const CheckoutFinalPage = () => {
   ]);
   const [selectedPayment, setSelectedPayment] = useState<keyof typeof UserBillingPayment>();
   const [selectedShipping, setSelectedShipping] = useState<keyof typeof UserBillingShipping>();
-
+  const [checkedPolicy, setCheckedPolicy] = useState<boolean>(false);
   useEffect(() => {
     if (params.cartId !== checkout.id) navigate('/cart');
   }, [params.cartId, checkout.id, navigate]);
@@ -30,6 +30,24 @@ const CheckoutFinalPage = () => {
           <div className={s.rowBlock}>
             <div className={s.rowItem}>
               <span className={s.subtle}>Terms and conditions and cancellation policy</span>
+              <div className={s.policyWrapper}>
+                <a href='link' className={s.link}>
+                  Please note our cancellation policy.
+                </a>
+                <div className={s.checkboxWrapper}>
+                  <input
+                    type='checkbox'
+                    name='policy-checkout'
+                    id='policy-checkout'
+                    onChange={handleCheckPolicy}
+                    defaultChecked={checkedPolicy}
+                  />
+                  <label htmlFor='policy-checkout'>I have read and accepted the </label>
+                  <a href='link' className={s.link}>
+                    general terms and conditions.
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
           <div className={s.rowBlock}>
@@ -51,9 +69,9 @@ const CheckoutFinalPage = () => {
                   return (
                     <div className={s.option} key={`payment-${item}`}>
                       <input
-                        type="radio"
+                        type='radio'
                         id={item}
-                        name="UserBillingPayment"
+                        name='UserBillingPayment'
                         value={item}
                         onChange={() => handleChangePayment(item)}
                       />
@@ -70,9 +88,9 @@ const CheckoutFinalPage = () => {
                   return (
                     <div className={s.option} key={`payment-${item}`}>
                       <input
-                        type="radio"
+                        type='radio'
                         id={item}
-                        name="UserBillingShipping"
+                        name='UserBillingShipping'
                         value={item}
                         onChange={() => handleChangeBilling(item)}
                       />
@@ -92,6 +110,10 @@ const CheckoutFinalPage = () => {
     </PageWrapper>
   );
 
+  function handleCheckPolicy() {
+    setCheckedPolicy((prevState) => !prevState);
+  }
+
   function handleChangePayment(item: keyof typeof UserBillingPayment) {
     setSelectedPayment(item);
   }
@@ -103,6 +125,11 @@ const CheckoutFinalPage = () => {
   function handleContinue() {
     if (!selectedPayment || !selectedShipping) {
       toast.error('Please select payment and shipping types');
+      return;
+    }
+
+    if (!checkedPolicy) {
+      toast.error('Please get acknowledged with our policy');
       return;
     }
 
