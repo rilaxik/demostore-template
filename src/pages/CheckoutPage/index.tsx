@@ -28,6 +28,7 @@ const CheckoutPage = () => {
       state: ''
     }
   });
+  const [userData, setUserData] = useState({ email: '', password: '' });
 
   return (
     <PageWrapper>
@@ -36,6 +37,24 @@ const CheckoutPage = () => {
         <div className={s.checkoutWrapper}>
           <section className={s.personalBlock}>
             <span className={s.title}>Shipping information</span>
+            <span className={s.subtle}>Log in to existing account</span>
+            <div className={s.rowBlock}>
+              <CheckoutField
+                title={'Your email address'}
+                placeholder={'Email address'}
+                inputType={'email'}
+                isFullWidth
+                callback={(v) => setUserData({ ...userData, email: v })}
+              />
+              <CheckoutField
+                title={'Your password'}
+                placeholder={'pass'}
+                inputType={'password'}
+                isFullWidth
+                callback={(v) => setUserData({ ...userData, password: v })}
+              />
+            </div>
+            <Button label={'Login'} callback={handleLogin} />
             <span className={s.subtle}>Your personal details</span>
             <div className={s.rowBlock}>
               <CheckoutField
@@ -60,6 +79,13 @@ const CheckoutPage = () => {
                 inputType={'email'}
                 isFullWidth
                 callback={(v) => setTempUser({ ...tempUser, email: v })}
+              />
+              <CheckoutField
+                title={'Password'}
+                placeholder={'Enter password'}
+                inputType={'pass'}
+                isFullWidth
+                callback={(v) => console.log(v)}
               />
             </div>
             <span className={s.subtle}>Your address</span>
@@ -179,6 +205,10 @@ const CheckoutPage = () => {
       <Footer isShortened />
     </PageWrapper>
   );
+
+  function handleLogin() {
+    console.log(userData);
+  }
 
   function handleContinueCheckout() {
     if (allFieldsTaken(tempUser)) {
