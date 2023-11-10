@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
 
-const Navbar = ({ isCheckout }: Props) => {
+const Navbar = ({ isShortened }: Props) => {
   const navigate = useNavigate();
   const [query, setQuery] = useState<string>();
   const [category, setCategory] = useState<ShopCategories>();
@@ -24,9 +24,9 @@ const Navbar = ({ isCheckout }: Props) => {
   //   }
   // }, [category, query]);
 
-  return isCheckout ? (
+  return isShortened ? (
     <header className={s.header} style={{ padding: '1rem' }}>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position='top-right' reverseOrder={false} />
       <div className={s.title} onClick={handleLogoClick}>
         {shopInfo.name}
       </div>
@@ -40,7 +40,7 @@ const Navbar = ({ isCheckout }: Props) => {
     </header>
   ) : (
     <header className={s.navbarWrapper}>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position='top-right' reverseOrder={false} />
       <nav className={s.header}>
         <div className={s.title} onClick={handleLogoClick}>
           {shopInfo.name}
@@ -55,13 +55,13 @@ const Navbar = ({ isCheckout }: Props) => {
         />
         <div className={s.personal}>
           <div className={s.iconWrapper}>
-            <img src={wishlistIcon} alt="wishlist" />
+            <img src={wishlistIcon} alt='wishlist' />
           </div>
           <div className={s.iconWrapper}>
-            <img src={profileIcon} alt="profile" />
+            <img src={profileIcon} alt='profile' />
           </div>
           <div className={s.iconWrapper} onClick={() => navigate('/cart')}>
-            <img src={cart.size ? highlightedCartIcon : cartIcon} alt="cart" />
+            <img src={cart.size ? highlightedCartIcon : cartIcon} alt='cart' />
           </div>
           <div className={s.money}>
             {currency}
@@ -120,5 +120,5 @@ const Navbar = ({ isCheckout }: Props) => {
 export default Navbar;
 
 type Props = {
-  isCheckout?: boolean;
+  isShortened?: boolean;
 };

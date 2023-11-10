@@ -9,6 +9,10 @@ import img7 from '../assets/products/7.jpg';
 import img8 from '../assets/products/8.jpg';
 import img9 from '../assets/products/9.jpg';
 
+/*
+this file is designed to be an api requests holder to get values from database
+*/
+
 const shopInfo = {
   name: 'DemoStore',
   money: 3.33,
