@@ -60,6 +60,13 @@ export type UserPrivacy = {
   };
 };
 
+export type DBUsers = {
+  [key: string]: {
+    id: string;
+    passwordHash: string;
+  };
+};
+
 export type UserBilling = {
   shipping: UserBillingShipping;
   payment: UserBillingPayment;

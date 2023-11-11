@@ -1,4 +1,4 @@
-import { Discounts, Product } from './types';
+import { DBUsers, Discounts, Product } from './types';
 import img1 from '../assets/products/1.webp';
 import img2 from '../assets/products/2.webp';
 import img3 from '../assets/products/3.jpg';
@@ -38,6 +38,13 @@ const shopInfo = {
     { label: 'AGB', link: 'link' },
     { label: 'Contact', link: 'link' }
   ]
+};
+
+const users: DBUsers = {
+  admin: {
+    id: 'c7d3f263-fce3-4236-a101-732540132b02',
+    passwordHash: '$2a$08$SXvR7cEq2KcVSDHiTIbdzOIsm8LIiszmRpopqZYLa.a.FjR/oE3oa'
+  }
 };
 
 const discounts: Discounts = {
@@ -202,4 +209,4 @@ const products: Product = {
   }
 };
 
-export { shopInfo, discounts, products };
+export { shopInfo, discounts, users, products };
