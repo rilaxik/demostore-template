@@ -16,7 +16,10 @@ const LoginPage = () => {
       <PageWrapper container>
         <Navbar isShortened />
         <section className={s.loginWrapper}>
-          <div className={s.title}>Login</div>
+          <span className={s.title}>Login</span>
+          <span className={s.navigation} onClick={() => navigate('/register')}>
+            I want to register
+          </span>
           <Input
             placeholder='Email or login'
             type={'email'}

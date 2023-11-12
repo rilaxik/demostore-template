@@ -13,4 +13,13 @@
     font-weight: $login-title-fw;
     color: $color-main;
   }
+
+  .navigation {
+    display: flex;
+
+    cursor: pointer;
+    font-size: $login-navigation-fs;
+    font-weight: $login-navigation-fw;
+    color: $bgcolor-accent
+  }
 }

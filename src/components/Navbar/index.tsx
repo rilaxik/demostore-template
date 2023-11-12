@@ -1,7 +1,14 @@
 import s from './style.module.scss';
 import { ShopCategories, shopInfo, store } from '../../consts';
 import { Button, Input } from '../';
-import { cartIcon, highlightedCartIcon, profileIcon, searchIcon, wishlistIcon } from '../../assets';
+import {
+  cartIcon,
+  highlightedCartIcon,
+  profileIcon,
+  highlightedProfileIcon,
+  searchIcon,
+  wishlistIcon
+} from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
@@ -10,19 +17,7 @@ const Navbar = ({ isShortened }: Props) => {
   const navigate = useNavigate();
   const [query, setQuery] = useState<string>();
   const [category, setCategory] = useState<ShopCategories>();
-  const [currency, cart] = store((state) => [state.currency, state.cart]);
-
-  // useEffect(() => {
-  //   if (category && query) {
-  //     navigate(`/?category=${category}&query=${query}`);
-  //   } else if (category && !query) {
-  //     navigate(`/?category=${category}`);
-  //   } else if (!category && query) {
-  //     navigate(`/?query=${query}`);
-  //   } else if (!category && !query) {
-  //     navigate('/');
-  //   }
-  // }, [category, query]);
+  const [currency, cart, loggedIn] = store((state) => [state.currency, state.cart, state.loggedIn]);
 
   return isShortened ? (
     <header className={s.header} style={{ padding: '1rem' }}>
@@ -57,8 +52,8 @@ const Navbar = ({ isShortened }: Props) => {
           <div className={s.iconWrapper}>
             <img src={wishlistIcon} alt='wishlist' />
           </div>
-          <div className={s.iconWrapper}>
-            <img src={profileIcon} alt='profile' />
+          <div className={s.iconWrapper} onClick={() => navigate('/login')}>
+            <img src={!loggedIn ? profileIcon : highlightedProfileIcon} alt='profile' />
           </div>
           <div className={s.iconWrapper} onClick={() => navigate('/cart')}>
             <img src={cart.size ? highlightedCartIcon : cartIcon} alt='cart' />
