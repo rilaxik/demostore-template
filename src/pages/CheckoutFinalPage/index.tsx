@@ -24,7 +24,7 @@ const CheckoutFinalPage = () => {
   return (
     <PageWrapper>
       <PageWrapper container>
-        <Navbar isCheckout />
+        <Navbar isShortened />
         <section className={s.checkoutFinalWrapper}>
           <span className={s.title}>Complete order</span>
           <div className={s.rowBlock}>

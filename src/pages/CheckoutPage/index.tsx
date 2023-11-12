@@ -33,7 +33,7 @@ const CheckoutPage = () => {
   return (
     <PageWrapper>
       <PageWrapper container>
-        <Navbar isCheckout />
+        <Navbar isShortened />
         <div className={s.checkoutWrapper}>
           <section className={s.personalBlock}>
             <span className={s.title}>Shipping information</span>
