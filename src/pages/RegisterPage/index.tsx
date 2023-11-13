@@ -1,8 +1,6 @@
 import s from './style.module.scss';
 import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
-import { encrypt, validateRegistrationEmail, validateRegistrationPassword } from '../../functions';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
@@ -56,20 +54,6 @@ const RegisterPage = () => {
   );
 
   function handleRegister() {
-    validateRegistrationEmail(creds.email)
-      .then((name) => {
-        console.log(name);
-        validateRegistrationPassword(creds.pass, creds.passR)
-          .then((pass) => {
-            console.log('Encrypted password: ' + encrypt(pass));
-            navigate('/');
-          })
-          .catch((e) => {
-            toast.error(e);
-          });
-      })
-      .catch((e) => toast.error(e));
-
     // todo process incoming data to remote db
   }
 };
