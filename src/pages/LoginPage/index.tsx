@@ -40,6 +40,8 @@ const LoginPage = () => {
   );
 
   async function handleLogin() {
+    if (!creds.login || !creds.pass) return toast.error('Please fill all the fields');
+
     await userLogin(creds.login, creds.pass)
       .then((loginSuccess) => {
         if (!loginSuccess) {
