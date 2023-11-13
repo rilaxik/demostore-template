@@ -47,17 +47,15 @@ export type CartDiscount = {
   expired: boolean;
 };
 
-export type UserPrivacy = {
+export type DB_User = {
+  login: string;
   firstName: string;
   lastName: string;
-  email: string;
-  address: {
-    street: string;
-    zip: string;
-    city: string;
-    country: string;
-    state: string;
-  };
+  street: string;
+  zip: string;
+  city: string;
+  country: string;
+  state: string;
 };
 
 export type DB_Response = {

@@ -2,7 +2,7 @@ import sqlite from "sqlite3";
 
 let db: sqlite.Database;
 
-const sql: string = `CREATE TABLE users(ID INTEGER PRIMARY KEY, login TEXT NOT NULL UNIQUE, password TEXT NOT NULL, street TEXT NOT NULL, city TEXT NOT NULL, state TEXT NOT NULL, country TEXT NOT NULL, zip TEXT NOT NULL)`;
+const sql: string = `CREATE TABLE users(ID INTEGER PRIMARY KEY, login TEXT NOT NULL, password TEXT NOT NULL, firstName TEXT NOT NULL, lastName TEXT NOT NULL, street TEXT NOT NULL, city TEXT NOT NULL, state TEXT NOT NULL, country TEXT NOT NULL, zip TEXT NOT NULL, UNIQUE(login))`;
 
 try {
   db = new sqlite.Database(

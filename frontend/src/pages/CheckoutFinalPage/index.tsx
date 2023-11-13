@@ -55,9 +55,9 @@ const CheckoutFinalPage = () => {
               <span className={s.subtle}>Shipping address</span>
               <span className={s.detail}>
                 {checkout.user.firstName}&nbsp;{checkout.user.lastName} <br />
-                {checkout.user.address.street} <br />
-                {checkout.user.address.zip},&nbsp;{checkout.user.address.city} <br />
-                {checkout.user.address.state},&nbsp;{checkout.user.address.country}
+                {checkout.user.street} <br />
+                {checkout.user.zip},&nbsp;{checkout.user.city} <br />
+                {checkout.user.state},&nbsp;{checkout.user.country}
               </span>
             </div>
           </div>

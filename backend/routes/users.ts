@@ -2,6 +2,7 @@ import express, { Router, Request, Response } from "express";
 import sqlite, { RunResult } from "sqlite3";
 import url from "url";
 import { ParsedUrlQuery } from "querystring";
+import { encrypt } from "../functions/encrypt.js";
 
 const usersRouter: Router = express.Router();
 
@@ -10,15 +11,34 @@ let db: sqlite.Database;
 
 usersRouter.post("/users", (req: Request, res: Response) => {
   try {
-    db = new sqlite.Database(
-      "./users.db",
-      sqlite.verbose().OPEN_READWRITE,
-      (err: Error | null) => {
-        if (err) console.log(err);
-      },
-    );
-
-    const { login, password, street, city, state, country, zip } = req.body;
+    const {
+      login,
+      password,
+      firstName,
+      lastName,
+      street,
+      city,
+      state,
+      country,
+      zip,
+    } = req.body;
+    if (
+      !login ||
+      !password ||
+      !firstName ||
+      !lastName ||
+      !street ||
+      !city ||
+      !state ||
+      !country ||
+      !zip
+    ) {
+      return res.json({
+        status: 400,
+        success: false,
+        error: "Please fill all the fields",
+      });
+    }
     if (login.length < 5) {
       return res.json({
         status: 300,
@@ -33,40 +53,63 @@ usersRouter.post("/users", (req: Request, res: Response) => {
         error: "Password must be at least 8 symbols long",
       });
     }
-    sql = `INSERT INTO users(login, password, street, city, state, country, zip) VALUES (?,?,?,?,?,?,?)`;
+
+    db = new sqlite.Database(
+      "./users.db",
+      sqlite.verbose().OPEN_READWRITE,
+      (err: Error | null) => {
+        if (err) console.log(err);
+      },
+    );
+
+    sql = `INSERT INTO users(login, password, firstName, lastName, street, city, state, country, zip) VALUES (?,?,?,?,?,?,?,?,?)`;
 
     db.run(
       sql,
-      [login, password, street, city, state, country, zip],
+      [
+        login,
+        encrypt(password),
+        firstName,
+        lastName,
+        street,
+        city,
+        state,
+        country,
+        zip,
+      ],
       (err: Error | null) => {
         if (err)
           return res.json({
             status: 300,
             success: false,
-            error: err,
+            error: "User already exists",
           });
         console.log("Successful POST request, new user added:", req.body);
+        res.json({
+          status: 200,
+          success: true,
+          data: true,
+        });
       },
     );
-
-    res.json({
-      status: 200,
-      success: true,
-    });
   } catch (err: any) {
     console.error(err.message ?? "No error message");
     return res.json({
       status: 400,
       success: false,
+      error: err,
     });
-  } finally {
-    db.close();
   }
 });
 
 usersRouter.get("/users", (req: Request, res: Response) => {
   sql = `SELECT * FROM users`;
   try {
+    const queryObj = url.parse(req.url, true).query;
+    if (queryObj && queryObj.login) {
+      sql += ` WHERE login = ?`;
+    }
+
     db = new sqlite.Database(
       "./users.db",
       sqlite.verbose().OPEN_READWRITE,
@@ -75,31 +118,34 @@ usersRouter.get("/users", (req: Request, res: Response) => {
       },
     );
 
-    const queryObj = url.parse(req.url, true).query;
-    if (queryObj && queryObj.login) {
-      sql += ` WHERE login = ?`;
-    }
-
     db.all(
       sql,
       [queryObj.login],
-      (err: Error | null, rows): Response<DB_Response> => {
+      (
+        err: Error | null,
+        rows: (DB_User & { password?: string })[],
+      ): Response<DB_Response> => {
         if (err)
           return res.json({
             status: 300,
             success: false,
             error: err,
           });
-
         if (rows.length < 1)
           return res.json({
-            status: 300,
+            status: 200,
             success: false,
             error: "No match",
           });
 
+        const rowsSecure: DB_User[] = [];
+        rows.forEach((item) => {
+          delete item.password;
+          rowsSecure.push(item);
+        });
+
         console.log("Successful GET request:", url.parse(req.url, true).href);
-        return res.json({ status: 200, success: true, data: rows });
+        return res.json({ status: 200, success: true, data: rowsSecure });
       },
     );
   } catch (err: any) {
@@ -108,14 +154,21 @@ usersRouter.get("/users", (req: Request, res: Response) => {
       status: 400,
       success: false,
     });
-  } finally {
-    db.close();
   }
 });
 
-usersRouter.delete("/users", (req: Request, res: Response): Response => {
-  sql = "DELETE FROM users";
+usersRouter.delete("/users", (req: Request, res: Response) => {
+  sql = "DELETE FROM users WHERE ID = ?";
   try {
+    const queryObj: ParsedUrlQuery = url.parse(req.url, true).query;
+    if (!queryObj || !queryObj.id) {
+      return res.json({
+        status: 400,
+        success: false,
+        error: "Please fill all the fields",
+      });
+    }
+
     db = new sqlite.Database(
       "./users.db",
       sqlite.verbose().OPEN_READWRITE,
@@ -124,34 +177,15 @@ usersRouter.delete("/users", (req: Request, res: Response): Response => {
       },
     );
 
-    const queryObj: ParsedUrlQuery = url.parse(req.url, true).query;
-
-    if (queryObj && queryObj.login) {
-      sql += ` WHERE login = ?`;
-      console.log(sql);
-      db.run(
-        sql,
-        [queryObj.login],
-        (_: RunResult, err: Error | null): Response => {
-          if (err)
-            return res.json({
-              status: 300,
-              success: false,
-              error: err,
-            });
-
-          console.log(
-            "Successful DELETE request:",
-            url.parse(req.url, true).href,
-          );
-          return res.json({ status: 200, success: true });
-        },
-      );
-    }
-    return res.json({
-      status: 400,
-      success: false,
-      error: "Please fill all the fields",
+    db.run(sql, [queryObj.id], (_: RunResult, err: Error | null): Response => {
+      if (err)
+        return res.json({
+          status: 300,
+          success: false,
+          error: err,
+        });
+      console.log("Successful DELETE request:", url.parse(req.url, true).href);
+      return res.json({ status: 200, success: true, data: true });
     });
   } catch (err: any) {
     console.error(err.message);
@@ -159,8 +193,6 @@ usersRouter.delete("/users", (req: Request, res: Response): Response => {
       status: 400,
       success: false,
     });
-  } finally {
-    db.close();
   }
 });
 
@@ -171,4 +203,14 @@ type DB_Response = {
   success: boolean;
   error?: Error | string;
   data: any;
+};
+type DB_User = {
+  login: string;
+  firstName: string;
+  lastName: string;
+  street: string;
+  zip: string;
+  city: string;
+  country: string;
+  state: string;
 };

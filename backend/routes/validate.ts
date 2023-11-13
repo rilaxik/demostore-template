@@ -13,7 +13,7 @@ validateRouter.post(
   (req: Request, res: Response): Response | undefined => {
     try {
       const { login, password } = req.body;
-      if (!req.body || !login || !password) {
+      if (!login || !password) {
         return res.json({
           status: 400,
           success: false,
@@ -59,8 +59,6 @@ validateRouter.post(
         status: 400,
         success: false,
       });
-    } finally {
-      db.close();
     }
   },
 );

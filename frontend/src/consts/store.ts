@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import {
   ShopCategories,
   CartDiscount,
-  UserPrivacy,
+  DB_User,
   UserBilling,
   UserBillingShipping,
   UserBillingPayment
@@ -20,7 +20,7 @@ type State = {
     id: string;
     cart: State['cart'];
     discount: CartDiscount | null;
-    user: UserPrivacy;
+    user: DB_User;
     billing: UserBilling;
     isPaid: boolean;
     isCompleted: boolean;
@@ -126,16 +126,15 @@ const store = create<State & Action>((set) => ({
     cart: new Map(),
     discount: null,
     user: {
+      login: '',
       firstName: '',
       lastName: '',
       email: '',
-      address: {
-        street: '',
-        zip: '',
-        city: '',
-        country: '',
-        state: ''
-      }
+      street: '',
+      zip: '',
+      city: '',
+      country: '',
+      state: ''
     },
     billing: {
       shipping: UserBillingShipping.STANDARD,
