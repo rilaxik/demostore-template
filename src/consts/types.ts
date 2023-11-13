@@ -60,11 +60,11 @@ export type UserPrivacy = {
   };
 };
 
-export type DBUsers = {
-  [key: string]: {
-    id: string;
-    passwordHash: string;
-  };
+export type DB_Response = {
+  status: number;
+  success: boolean;
+  error?: string;
+  data?: never;
 };
 
 export type UserBilling = {

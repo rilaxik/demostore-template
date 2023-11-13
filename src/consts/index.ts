@@ -1,11 +1,11 @@
-import { shopInfo, discounts, users, products } from './data.ts';
+import { shopInfo, discounts, products } from './data.ts';
 import {
   Product,
   ProductShort,
   Discounts,
   CartDiscount,
   UserPrivacy,
-  DBUsers,
+  DB_Response,
   UserBilling,
   UserBillingShipping,
   UserBillingPayment,
@@ -16,14 +16,13 @@ import store from './store.ts';
 export {
   shopInfo,
   discounts,
-  users,
   products,
   type Product,
   type ProductShort,
   type Discounts,
   type CartDiscount,
   type UserPrivacy,
-  type DBUsers,
+  type DB_Response,
   type UserBilling,
   UserBillingShipping,
   UserBillingPayment,

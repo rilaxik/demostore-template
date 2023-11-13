@@ -2,7 +2,7 @@ import s from './style.module.scss';
 import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { validateLogin } from '../../functions';
+import { userLogin } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { store } from '../../consts';
 
@@ -39,18 +39,21 @@ const LoginPage = () => {
     </PageWrapper>
   );
 
-  function handleLogin() {
-    console.log();
-    validateLogin(creds.login, creds.pass)
-      .then((uuid) => {
-        toast.success('Logging in..');
-        setLoggedIn(uuid);
-        setTimeout(() => {
-          navigate('/');
-        }, 3000);
+  async function handleLogin() {
+    await userLogin(creds.login, creds.pass)
+      .then((loginSuccess) => {
+        if (!loginSuccess) {
+          return toast.error('The password is wrong');
+        } else {
+          toast.success('Logging in..');
+          setLoggedIn(creds.login);
+          setTimeout(() => {
+            navigate('/');
+          }, 3000);
+        }
       })
-      .catch((e) => {
-        toast.error(e);
+      .catch((err) => {
+        toast.error(err.message);
       });
   }
 };
