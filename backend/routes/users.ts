@@ -10,9 +10,6 @@ let db: sqlite.Database;
 
 usersRouter.post("/users", (req: Request, res: Response) => {
   try {
-    const { login, password } = req.body;
-    sql = `INSERT INTO users(login,password) VALUES (?,?)`;
-
     db = new sqlite.Database(
       "./users.db",
       sqlite.verbose().OPEN_READWRITE,
@@ -21,15 +18,36 @@ usersRouter.post("/users", (req: Request, res: Response) => {
       },
     );
 
-    db.run(sql, [login, password], (err: Error | null) => {
-      if (err)
-        return res.json({
-          status: 300,
-          success: false,
-          error: err,
-        });
-      console.log("Successful POST request:", req.body);
-    });
+    const { login, password, street, city, state, country, zip } = req.body;
+    if (login.length < 5) {
+      return res.json({
+        status: 300,
+        success: false,
+        error: "Login must be at least 5 symbols long",
+      });
+    }
+    if (password.length < 8) {
+      return res.json({
+        status: 300,
+        success: false,
+        error: "Password must be at least 8 symbols long",
+      });
+    }
+    sql = `INSERT INTO users(login, password, street, city, state, country, zip) VALUES (?,?,?,?,?,?,?)`;
+
+    db.run(
+      sql,
+      [login, password, street, city, state, country, zip],
+      (err: Error | null) => {
+        if (err)
+          return res.json({
+            status: 300,
+            success: false,
+            error: err,
+          });
+        console.log("Successful POST request, new user added:", req.body);
+      },
+    );
 
     res.json({
       status: 200,
@@ -49,11 +67,6 @@ usersRouter.post("/users", (req: Request, res: Response) => {
 usersRouter.get("/users", (req: Request, res: Response) => {
   sql = `SELECT * FROM users`;
   try {
-    const queryObj = url.parse(req.url, true).query;
-    if (queryObj && queryObj.login) {
-      sql += ` WHERE login = ?`;
-    }
-
     db = new sqlite.Database(
       "./users.db",
       sqlite.verbose().OPEN_READWRITE,
@@ -61,6 +74,11 @@ usersRouter.get("/users", (req: Request, res: Response) => {
         if (err) console.log(err);
       },
     );
+
+    const queryObj = url.parse(req.url, true).query;
+    if (queryObj && queryObj.login) {
+      sql += ` WHERE login = ?`;
+    }
 
     db.all(
       sql,
@@ -95,11 +113,9 @@ usersRouter.get("/users", (req: Request, res: Response) => {
   }
 });
 
-usersRouter.delete("/users", (req: Request, res: Response) => {
+usersRouter.delete("/users", (req: Request, res: Response): Response => {
   sql = "DELETE FROM users";
   try {
-    const queryObj: ParsedUrlQuery = url.parse(req.url, true).query;
-
     db = new sqlite.Database(
       "./users.db",
       sqlite.verbose().OPEN_READWRITE,
@@ -108,23 +124,29 @@ usersRouter.delete("/users", (req: Request, res: Response) => {
       },
     );
 
+    const queryObj: ParsedUrlQuery = url.parse(req.url, true).query;
+
     if (queryObj && queryObj.login) {
       sql += ` WHERE login = ?`;
       console.log(sql);
-      db.run(sql, [queryObj.login], (_: RunResult, err: Error | null) => {
-        if (err)
-          return res.json({
-            status: 300,
-            success: false,
-            error: err,
-          });
+      db.run(
+        sql,
+        [queryObj.login],
+        (_: RunResult, err: Error | null): Response => {
+          if (err)
+            return res.json({
+              status: 300,
+              success: false,
+              error: err,
+            });
 
-        console.log(
-          "Successful DELETE request:",
-          url.parse(req.url, true).href,
-        );
-        return res.json({ status: 200, success: true });
-      });
+          console.log(
+            "Successful DELETE request:",
+            url.parse(req.url, true).href,
+          );
+          return res.json({ status: 200, success: true });
+        },
+      );
     }
     return res.json({
       status: 400,
