@@ -1,7 +1,7 @@
-import { AppDataSource } from "../data-source";
-import { NextFunction, Request, Response } from "express";
-import { User } from "../entity/User";
-import { encrypt } from "../functions/encrypt";
+import { AppDataSource } from '../data-source';
+import type { NextFunction, Request, Response } from 'express';
+import { User } from '../entity/User';
+import { encrypt } from '../functions/encrypt';
 
 export class UserController {
   private userRepository = AppDataSource.getRepository(User);
@@ -21,7 +21,7 @@ export class UserController {
       where: { login },
     });
 
-    // part of future login system
+    // todo part of login system
     // const pass = await this.userRepository
     //   .createQueryBuilder("user")
     //   .select(["user.login", "user.password"])
@@ -31,7 +31,7 @@ export class UserController {
     // console.log(pass);
 
     if (!user) {
-      return { status: 400, message: "User was not found" };
+      return { status: 400, message: 'User was not found' };
     }
 
     return {
@@ -41,17 +41,8 @@ export class UserController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const {
-      login,
-      password,
-      firstName,
-      lastName,
-      street,
-      city,
-      state,
-      country,
-      zip,
-    } = request.body;
+    const { login, password, firstName, lastName, street, city, state, country, zip } =
+      request.body;
 
     const passwordEnc = encrypt(password);
 
@@ -72,7 +63,7 @@ export class UserController {
       data = await this.userRepository.save(user);
     } catch (e) {
       if (e.errno === 19) {
-        return { status: 400, message: "User already exists" };
+        return { status: 400, message: 'User already exists' };
       } else return undefined;
     }
 
@@ -85,11 +76,11 @@ export class UserController {
     let userToRemove = await this.userRepository.findOneBy({ id });
 
     if (!userToRemove) {
-      return { status: 404, message: "This user does not exist" };
+      return { status: 404, message: 'This user does not exist' };
     }
 
     await this.userRepository.remove(userToRemove);
 
-    return { status: 200, message: "User has been removed" };
+    return { status: 200, message: 'User has been removed' };
   }
 }
