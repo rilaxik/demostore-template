@@ -17,16 +17,14 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   const [checkout, updCheckoutUser] = store((state) => [state.checkout, state.updCheckoutUser]);
   const [tempUser, setTempUser] = useState({
+    login: '',
     firstName: '',
     lastName: '',
-    email: '',
-    address: {
-      street: '',
-      zip: '',
-      city: '',
-      country: '',
-      state: ''
-    }
+    street: '',
+    zip: '',
+    city: '',
+    country: '',
+    state: ''
   });
   const [userData, setUserData] = useState({ email: '', password: '' });
 
@@ -98,10 +96,7 @@ const CheckoutPage = () => {
                 callback={(v) =>
                   setTempUser({
                     ...tempUser,
-                    address: {
-                      ...tempUser.address,
-                      street: v
-                    }
+                    street: v
                   })
                 }
               />
@@ -113,10 +108,7 @@ const CheckoutPage = () => {
                 callback={(v) =>
                   setTempUser({
                     ...tempUser,
-                    address: {
-                      ...tempUser.address,
-                      zip: v
-                    }
+                    zip: v
                   })
                 }
               />
@@ -128,10 +120,7 @@ const CheckoutPage = () => {
                 callback={(v) =>
                   setTempUser({
                     ...tempUser,
-                    address: {
-                      ...tempUser.address,
-                      city: v
-                    }
+                    city: v
                   })
                 }
               />
@@ -145,10 +134,7 @@ const CheckoutPage = () => {
                 callback={(v) =>
                   setTempUser({
                     ...tempUser,
-                    address: {
-                      ...tempUser.address,
-                      country: v
-                    }
+                    country: v
                   })
                 }
               />
@@ -160,10 +146,7 @@ const CheckoutPage = () => {
                 callback={(v) =>
                   setTempUser({
                     ...tempUser,
-                    address: {
-                      ...tempUser.address,
-                      state: v
-                    }
+                    state: v
                   })
                 }
               />

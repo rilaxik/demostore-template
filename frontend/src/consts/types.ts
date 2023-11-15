@@ -46,7 +46,7 @@ export type CartDiscount = {
   systemReadable: string;
   expired: boolean;
 };
-
+// todo add email! + refactor db + handler
 export type DB_User = {
   login: string;
   firstName: string;
