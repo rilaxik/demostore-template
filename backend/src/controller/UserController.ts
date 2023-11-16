@@ -1,52 +1,76 @@
-import { AppDataSource } from '../data-source';
 import type { NextFunction, Request, Response } from 'express';
+import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
+import type { DBResponse } from '../types';
+import { UsersGetOneSchema, UsersSaveSchema, type UsersSaveType } from '../types/users';
 import { encrypt } from '../functions/encrypt';
+import { Repository } from 'typeorm';
 
 export class UserController {
-  private userRepository = AppDataSource.getRepository(User);
+  private userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  async all(request: Request, response: Response, next: NextFunction) {
-    const data = await this.userRepository.find();
+  async all(request: Request, response: Response, next: NextFunction): Promise<DBResponse<User[]>> {
+    const data: User[] = await this.userRepository.find();
     return {
       status: 200,
+      message: 'Users found',
       data,
     };
   }
 
-  async one(request: Request, response: Response, next: NextFunction) {
-    const login = request.params.login;
+  async one(request: Request, response: Response, next: NextFunction): Promise<DBResponse<User>> {
+    if (!UsersGetOneSchema.safeParse(request.params).success)
+      return { status: 400, message: 'Validation failed: invalid fields provided' };
 
-    const user = await this.userRepository.findOne({
+    const login: string = request.params.login;
+
+    const user: User = await this.userRepository.findOne({
       where: { login },
     });
 
-    // todo part of login system
-    // const pass = await this.userRepository
-    //   .createQueryBuilder("user")
-    //   .select(["user.login", "user.password"])
-    //   .where({ login: "admin" })
-    //   .getOne();
-    //
-    // console.log(pass);
-
     if (!user) {
-      return { status: 400, message: 'User was not found' };
+      return { status: 404, message: 'User was not found' };
     }
 
     return {
       status: 200,
+      message: 'Found a user',
       data: user,
     };
   }
 
-  async save(request: Request, response: Response, next: NextFunction) {
+  async save(request: Request, response: Response, next: NextFunction): Promise<DBResponse<never>> {
+    try {
+      UsersSaveSchema.parse(request.body);
+    } catch (err) {
+      const error = err.issues[0];
+      if (error.code === 'too_small') {
+        return {
+          status: 400,
+          message: error.message,
+          error: error,
+        };
+      } else if (error.code === 'invalid_type') {
+        return {
+          status: 400,
+          message: `Please fill all the fields`,
+          error,
+        };
+      } else {
+        console.log(error);
+        return {
+          status: 400,
+          message: `Unknown Zod Error`,
+          error,
+        };
+      }
+    }
+
     const { login, password, firstName, lastName, street, city, state, country, zip } =
       request.body;
 
-    const passwordEnc = encrypt(password);
-
-    const user = Object.assign(new User(), {
+    const passwordEnc: string = encrypt(password);
+    const user: User & UsersSaveType = Object.assign(new User(), {
       login,
       password: passwordEnc,
       firstName,
@@ -58,22 +82,25 @@ export class UserController {
       zip,
     });
 
-    let data;
     try {
-      data = await this.userRepository.save(user);
+      await this.userRepository.save(user);
     } catch (e) {
       if (e.errno === 19) {
         return { status: 400, message: 'User already exists' };
       } else return undefined;
     }
 
-    return { status: 201, data };
+    return { status: 201, message: 'User was successfully saved' };
   }
 
-  async remove(request: Request, response: Response, next: NextFunction) {
-    const id = parseInt(request.params.id);
+  async remove(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<DBResponse<never>> {
+    const id: number = parseInt(request.params.id);
 
-    let userToRemove = await this.userRepository.findOneBy({ id });
+    let userToRemove: User = await this.userRepository.findOneBy({ id });
 
     if (!userToRemove) {
       return { status: 404, message: 'This user does not exist' };

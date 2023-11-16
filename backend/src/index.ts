@@ -1,23 +1,27 @@
 import * as express from 'express';
+import type { Express, Request, Response } from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
-import type { Express, Request, Response } from 'express';
+import { zodMW } from './middlewares/zod.middleware';
 import { AppDataSource } from './data-source';
 import { Routes } from './routes';
+import { Route } from './types';
 
 AppDataSource.initialize()
-  .then(async () => {
+  .then(async (): Promise<void> => {
     /*
      *   create express app
+     *   use middlewares
      */
     const app: Express = express();
     app.use(bodyParser.json());
     app.use(cors());
+    app.use(zodMW);
 
     /*
      *   register express routes from defined application routes
      */
-    Routes.forEach((route) => {
+    Routes.forEach((route: Route) => {
       (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
         const result = new (route.controller as any)()[route.action](req, res, next);
 
@@ -25,20 +29,20 @@ AppDataSource.initialize()
          *   controller return handler
          */
         if (result instanceof Promise) {
-          result.then((result) =>
+          result.then((result): void =>
             result !== null && result !== undefined
               ? res.send(result) &&
-                console.log(`✔️| Successful ${route.method.toUpperCase()} request`)
+                console.log(`✔️| ${result.status} | Handled ${route.method.toUpperCase()} request`)
               : res.json({
-                  status: 400,
-                  message: 'Could not resolve request',
+                  status: 500,
+                  message: 'DB: could not resolve',
                 }) && console.log(`❌| Failed ${route.method.toUpperCase()} request`)
           );
         } else if (result !== null && result !== undefined) {
           res.json(result);
-          console.log(`✔️| Successful ${route.method.toUpperCase()} request`);
+          console.log(`✔️| ${result.status} | Handled ${route.method.toUpperCase()} request`);
         } else {
-          res.json({ status: 500, message: 'DB | Could not resolve' });
+          res.json({ status: 500, message: 'DB: could not resolve' });
           console.log(`❌| Failed ${route.method.toUpperCase()} request`);
         }
       });
@@ -48,7 +52,7 @@ AppDataSource.initialize()
      *   default path response
      */
     app.get('/', (req: Request, res: Response) => {
-      res.json({ message: 'alive' });
+      res.json({ message: 'Server is alive' });
     });
 
     /*
