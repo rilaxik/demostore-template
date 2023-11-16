@@ -4,7 +4,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { userLogin } from '../../api';
 import { useNavigate } from 'react-router-dom';
-import { store } from '../../consts';
+import { DB_Response, store } from '../../consts';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ const LoginPage = () => {
     if (!creds.login || !creds.pass) return toast.error('Please fill all the fields');
 
     await userLogin(creds.login, creds.pass)
-      .then((loginSuccess) => {
-        if (!loginSuccess) {
+      .then((res: DB_Response<boolean>) => {
+        if (!res.data) {
           return toast.error('The password is wrong');
         } else {
           toast.success('Logging in..');

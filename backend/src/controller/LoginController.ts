@@ -15,7 +15,7 @@ export class LoginController {
     next: NextFunction
   ): Promise<DBResponse<boolean>> {
     if (!UsersLoginSchema.safeParse(request.body).success)
-      return { status: 400, message: 'Validation failed: invalid fields provided' };
+      return { status: 400, message: 'Please fill all the fields' };
 
     const { login, password } = request.body;
 

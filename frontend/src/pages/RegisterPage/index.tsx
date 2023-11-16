@@ -11,6 +11,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const [creds, setCreds] = useState<DB_User>({
     login: '',
+    password: '',
     firstName: '',
     lastName: '',
     street: '',
@@ -19,7 +20,7 @@ const RegisterPage = () => {
     country: '',
     zip: ''
   });
-  const [pass, setPassword] = useState({ password: '', passwordR: '' });
+  const [passR, setPassR] = useState<string>('');
 
   return (
     <PageWrapper>
@@ -55,13 +56,13 @@ const RegisterPage = () => {
               placeholder='Password'
               type={'password'}
               callbackOnChange
-              callback={(v) => setPassword({ ...pass, password: v.trim() })}
+              callback={(v) => setCreds({ ...creds, password: v.trim() })}
             />
             <Input
               placeholder='Password'
               type={'password'}
               callbackOnChange
-              callback={(v) => setPassword({ ...pass, passwordR: v.trim() })}
+              callback={(v) => setPassR(v.trim())}
             />
           </div>
           <div className={s.row}>
@@ -115,19 +116,17 @@ const RegisterPage = () => {
       !creds.state ||
       !creds.country ||
       !creds.zip ||
-      !pass.password ||
-      !pass.passwordR
+      !passR
     ) {
       return toast.error('Please fill all the fields');
     }
 
-    const { login, firstName, lastName, street, city, state, country, zip } = creds;
-    validateRegistrationPassword(pass.password, pass.passwordR)
-      .then(async (password: string) => {
-        await userRegister(login, password, firstName, lastName, street, city, state, country, zip)
-          .then((success) => {
-            if (success) {
-              toast.success('User was successfully registered');
+    validateRegistrationPassword(creds.password, passR)
+      .then(async () => {
+        await userRegister(creds)
+          .then((res) => {
+            if (res) {
+              toast.success(res.message);
               setTimeout(() => {
                 navigate('/');
               }, 3000);

@@ -63,5 +63,3 @@ AppDataSource.initialize()
     console.log('🌎| Server started on http://localhost:3001/');
   })
   .catch((error) => console.log(error));
-
-// todo add zod mw

@@ -49,20 +49,21 @@ export type CartDiscount = {
 
 export type DB_User = {
   login: string;
+  password: string;
   firstName: string;
   lastName: string;
   street: string;
-  zip: string;
   city: string;
-  country: string;
   state: string;
+  country: string;
+  zip: string;
 };
 
-export type DB_Response = {
+export type DB_Response<T> = {
   status: number;
-  success: boolean;
-  error?: string;
-  data?: never;
+  message: string;
+  error?: any;
+  data?: T;
 };
 
 export type UserBilling = {
