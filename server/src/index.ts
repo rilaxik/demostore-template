@@ -32,18 +32,18 @@ AppDataSource.initialize()
           result.then((result): void =>
             result !== null && result !== undefined
               ? res.send(result) &&
-                console.log(`✔️| ${result.status} | Handled ${route.method.toUpperCase()} request`)
+                console.log(`✔️ | ${result.status} | Handled ${route.method.toUpperCase()} request`)
               : res.json({
                   status: 500,
                   message: 'DB: could not resolve',
-                }) && console.log(`❌| Failed ${route.method.toUpperCase()} request`)
+                }) && console.log(`❌ | Failed ${route.method.toUpperCase()} request`)
           );
         } else if (result !== null && result !== undefined) {
           res.json(result);
-          console.log(`✔️| ${result.status} | Handled ${route.method.toUpperCase()} request`);
+          console.log(`✔️ | ${result.status} | Handled ${route.method.toUpperCase()} request`);
         } else {
           res.json({ status: 500, message: 'DB: could not resolve' });
-          console.log(`❌| Failed ${route.method.toUpperCase()} request`);
+          console.log(`❌ | Failed ${route.method.toUpperCase()} request`);
         }
       });
     });
@@ -60,6 +60,6 @@ AppDataSource.initialize()
      */
     app.listen(3001);
 
-    console.log('🌎| Server started on http://localhost:3001/');
+    console.log('\n🌎 | Server started on http://localhost:3001/');
   })
   .catch((error) => console.log(error));

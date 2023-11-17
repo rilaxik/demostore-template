@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "description": "express REST API for eCommerceTemplate",
+  "type": "commonjs",
+  "author": "https://github.com/rilaxik/",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "ts-node",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "format": "prettier . --write"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.1.6",
+    "ts-loader": "^9.5.0",
+    "typeorm": "0.3.17"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.16",
+    "@types/express": "^4.17.21",
+    "@types/sqlite3": "^3.1.11",
+    "ts-node": "10.7.0"
+  }
+}

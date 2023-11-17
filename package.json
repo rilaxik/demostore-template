@@ -1,0 +1,26 @@
+{
+  "name": "ecommerce",
+  "version": "2.0.0",
+  "description": "just a template for an online shop",
+  "workspaces": [
+    "server",
+    "ui"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=ui\""
+  },
+  "author": "https://github.com/rilaxik",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "@types/uuid": "^9.0.6",
+    "prettier": "3.1.0",
+    "typescript": "^5.2.2"
+  }
+}
