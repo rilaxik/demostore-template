@@ -1,4 +1,4 @@
-export type DBResponse<T> = {
+export type DB_Response<T> = {
   status: number;
   message: string;
   error?: any;

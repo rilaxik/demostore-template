@@ -1,9 +1,14 @@
 # ⌛ In progress
 
 ### 🚪 About 
-Monorepository for an online store, written in Typescript
+Monorepository for an online store template, in Typescript
 
-### 🐛 Utils
+### 🐛 Features
+- Written in Typescript
+- Frontend/backend share types
+- Request validations
+
+
 - Frontend
   - Vite-React
   - Sass
@@ -15,9 +20,8 @@ Monorepository for an online store, written in Typescript
   - Zod
 
 ### 📚 Planned
-- Shared ts types
 - i18n translation
-- move products to db
+- move products to server
 
 ### 🥰 Extras
 <p align = "center">

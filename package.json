@@ -1,17 +1,19 @@
 {
+  "private": true,
   "name": "ecommerce",
   "version": "2.0.0",
-  "description": "just a template for an online shop",
+  "description": "Monorepository for an online store, written in Typescript",
+  "author": "https://github.com/rilaxik",
+  "license": "ISC",
   "workspaces": [
     "server",
-    "ui"
+    "ui",
+    "shared"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=ui\""
   },
-  "author": "https://github.com/rilaxik",
-  "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
     "concurrently": "^8.2.2",

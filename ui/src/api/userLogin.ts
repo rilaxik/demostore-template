@@ -1,13 +1,16 @@
 import axios, { AxiosResponse } from 'axios';
-import { DB } from './';
-import { DB_Response } from '../consts';
+import { SERVER_CONFIG } from 'shared/types';
+import { DB_Response } from 'shared/types';
 
 export default async function userLogin(
   login: string,
   password: string
 ): Promise<DB_Response<boolean>> {
   return await axios
-    .post(`http://${DB.PATH}:${DB.PORT}/login`, { login, password })
+    .post(`${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/login`, {
+      login,
+      password
+    })
     .then(({ data }: AxiosResponse<DB_Response<boolean>, any>) => {
       if (data.status !== 200) throw new Error(data.message);
 

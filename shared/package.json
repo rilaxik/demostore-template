@@ -1,0 +1,7 @@
+{
+  "private": false,
+  "name": "@ecommerce/shared",
+  "version": "1.0.0",
+  "description": "shared ts-types",
+  "author": "https://github.com/rilaxik"
+}

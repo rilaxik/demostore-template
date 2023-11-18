@@ -1,4 +1,4 @@
-import { Route } from './types';
+import { type Route } from 'shared/types';
 import { UserController } from './controller/UserController';
 import { LoginController } from './controller/LoginController';
 

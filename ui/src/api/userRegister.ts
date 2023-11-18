@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { DB } from './';
-import { DB_Response, DB_User } from '../consts';
+import { SERVER_CONFIG, DB_Response, UsersType } from 'shared/types';
 
 export default async function userRegister({
   login,
@@ -12,9 +11,9 @@ export default async function userRegister({
   state,
   country,
   zip
-}: DB_User): Promise<DB_Response<never>> {
+}: UsersType): Promise<DB_Response<never>> {
   return await axios
-    .post(`http://${DB.PATH}:${DB.PORT}/users`, {
+    .post(`${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/users`, {
       login,
       password,
       firstName,

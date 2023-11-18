@@ -2,14 +2,14 @@ import s from './style.module.scss';
 import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DB_User } from '../../consts';
+import { UsersType } from 'shared/types';
 import toast from 'react-hot-toast';
 import userRegister from '../../api/userRegister.ts';
 import { validateRegistrationPassword } from '../../functions';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const [creds, setCreds] = useState<DB_User>({
+  const [creds, setCreds] = useState<UsersType>({
     login: '',
     password: '',
     firstName: '',

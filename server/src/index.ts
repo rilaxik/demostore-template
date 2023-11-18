@@ -5,7 +5,7 @@ import * as cors from 'cors';
 import { zodMW } from './middlewares/zod.middleware';
 import { AppDataSource } from './data-source';
 import { Routes } from './routes';
-import { Route } from './types';
+import { SERVER_CONFIG, Route } from 'shared/types';
 import * as chalk from 'chalk';
 
 AppDataSource.initialize()
@@ -65,8 +65,11 @@ AppDataSource.initialize()
     /*
      *   start express server
      */
-    app.listen(3001);
+    app.listen(SERVER_CONFIG.PORT);
 
-    console.log(chalk.bold('\n🌎 | Server started on http://localhost:3001/'));
+    console.log(
+      chalk.bold(`
+🌎 | Server started on ${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/`)
+    );
   })
   .catch((error) => console.log(error));

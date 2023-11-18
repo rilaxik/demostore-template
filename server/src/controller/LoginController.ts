@@ -1,19 +1,18 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { Request } from 'express';
+import { Repository } from 'typeorm';
+import { type DB_Response, UsersLoginSchema } from 'shared/types';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
-import type { DBResponse } from '../types';
-import { UsersLoginSchema } from '../types/users';
 import { encryptValidate } from '../functions/encrypt';
-import { Repository } from 'typeorm';
 
 export class LoginController {
   private userRepository: Repository<User> = AppDataSource.getRepository(User);
 
   async one(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ): Promise<DBResponse<boolean>> {
+    request: Request
+    // response: Response,
+    // next: NextFunction
+  ): Promise<DB_Response<boolean>> {
     if (!UsersLoginSchema.safeParse(request.body).success)
       return { status: 400, message: 'Please fill all the fields' };
 

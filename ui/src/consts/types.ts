@@ -47,25 +47,6 @@ export type CartDiscount = {
   expired: boolean;
 };
 
-export type DB_User = {
-  login: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  street: string;
-  city: string;
-  state: string;
-  country: string;
-  zip: string;
-};
-
-export type DB_Response<T> = {
-  status: number;
-  message: string;
-  error?: any;
-  data?: T;
-};
-
 export type UserBilling = {
   shipping: UserBillingShipping;
   payment: UserBillingPayment;

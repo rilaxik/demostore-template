@@ -1,9 +1,10 @@
 {
-  "name": "server",
-  "version": "0.1.0",
-  "description": "express REST API for eCommerceTemplate",
-  "type": "commonjs",
+  "private": true,
+  "name": "@ecommerce/server",
+  "version": "1.2.0",
+  "description": "TS-Express based REST API for a DemoStore",
   "author": "https://github.com/rilaxik/",
+  "type": "commonjs",
   "main": "./src/index.ts",
   "scripts": {
     "dev": "nodemon",

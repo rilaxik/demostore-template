@@ -1,15 +1,22 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { Request } from 'express';
+import { Repository } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
-import type { DBResponse } from '../types';
-import { UsersGetOneSchema, UsersSaveSchema, type UsersSaveType } from '../types/users';
+import {
+  type DB_Response,
+  UsersGetSchema,
+  UsersRegisterSchema,
+  type UsersType,
+} from 'shared/types';
 import { encrypt } from '../functions/encrypt';
-import { Repository } from 'typeorm';
 
 export class UserController {
   private userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  async all(request: Request, response: Response, next: NextFunction): Promise<DBResponse<User[]>> {
+  async all() // request: Request,
+  // response: Response,
+  // next: NextFunction
+  : Promise<DB_Response<User[]>> {
     const data: User[] = await this.userRepository.find();
     return {
       status: 200,
@@ -18,8 +25,12 @@ export class UserController {
     };
   }
 
-  async one(request: Request, response: Response, next: NextFunction): Promise<DBResponse<User>> {
-    if (!UsersGetOneSchema.safeParse(request.params).success)
+  async one(
+    request: Request
+    // response: Response,
+    // next: NextFunction
+  ): Promise<DB_Response<User>> {
+    if (!UsersGetSchema.safeParse(request.params).success)
       return { status: 400, message: 'Validation failed: invalid fields provided' };
 
     const login: string = request.params.login;
@@ -39,9 +50,13 @@ export class UserController {
     };
   }
 
-  async save(request: Request, response: Response, next: NextFunction): Promise<DBResponse<never>> {
+  async save(
+    request: Request
+    // response: Response,
+    // next: NextFunction
+  ): Promise<DB_Response<never>> {
     try {
-      UsersSaveSchema.parse(request.body);
+      UsersRegisterSchema.parse(request.body);
     } catch (err) {
       const error = err.issues[0];
       if (error.code === 'too_small') {
@@ -66,21 +81,9 @@ export class UserController {
       }
     }
 
-    const { login, password, firstName, lastName, street, city, state, country, zip } =
-      request.body;
+    request.body.password = encrypt(request.body.password);
 
-    const passwordEnc: string = encrypt(password);
-    const user: User & UsersSaveType = Object.assign(new User(), {
-      login,
-      password: passwordEnc,
-      firstName,
-      lastName,
-      street,
-      city,
-      state,
-      country,
-      zip,
-    });
+    const user: User & UsersType = Object.assign(new User(), request.body);
 
     try {
       await this.userRepository.save(user);
@@ -94,10 +97,10 @@ export class UserController {
   }
 
   async remove(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ): Promise<DBResponse<never>> {
+    request: Request
+    // response: Response,
+    // next: NextFunction
+  ): Promise<DB_Response<never>> {
     const id: number = parseInt(request.params.id);
 
     let userToRemove: User = await this.userRepository.findOneBy({ id });

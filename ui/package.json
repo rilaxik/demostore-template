@@ -1,9 +1,10 @@
 {
-  "name": "ui",
   "private": true,
-  "version": "0.1.0",
-  "type": "module",
+  "name": "@ecommerce/ui",
+  "version": "0.4.0",
+  "description": "TS-React based website for a DemoStore",
   "author": "https://github.com/rilaxik/",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

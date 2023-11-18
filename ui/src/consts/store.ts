@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import toast from 'react-hot-toast';
+import { UsersType } from 'shared/types';
 import {
   ShopCategories,
   CartDiscount,
-  DB_User,
   UserBilling,
   UserBillingShipping,
   UserBillingPayment
@@ -20,7 +20,7 @@ type State = {
     id: string;
     cart: State['cart'];
     discount: CartDiscount | null;
-    user: DB_User;
+    user: UsersType;
     billing: UserBilling;
     isPaid: boolean;
     isCompleted: boolean;
