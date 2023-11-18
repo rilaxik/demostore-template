@@ -1,18 +1,21 @@
 # ⌛ In progress
 
+### 🚪 About 
+Monorepository for an online store, written in Typescript
+
 ### 🐛 Utils
 - Frontend
-  - Vite-React-TS
+  - Vite-React
   - Sass
   - Zustand
 - Backend
-  - Express TS
+  - Express
   - TypeOrm
   - Sqlite3
+  - Zod
 
 ### 📚 Planned
-- Shared front + back types
-- Zod request verification
+- Shared ts types
 - i18n translation
 - move products to db
 
