@@ -6,6 +6,7 @@ import { zodMW } from './middlewares/zod.middleware';
 import { AppDataSource } from './data-source';
 import { Routes } from './routes';
 import { Route } from './types';
+import * as chalk from 'chalk';
 
 AppDataSource.initialize()
   .then(async (): Promise<void> => {
@@ -32,18 +33,24 @@ AppDataSource.initialize()
           result.then((result): void =>
             result !== null && result !== undefined
               ? res.send(result) &&
-                console.log(`✔️ | ${result.status} | Handled ${route.method.toUpperCase()} request`)
+                console.log(
+                  `✔️ | ${chalk.bold(
+                    result.status
+                  )} | Handled ${route.method.toUpperCase()} request`
+                )
               : res.json({
                   status: 500,
                   message: 'DB: could not resolve',
-                }) && console.log(`❌ | Failed ${route.method.toUpperCase()} request`)
+                }) && console.log(chalk.red(`❌ | Failed ${route.method.toUpperCase()} request`))
           );
         } else if (result !== null && result !== undefined) {
           res.json(result);
-          console.log(`✔️ | ${result.status} | Handled ${route.method.toUpperCase()} request`);
+          console.log(
+            `✔️ | ${chalk.bold(result.status)} | Handled ${route.method.toUpperCase()} request`
+          );
         } else {
           res.json({ status: 500, message: 'DB: could not resolve' });
-          console.log(`❌ | Failed ${route.method.toUpperCase()} request`);
+          console.log(chalk.red(`❌ | Failed ${route.method.toUpperCase()} request`));
         }
       });
     });
@@ -60,6 +67,6 @@ AppDataSource.initialize()
      */
     app.listen(3001);
 
-    console.log('\n🌎 | Server started on http://localhost:3001/');
+    console.log(chalk.bold('\n🌎 | Server started on http://localhost:3001/'));
   })
   .catch((error) => console.log(error));
