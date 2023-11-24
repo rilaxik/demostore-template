@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const ProductPage = () => {
   const params = useParams();
+  // todo refactor to db
   const item = products[String(params.id)];
   const [currency, incCart] = store((state) => [state.currency, state.incCart]);
   const [selectedVariant, setSelectedVariant] = useState(item.variants ? item.variants[0] : '');

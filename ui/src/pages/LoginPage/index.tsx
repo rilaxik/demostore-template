@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { userLogin } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { store } from '../../consts';
-import { DB_Response } from '@ecommerce/shared/types';
+import { UsersLoginSchema } from '@ecommerce/shared/types';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -41,19 +41,20 @@ const LoginPage = () => {
   );
 
   async function handleLogin() {
-    if (!creds.login || !creds.pass) return toast.error('Please fill all the fields');
+    if (!UsersLoginSchema.safeParse(creds).success)
+      return toast.error('Please fill all the fields');
 
     await userLogin(creds.login, creds.pass)
-      .then((res: DB_Response<boolean>) => {
+      .then((res) => {
         if (!res.data) {
           return toast.error('The password is wrong');
-        } else {
-          toast.success('Logging in..');
-          setLoggedIn(creds.login);
-          setTimeout(() => {
-            navigate('/');
-          }, 3000);
         }
+
+        setLoggedIn(res.data);
+        toast.success('Logging in..');
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
       })
       .catch((err) => {
         toast.error(err.message);

@@ -5,6 +5,7 @@ import {
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
+  type UserProfileType,
 } from "./users";
 
 import {
@@ -33,6 +34,7 @@ export {
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
+  type UserProfileType,
   ProductRegisterSchema,
   type ProductType,
   ProductGetManySchema,

@@ -22,3 +22,15 @@ export const UsersLoginSchema: z.ZodObject<any> = z.object({
   login: z.string(),
   password: z.string(),
 });
+
+export type UserProfileType = {
+  id?: string;
+  login: string;
+  firstName: string;
+  lastName: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zip: string;
+};

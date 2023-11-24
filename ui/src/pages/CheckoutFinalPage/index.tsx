@@ -133,6 +133,7 @@ const CheckoutFinalPage = () => {
       return;
     }
 
+    // todo refactor to db
     updCheckoutBilling({
       shipping: UserBillingShipping[selectedShipping],
       payment: UserBillingPayment[selectedPayment]

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import toast from 'react-hot-toast';
-import { UsersType } from '@ecommerce/shared/types';
+import { UserProfileType } from '@ecommerce/shared/types';
 import {
   ShopCategories,
   CartDiscount,
@@ -14,13 +14,13 @@ type State = {
   currency: string;
   category: ShopCategories | null;
   searchPrompt: string;
-  loggedIn: string | null;
+  loggedIn: UserProfileType | null;
   cart: Map<string, number>;
   checkout: {
     id: string;
     cart: State['cart'];
     discount: CartDiscount | null;
-    user: UsersType;
+    user: UserProfileType;
     billing: UserBilling;
     isPaid: boolean;
     isCompleted: boolean;
@@ -126,6 +126,7 @@ const store = create<State & Action>((set) => ({
     cart: new Map(),
     discount: null,
     user: {
+      id: undefined,
       login: '',
       firstName: '',
       lastName: '',

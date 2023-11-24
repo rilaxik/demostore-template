@@ -171,6 +171,7 @@ const CheckoutPage = () => {
             />
             {Array.from(checkout.cart.keys()).map((id) => {
               return (
+                // todo refactor to db
                 <CartItem
                   image={products[id].image}
                   name={products[id].name}
@@ -190,6 +191,7 @@ const CheckoutPage = () => {
   );
 
   function handleLogin() {
+    // todo add login
     console.log(userData);
   }
 
@@ -202,6 +204,7 @@ const CheckoutPage = () => {
     }
   }
 
+  // todo refactor to zod validation
   function allFieldsTaken(obj: { [key: string]: string | null | { [key: string]: string } }) {
     for (const [key, value] of Object.entries(obj)) {
       if (!value) {

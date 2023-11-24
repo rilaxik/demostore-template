@@ -101,7 +101,7 @@ export class UserController {
     // response: Response,
     // next: NextFunction
   ): Promise<DB_Response<never>> {
-    const id: number = parseInt(request.params.id);
+    const id: string = request.params.id;
 
     let userToRemove: User = await this.userRepository.findOneBy({ id });
 

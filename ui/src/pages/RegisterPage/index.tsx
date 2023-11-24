@@ -2,10 +2,9 @@ import s from './style.module.scss';
 import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UsersType } from '@ecommerce/shared/types';
+import { UsersType, UsersRegisterSchema } from '@ecommerce/shared/types';
 import toast from 'react-hot-toast';
 import userRegister from '../../api/userRegister.ts';
-import { validateRegistrationPassword } from '../../functions';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -106,35 +105,23 @@ const RegisterPage = () => {
     </PageWrapper>
   );
 
-  function handleRegister() {
-    if (
-      !creds.login ||
-      !creds.firstName ||
-      !creds.lastName ||
-      !creds.street ||
-      !creds.city ||
-      !creds.state ||
-      !creds.country ||
-      !creds.zip ||
-      !passR
-    ) {
-      return toast.error('Please fill all the fields');
+  async function handleRegister() {
+    try {
+      UsersRegisterSchema.parse(creds);
+    } catch (err: any) {
+      return toast.error(err.issues[0].message ?? 'Please fill all the fields');
+    } finally {
+      if (creds.password.trim() !== passR.trim()) toast.error('Passwords do not match');
     }
 
-    validateRegistrationPassword(creds.password, passR)
-      .then(async () => {
-        await userRegister(creds)
-          .then((res) => {
-            if (res) {
-              toast.success(res.message);
-              setTimeout(() => {
-                navigate('/');
-              }, 3000);
-            }
-          })
-          .catch((err) => {
-            toast.error(err.message);
-          });
+    await userRegister(creds)
+      .then((res) => {
+        if (res.status !== 201) return toast.error(res.message);
+
+        toast.success(res.message);
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       })
       .catch((err) => {
         toast.error(err.message);

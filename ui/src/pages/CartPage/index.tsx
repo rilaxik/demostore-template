@@ -16,7 +16,7 @@ const CartPage = () => {
         {!cart || !cart.size ? (
           <div className={s.warningWrapper}>
             <div className={s.iconWrapper}>
-              <img src={infoIcon} alt="(i)" />
+              <img src={infoIcon} alt='(i)' />
             </div>
             <span className={s.message}>Your shopping cart is empty</span>
           </div>
@@ -34,6 +34,7 @@ const CartPage = () => {
                 <hr />
                 {Array.from(cart.keys()).map((id) => {
                   return (
+                    // todo refactor to db
                     <CartItem
                       image={products[id].image}
                       name={products[id].name}
@@ -67,6 +68,7 @@ const CartPage = () => {
     </PageWrapper>
   );
 
+  // todo refactor to db
   function handleNewItem(val: string) {
     if (Object.prototype.hasOwnProperty.call(products, val)) {
       incCart(val);
