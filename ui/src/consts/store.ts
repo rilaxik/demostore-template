@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import toast from 'react-hot-toast';
-import { UsersType } from 'shared/types';
+import { UsersType } from '@ecommerce/shared/types';
 import {
   ShopCategories,
   CartDiscount,

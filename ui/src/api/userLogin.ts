@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { SERVER_CONFIG } from 'shared/types';
-import { DB_Response } from 'shared/types';
+import { SERVER_CONFIG } from '@ecommerce/shared/types';
+import { DB_Response } from '@ecommerce/shared/types';
 
 export default async function userLogin(
   login: string,

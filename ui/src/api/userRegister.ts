@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { SERVER_CONFIG, DB_Response, UsersType } from 'shared/types';
+import { SERVER_CONFIG, DB_Response, UsersType } from '@ecommerce/shared/types';
 
 export default async function userRegister({
   login,

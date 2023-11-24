@@ -2,7 +2,7 @@ import s from './style.module.scss';
 import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UsersType } from 'shared/types';
+import { UsersType } from '@ecommerce/shared/types';
 import toast from 'react-hot-toast';
 import userRegister from '../../api/userRegister.ts';
 import { validateRegistrationPassword } from '../../functions';

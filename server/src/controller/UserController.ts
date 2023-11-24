@@ -7,7 +7,7 @@ import {
   UsersGetSchema,
   UsersRegisterSchema,
   type UsersType,
-} from 'shared/types';
+} from '@ecommerce/shared/types';
 import { encrypt } from '../functions/encrypt';
 
 export class UserController {

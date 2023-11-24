@@ -1,6 +1,6 @@
 import type { Request } from 'express';
 import { Repository } from 'typeorm';
-import { type DB_Response, UsersLoginSchema } from 'shared/types';
+import { type DB_Response, UsersLoginSchema } from '@ecommerce/shared/types';
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
 import { encryptValidate } from '../functions/encrypt';

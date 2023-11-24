@@ -71,5 +71,3 @@ export enum ShopCategories {
   TOOLS = 'Tools',
   MISC = 'Misc'
 }
-
-// todo refactor to shared types

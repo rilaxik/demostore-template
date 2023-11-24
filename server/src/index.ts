@@ -5,7 +5,7 @@ import * as cors from 'cors';
 import { zodMW } from './middlewares/zod.middleware';
 import { AppDataSource } from './data-source';
 import { Routes } from './routes';
-import { SERVER_CONFIG, Route } from 'shared/types';
+import { SERVER_CONFIG, Route } from '@ecommerce/shared/types';
 import * as chalk from 'chalk';
 
 AppDataSource.initialize()
@@ -22,6 +22,7 @@ AppDataSource.initialize()
     /*
      *   register express routes from defined application routes
      */
+
     Routes.forEach((route: Route) => {
       (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
         const result = new (route.controller as any)()[route.action](req, res, next);

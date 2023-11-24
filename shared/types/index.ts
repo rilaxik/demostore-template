@@ -1,10 +1,23 @@
 import { DB_Response, Route } from "./request";
+
 import {
   UsersGetSchema,
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
 } from "./users";
+
+import {
+  ProductRegisterSchema,
+  type ProductRegisterType,
+  ProductGetOneSchema,
+} from "./product";
+
+import {
+  ShopCategoriesEnum,
+  ShopCategoriesSchema,
+  ShopQuerySchema,
+} from "./shop";
 
 const SERVER_CONFIG: any = {
   PROTO: "http",
@@ -14,10 +27,16 @@ const SERVER_CONFIG: any = {
 
 export {
   SERVER_CONFIG,
-  DB_Response,
-  Route,
+  type DB_Response,
+  type Route,
   UsersGetSchema,
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
+  ProductRegisterSchema,
+  type ProductRegisterType,
+  ProductGetOneSchema,
+  ShopCategoriesEnum,
+  ShopCategoriesSchema,
+  ShopQuerySchema,
 };

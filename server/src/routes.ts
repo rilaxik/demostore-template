@@ -1,6 +1,7 @@
-import { type Route } from 'shared/types';
+import { type Route } from '@ecommerce/shared/types';
 import { UserController } from './controller/UserController';
 import { LoginController } from './controller/LoginController';
+import { ProductController } from './controller/ProductController';
 
 export const Routes: Route[] = [
   {
@@ -32,5 +33,29 @@ export const Routes: Route[] = [
     route: '/login',
     controller: LoginController,
     action: 'one',
+  },
+  {
+    method: 'get',
+    route: '/products',
+    controller: ProductController,
+    action: 'all',
+  },
+  {
+    method: 'get',
+    route: '/products/:id',
+    controller: ProductController,
+    action: 'one',
+  },
+  {
+    method: 'post',
+    route: '/products',
+    controller: ProductController,
+    action: 'save',
+  },
+  {
+    method: 'delete',
+    route: '/products/:id',
+    controller: ProductController,
+    action: 'remove',
   },
 ];
