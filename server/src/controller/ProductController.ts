@@ -4,7 +4,7 @@ import { AppDataSource } from '../data-source';
 import { Product } from '../entity/Product';
 import {
   type DB_Response,
-  ProductGetOneSchema,
+  ProductGetManySchema,
   ProductRegisterSchema,
   ShopQuerySchema,
 } from '@ecommerce/shared/types';
@@ -59,28 +59,35 @@ export class ProductController {
     };
   }
 
-  async one(
+  async many(
     request: Request
     // response: Response,
     // next: NextFunction
-  ): Promise<DB_Response<Product>> {
-    if (!ProductGetOneSchema.safeParse(request.params).success)
-      return { status: 400, message: 'Validation failed: invalid fields provided' };
+  ): Promise<DB_Response<Product[]>> {
+    if (!ProductGetManySchema.safeParse(request.body).success)
+      return { status: 400, message: 'Validation failed: body is not an array of UUIDs' };
 
-    const id: string = request.params.id;
+    const ids: string[] = request.body;
+    const products: Product[] = [];
 
-    const product: Product = await this.productRepository.findOne({
-      where: { id },
-    });
+    await Promise.all(
+      ids.map(async (id: string) => {
+        await this.productRepository
+          .createQueryBuilder('p')
+          .where({ id })
+          .getOne()
+          .then((product: Product) => products.push(product));
+      })
+    );
 
-    if (!product) {
-      return { status: 404, message: 'Product was not found' };
+    if (!products.length) {
+      return { status: 404, message: 'Products were not found' };
     }
 
     return {
       status: 200,
-      message: 'Found a product',
-      data: product,
+      message: 'Found some products',
+      data: products,
     };
   }
 

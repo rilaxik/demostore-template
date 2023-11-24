@@ -10,7 +10,7 @@ import {
 import {
   ProductRegisterSchema,
   type ProductType,
-  ProductGetOneSchema,
+  ProductGetManySchema,
 } from "./product";
 
 import {
@@ -35,7 +35,7 @@ export {
   UsersLoginSchema,
   ProductRegisterSchema,
   type ProductType,
-  ProductGetOneSchema,
+  ProductGetManySchema,
   ShopCategoriesEnum,
   ShopCategoriesSchema,
   ShopQuerySchema,

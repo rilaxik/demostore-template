@@ -23,6 +23,6 @@ export const ProductRegisterSchema: z.ZodObject<any> = z.object({
 
 export type ProductType = z.infer<typeof ProductRegisterSchema>;
 
-export const ProductGetOneSchema: z.ZodObject<any> = z.object({
-  id: z.string(),
-});
+export const ProductGetManySchema: z.ZodArray<z.ZodString> = z
+  .array(z.string().uuid())
+  .min(1, "Empty body provided");
