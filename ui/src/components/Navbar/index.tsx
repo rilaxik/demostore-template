@@ -1,5 +1,6 @@
 import s from './style.module.scss';
-import { ShopCategories, shopInfo, store } from '../../consts';
+import { shopInfo, store } from '../../consts';
+import { ShopCategoriesEnum as ShopCategories } from '@ecommerce/shared/types';
 import { Button, Input } from '../';
 import {
   cartIcon,
@@ -103,7 +104,7 @@ const Navbar = ({ isShortened }: Props) => {
                 }
               }}
             >
-              {ShopCategories[item]}
+              {ShopCategories[item].charAt(0).toUpperCase() + ShopCategories[item].slice(1)}
             </div>
           );
         }

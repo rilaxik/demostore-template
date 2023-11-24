@@ -21,7 +21,7 @@ export const ProductRegisterSchema: z.ZodObject<any> = z.object({
     .optional(),
 });
 
-export type ProductRegisterType = z.infer<typeof ProductRegisterSchema>;
+export type ProductType = z.infer<typeof ProductRegisterSchema>;
 
 export const ProductGetOneSchema: z.ZodObject<any> = z.object({
   id: z.string(),

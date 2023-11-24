@@ -4,7 +4,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { userLogin } from '../../api';
 import { useNavigate } from 'react-router-dom';
-import { DB_Response, store } from '../../consts';
+import { store } from '../../consts';
+import { DB_Response } from '@ecommerce/shared/types';
 
 const LoginPage = () => {
   const navigate = useNavigate();

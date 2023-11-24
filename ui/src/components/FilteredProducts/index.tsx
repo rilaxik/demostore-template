@@ -1,26 +1,29 @@
-import { products } from '../../consts';
 import { ProductCard } from '../index.tsx';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import getProducts from '../../api/getProducts.ts';
+import toast from 'react-hot-toast';
+import { DB_Response, ProductType } from '@ecommerce/shared/types';
 
 const FilteredProducts = () => {
-  const location = useLocation();
-  const [searchParams] = useSearchParams(location.search);
-  const [c, setC] = useState<string | null>(null);
-  const [q, setQ] = useState<string | null>(null);
+  const searchQuery = useLocation().search;
+  const [products, setProducts] = useState<ProductType[] | undefined>();
 
   useEffect(() => {
-    setC(null);
-    setQ(null);
-    searchParams.get('category') ? setC(searchParams.get('category')) : null;
-    searchParams.get('query') ? setQ(searchParams.get('query')) : null;
-  }, [searchParams]);
+    try {
+      getProducts(searchQuery).then((data: DB_Response<ProductType[]>) => {
+        setProducts(data.data);
+      });
+    } catch (e: any) {
+      toast.error(e.message);
+    }
+  }, [searchQuery]);
 
   return (
     <>
-      {!searchParams.size
-        ? (Object.keys(products) as Array<never>).map((key) => {
-            const item = products[key];
+      {!products
+        ? null
+        : products.map((item: ProductType, index: number) => {
             return (
               <ProductCard
                 id={item.id}
@@ -33,36 +36,9 @@ const FilteredProducts = () => {
                 price={item.price}
                 isInStock={item.isInStock}
                 image={item.image}
-                key={`product-${item.id}`}
+                key={`product-${index}`}
               />
             );
-          })
-        : (Object.keys(products) as Array<string>).map((key) => {
-            const item = products[key];
-            const tags = item.tags.concat(item.name.split(' '), item.material).join(' ');
-            const regex =
-              c && q
-                ? new RegExp(`(?=.*\\b${c}\\b)(?=.*\\b${q}\\b)`, 'i')
-                : c && !q
-                ? new RegExp(c, 'i')
-                : !c && q
-                ? new RegExp(q, 'i')
-                : null;
-            return regex && regex.test(tags) ? (
-              <ProductCard
-                id={item.id}
-                name={item.name}
-                sizingShort={item.sizingShort}
-                measurement={item.measurement}
-                description={item.description}
-                content={item.content}
-                pricePerPiece={item.pricePerPiece}
-                price={item.price}
-                isInStock={item.isInStock}
-                image={item.image}
-                key={`product-${item.id}`}
-              />
-            ) : null;
           })}
     </>
   );
