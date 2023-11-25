@@ -33,10 +33,10 @@ export class UserController {
     if (!UsersGetSchema.safeParse(request.params).success)
       return { status: 400, message: 'Validation failed: invalid fields provided' };
 
-    const login: string = request.params.login;
+    const email: string = request.params.email;
 
     const user: User = await this.userRepository.findOne({
-      where: { login },
+      where: { email },
     });
 
     if (!user) {

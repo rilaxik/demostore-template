@@ -18,7 +18,7 @@ export class LoginController {
 
     const { login, password } = request.body;
 
-    const user: User & UserProfileType = await this.userRepository
+    const user: User = await this.userRepository
       .createQueryBuilder('user')
       .where({ login })
       .getOne();

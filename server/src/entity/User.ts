@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Checkout } from './Checkout';
 
 @Entity()
 export class User {
@@ -6,7 +7,7 @@ export class User {
   id: string;
 
   @Column({ unique: true })
-  login: string;
+  email: string;
 
   @Column({ select: false })
   password: string;
@@ -31,4 +32,7 @@ export class User {
 
   @Column()
   zip: string;
+
+  @OneToMany(() => Checkout, (checkout) => checkout.user)
+  checkouts: Checkout[];
 }

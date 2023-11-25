@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const UsersGetSchema: z.ZodObject<any> = z.object({
-  login: z.string(),
+  email: z.string(),
 });
 
 export const UsersRegisterSchema: z.ZodObject<any> = z.object({
-  login: z.string().min(5, "Login must be at least 5 symbols long"),
+  email: z.string().email(),
   password: z.string().min(8, "Password must be at least 8 symbols long"),
   firstName: z.string(),
   lastName: z.string(),
@@ -19,13 +19,13 @@ export const UsersRegisterSchema: z.ZodObject<any> = z.object({
 export type UsersType = z.infer<typeof UsersRegisterSchema>;
 
 export const UsersLoginSchema: z.ZodObject<any> = z.object({
-  login: z.string(),
+  email: z.string(),
   password: z.string(),
 });
 
 export type UserProfileType = {
   id?: string;
-  login: string;
+  email: string;
   firstName: string;
   lastName: string;
   street: string;

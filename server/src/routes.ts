@@ -2,6 +2,7 @@ import { type Route } from '@ecommerce/shared/types';
 import { UserController } from './controller/UserController';
 import { LoginController } from './controller/LoginController';
 import { ProductController } from './controller/ProductController';
+import { CheckoutController } from './controller/CheckoutController';
 
 export const Routes: Route[] = [
   // users
@@ -26,7 +27,7 @@ export const Routes: Route[] = [
   // login & register
   {
     method: 'get',
-    route: '/users/:login',
+    route: '/users/:email',
     controller: UserController,
     action: 'one',
   },
@@ -61,4 +62,22 @@ export const Routes: Route[] = [
   //   controller: ProductController,
   //   action: 'remove',
   // },
+  {
+    method: 'get',
+    route: '/checkout',
+    controller: CheckoutController,
+    action: 'all',
+  },
+  {
+    method: 'get',
+    route: '/checkout/:id',
+    controller: CheckoutController,
+    action: 'one',
+  },
+  {
+    method: 'post',
+    route: '/checkout',
+    controller: CheckoutController,
+    action: 'save',
+  },
 ];

@@ -1,0 +1,30 @@
+import { z } from "zod";
+import { ShopCheckoutPayment, ShopCheckoutShipping } from "./shop";
+
+export const CheckoutRegisterSchema: z.ZodObject<any> = z.object({
+  user: z.string().uuid().nullable().optional(),
+  discount: z
+    .object({ amount: z.number(), system: z.string() })
+    .nullable()
+    .optional(),
+  customer: z.object({
+    email: z.string().email(),
+    firstName: z.string(),
+    lastName: z.string(),
+    street: z.string(),
+    city: z.string(),
+    state: z.string(),
+    country: z.string(),
+    zip: z.string(),
+  }),
+  billing: z.object({
+    shipping: z.nativeEnum(ShopCheckoutShipping),
+    payment: z.nativeEnum(ShopCheckoutPayment),
+  }),
+  isPaid: z.boolean(),
+  isCompleted: z.boolean(),
+});
+
+export const CheckoutGetSchema: z.ZodObject<any> = z.object({
+  id: z.string().uuid(),
+});

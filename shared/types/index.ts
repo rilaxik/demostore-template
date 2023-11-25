@@ -1,5 +1,11 @@
 import { DB_Response, Route } from "./request";
 
+const SERVER_CONFIG: any = {
+  PROTO: "http",
+  PATH: "localhost",
+  PORT: 3001,
+};
+
 import {
   UsersGetSchema,
   UsersRegisterSchema,
@@ -16,29 +22,35 @@ import {
 
 import {
   ShopCategoriesEnum,
+  ShopCheckoutShipping,
+  ShopCheckoutPayment,
   ShopCategoriesSchema,
   ShopQuerySchema,
 } from "./shop";
 
-const SERVER_CONFIG: any = {
-  PROTO: "http",
-  PATH: "localhost",
-  PORT: 3001,
-};
+import { CheckoutRegisterSchema, CheckoutGetSchema } from "./checkout";
 
 export {
   SERVER_CONFIG,
   type DB_Response,
   type Route,
+  //
   UsersGetSchema,
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
   type UserProfileType,
+  //
   ProductRegisterSchema,
   type ProductType,
   ProductGetManySchema,
+  //
   ShopCategoriesEnum,
+  ShopCheckoutShipping,
+  ShopCheckoutPayment,
   ShopCategoriesSchema,
   ShopQuerySchema,
+  //
+  CheckoutRegisterSchema,
+  CheckoutGetSchema,
 };
