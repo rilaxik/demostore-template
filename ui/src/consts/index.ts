@@ -4,7 +4,6 @@ import {
   ProductShort,
   Discounts,
   CartDiscount,
-  UserBilling,
   UserBillingShipping,
   UserBillingPayment,
   ShopCategories
@@ -19,7 +18,6 @@ export {
   type ProductShort,
   type Discounts,
   type CartDiscount,
-  type UserBilling,
   UserBillingShipping,
   UserBillingPayment,
   ShopCategories,

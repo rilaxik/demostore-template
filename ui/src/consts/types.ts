@@ -47,11 +47,6 @@ export type CartDiscount = {
   expired: boolean;
 };
 
-export type UserBilling = {
-  shipping: UserBillingShipping;
-  payment: UserBillingPayment;
-};
-
 export enum UserBillingShipping {
   STANDARD = 'Standard',
   EXPRESS = 'Express'

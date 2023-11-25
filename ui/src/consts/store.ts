@@ -1,27 +1,27 @@
 import { create } from 'zustand';
 import toast from 'react-hot-toast';
-import { UserProfileType } from '@ecommerce/shared/types';
 import {
-  ShopCategories,
-  CartDiscount,
-  UserBilling,
-  UserBillingShipping,
-  UserBillingPayment
-} from './';
+  UserProfileType,
+  ShopCheckoutShipping,
+  ShopCheckoutPayment,
+  CheckoutDiscountType
+} from '@ecommerce/shared/types';
 
 type State = {
   balance: number;
   currency: string;
-  category: ShopCategories | null;
   searchPrompt: string;
   loggedIn: UserProfileType | null;
-  cart: Map<string, number>;
+  cart: Map<string, number>; // todo refactor to record + methods
   checkout: {
     id: string;
     cart: State['cart'];
-    discount: CartDiscount | null;
+    discount: CheckoutDiscountType | null;
     user: UserProfileType;
-    billing: UserBilling;
+    billing: {
+      shipping: ShopCheckoutShipping;
+      payment: ShopCheckoutPayment;
+    };
     isPaid: boolean;
     isCompleted: boolean;
   };
@@ -30,7 +30,6 @@ type State = {
 type Action = {
   updBalance: (balance: State['balance']) => void;
   updCurrency: (currency: State['currency']) => void;
-  updCategory: (category: State['category']) => void;
   updSearchPrompt: (searchPrompt: State['searchPrompt']) => void;
   updLoggedIn: (loggedIn: State['loggedIn']) => void;
   incCart: (key: string) => void;
@@ -51,8 +50,6 @@ const store = create<State & Action>((set) => ({
   updBalance: (newBalance) => set(() => ({ balance: newBalance })),
   currency: '€',
   updCurrency: (newCurrency) => set(() => ({ currency: newCurrency })),
-  category: null,
-  updCategory: (newCategory) => set(() => ({ category: newCategory })),
   searchPrompt: '',
   updSearchPrompt: (newSearchPrompt) => set(() => ({ searchPrompt: newSearchPrompt })),
   loggedIn: null,
@@ -127,19 +124,18 @@ const store = create<State & Action>((set) => ({
     discount: null,
     user: {
       id: undefined,
-      login: '',
+      email: '',
       firstName: '',
       lastName: '',
-      email: '',
       street: '',
-      zip: '',
       city: '',
+      state: '',
       country: '',
-      state: ''
+      zip: ''
     },
     billing: {
-      shipping: UserBillingShipping.STANDARD,
-      payment: UserBillingPayment.CREDIT_CARD
+      shipping: ShopCheckoutShipping.STANDARD,
+      payment: ShopCheckoutPayment.CREDIT_CARD
     },
     isPaid: false,
     isCompleted: false

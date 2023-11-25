@@ -1,9 +1,10 @@
-import s from './style.module.scss';
-import { useNavigate, useParams } from 'react-router-dom';
-import { PageWrapper, Footer, Navbar, CartSummary } from '../../components';
-import { store, UserBillingPayment, UserBillingShipping } from '../../consts';
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import s from './style.module.scss';
+import { PageWrapper, Footer, Navbar, CartSummary } from '../../components';
+import { store } from '../../consts';
+import { ShopCheckoutShipping, ShopCheckoutPayment } from '@ecommerce/shared/types';
 
 const CheckoutFinalPage = () => {
   const params = useParams();
@@ -14,8 +15,8 @@ const CheckoutFinalPage = () => {
     state.updCheckoutPaid,
     state.clearCart
   ]);
-  const [selectedPayment, setSelectedPayment] = useState<keyof typeof UserBillingPayment>();
-  const [selectedShipping, setSelectedShipping] = useState<keyof typeof UserBillingShipping>();
+  const [selectedPayment, setSelectedPayment] = useState<keyof typeof ShopCheckoutPayment>();
+  const [selectedShipping, setSelectedShipping] = useState<keyof typeof ShopCheckoutShipping>();
   const [checkedPolicy, setCheckedPolicy] = useState<boolean>(false);
   useEffect(() => {
     if (params.cartId !== checkout.id) navigate('/cart');
@@ -64,8 +65,8 @@ const CheckoutFinalPage = () => {
           <div className={s.rowBlock}>
             <div className={s.rowItem}>
               <span className={s.subtle}>Payment method</span>
-              {(Object.keys(UserBillingPayment) as Array<keyof typeof UserBillingPayment>).map(
-                (item: keyof typeof UserBillingPayment) => {
+              {(Object.keys(ShopCheckoutPayment) as Array<keyof typeof ShopCheckoutPayment>).map(
+                (item: keyof typeof ShopCheckoutPayment) => {
                   return (
                     <div className={s.option} key={`payment-${item}`}>
                       <input
@@ -75,7 +76,7 @@ const CheckoutFinalPage = () => {
                         value={item}
                         onChange={() => handleChangePayment(item)}
                       />
-                      <label htmlFor={item}>{UserBillingPayment[item]}</label>
+                      <label htmlFor={item}>{ShopCheckoutPayment[item]}</label>
                     </div>
                   );
                 }
@@ -83,8 +84,8 @@ const CheckoutFinalPage = () => {
             </div>
             <div className={s.rowItem}>
               <span className={s.subtle}>Shipping method</span>
-              {(Object.keys(UserBillingShipping) as Array<keyof typeof UserBillingShipping>).map(
-                (item: keyof typeof UserBillingShipping) => {
+              {(Object.keys(ShopCheckoutShipping) as Array<keyof typeof ShopCheckoutShipping>).map(
+                (item: keyof typeof ShopCheckoutShipping) => {
                   return (
                     <div className={s.option} key={`payment-${item}`}>
                       <input
@@ -94,7 +95,7 @@ const CheckoutFinalPage = () => {
                         value={item}
                         onChange={() => handleChangeBilling(item)}
                       />
-                      <label htmlFor={item}>{UserBillingShipping[item]}</label>
+                      <label htmlFor={item}>{ShopCheckoutShipping[item]}</label>
                     </div>
                   );
                 }
@@ -114,11 +115,11 @@ const CheckoutFinalPage = () => {
     setCheckedPolicy((prevState) => !prevState);
   }
 
-  function handleChangePayment(item: keyof typeof UserBillingPayment) {
+  function handleChangePayment(item: keyof typeof ShopCheckoutPayment) {
     setSelectedPayment(item);
   }
 
-  function handleChangeBilling(item: keyof typeof UserBillingShipping) {
+  function handleChangeBilling(item: keyof typeof ShopCheckoutShipping) {
     setSelectedShipping(item);
   }
 
@@ -135,8 +136,8 @@ const CheckoutFinalPage = () => {
 
     // todo refactor to db
     updCheckoutBilling({
-      shipping: UserBillingShipping[selectedShipping],
-      payment: UserBillingPayment[selectedPayment]
+      shipping: ShopCheckoutShipping[selectedShipping],
+      payment: ShopCheckoutPayment[selectedPayment]
     });
     updCheckoutPaid();
     toast.success('Your order was submitted!');

@@ -28,7 +28,12 @@ import {
   ShopQuerySchema,
 } from "./shop";
 
-import { CheckoutRegisterSchema, CheckoutGetSchema } from "./checkout";
+import {
+  CheckoutRegisterSchema,
+  CheckoutGetSchema,
+  CheckoutDiscountSchema,
+  type CheckoutDiscountType,
+} from "./checkout";
 
 export {
   SERVER_CONFIG,
@@ -53,4 +58,6 @@ export {
   //
   CheckoutRegisterSchema,
   CheckoutGetSchema,
+  CheckoutDiscountSchema,
+  type CheckoutDiscountType,
 };

@@ -3,6 +3,7 @@ import { ShopCheckoutPayment, ShopCheckoutShipping } from "./shop";
 
 export const CheckoutRegisterSchema: z.ZodObject<any> = z.object({
   user: z.string().uuid().nullable().optional(),
+  cart: z.record(z.string(), z.number()),
   discount: z
     .object({ amount: z.number(), system: z.string() })
     .nullable()
@@ -28,3 +29,10 @@ export const CheckoutRegisterSchema: z.ZodObject<any> = z.object({
 export const CheckoutGetSchema: z.ZodObject<any> = z.object({
   id: z.string().uuid(),
 });
+
+export const CheckoutDiscountSchema: z.ZodObject<any> = z.object({
+  amount: z.number(),
+  system: z.string(),
+});
+
+export type CheckoutDiscountType = z.infer<typeof CheckoutDiscountSchema>;

@@ -65,8 +65,9 @@ export class CheckoutController {
     if (!CheckoutRegisterSchema.safeParse(request.body).success)
       return { status: 400, message: 'Please fill all the fields' };
 
-    const { discount, customer, billing, isPaid, isCompleted } = request.body;
+    const { cart, discount, customer, billing, isPaid, isCompleted } = request.body;
     const checkout = Object.assign(new Checkout(), {
+      cart,
       discount,
       customer,
       billing,

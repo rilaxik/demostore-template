@@ -9,6 +9,9 @@ export class Checkout {
   @ManyToOne(() => User, (user) => user.checkouts, { nullable: true, onDelete: 'SET NULL' })
   user: User;
 
+  @Column({ type: 'simple-json' })
+  cart: { [p: string]: number };
+
   @Column({
     type: 'simple-json',
     nullable: true,
