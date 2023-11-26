@@ -11,6 +11,7 @@ import {
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
+  UserProfileSchema,
   type UserProfileType,
 } from "./users";
 
@@ -44,6 +45,7 @@ export {
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
+  UserProfileSchema,
   type UserProfileType,
   //
   ProductRegisterSchema,

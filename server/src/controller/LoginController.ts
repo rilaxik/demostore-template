@@ -16,11 +16,11 @@ export class LoginController {
     if (!UsersLoginSchema.safeParse(request.body).success)
       return { status: 400, message: 'Please fill all the fields' };
 
-    const { login, password } = request.body;
+    const { email, password } = request.body;
 
     const user: User = await this.userRepository
       .createQueryBuilder('user')
-      .where({ login })
+      .where({ email })
       .getOne();
 
     if (!user) return { status: 404, message: 'User was not found' };
@@ -29,7 +29,7 @@ export class LoginController {
 
     return {
       status: 200,
-      message: 'Found a user',
+      message: canLogin ? 'Logging in..' : 'Password is wrong',
       data: canLogin ? user : null,
     };
   }
