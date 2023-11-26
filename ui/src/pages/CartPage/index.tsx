@@ -1,5 +1,4 @@
 import toast from 'react-hot-toast';
-import { redirect } from 'react-router-dom';
 import {
   PageWrapper,
   Navbar,
@@ -16,8 +15,10 @@ import { productsGetAll, productsGetMany } from '../../api';
 import { DB_Response, ProductType } from '@ecommerce/shared/types';
 import { isUUID } from '../../functions';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const [cart, incCart] = sessionStore((state) => [state.cart, state.incCart]);
   const [itemsData, setItemsData] = useState<ProductType[] | undefined>();
 
@@ -54,7 +55,7 @@ const CartPage = () => {
                   <span className={s.title}>Subtotal</span>
                 </div>
                 <hr />
-                {itemsData.map((item: ProductType) => {
+                {itemsData.map((item: ProductType, index: number) => {
                   return (
                     <CartItem
                       image={item.image}
@@ -63,6 +64,7 @@ const CartPage = () => {
                       id={item.id}
                       price={item.price}
                       quantity={cart.get(item.id) ?? 0}
+                      key={`cart-item-${index}`}
                     />
                   );
                 })}
@@ -104,7 +106,7 @@ const CartPage = () => {
   }
 
   function handleContinue() {
-    redirect('/checkout');
+    navigate('/checkout');
   }
 };
 

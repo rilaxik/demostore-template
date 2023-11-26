@@ -1,16 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
-import { SERVER_CONFIG, UserProfileType } from '@ecommerce/shared/types';
+import { SERVER_CONFIG, UserProfileType, UsersLoginType } from '@ecommerce/shared/types';
 import { DB_Response } from '@ecommerce/shared/types';
 
 export default async function userLogin(
-  email: string,
-  password: string
+  userObj: UsersLoginType
 ): Promise<DB_Response<UserProfileType | null>> {
   return await axios
-    .post(`${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/login`, {
-      email,
-      password
-    })
+    .post(`${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/login`, userObj)
     .then(({ data }: AxiosResponse<DB_Response<UserProfileType | null>, any>) => {
       if (data.status !== 200) throw new Error(data.message);
 

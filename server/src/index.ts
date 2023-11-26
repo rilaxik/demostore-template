@@ -8,6 +8,7 @@ import { Routes } from './routes';
 import { SERVER_CONFIG, Route } from '@ecommerce/shared/types';
 import * as chalk from 'chalk';
 
+// todo proper error handling
 AppDataSource.initialize()
   .then(async (): Promise<void> => {
     /*

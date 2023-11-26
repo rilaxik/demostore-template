@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
   Footer,
@@ -24,6 +24,7 @@ import userLogin from '../../api/userLogin.ts';
 import { productsGetMany } from '../../api';
 
 const CheckoutGuest = () => {
+  const navigate = useNavigate();
   const [updLoggedIn, checkout, updCheckoutCustomer] = sessionStore((state) => [
     state.updLoggedIn,
     state.checkout,
@@ -35,7 +36,10 @@ const CheckoutGuest = () => {
 
   useEffect(() => {
     const { cart } = checkout;
-    if (!cart.size) return;
+    if (!cart.size) {
+      navigate('/cart');
+      return;
+    }
 
     try {
       productsGetMany([...cart.keys()]).then((data: DB_Response<ProductType[]>) => {
@@ -43,10 +47,10 @@ const CheckoutGuest = () => {
         setItemsData(data.data);
       });
     } catch (e: any) {
-      redirect('/cart');
+      navigate('/cart');
       toast.error(e.message);
     }
-  }, [checkout]);
+  }, [checkout, navigate]);
 
   return (
     <PageWrapper>
@@ -160,7 +164,7 @@ const CheckoutGuest = () => {
                   return;
                 }}
               />
-              {itemsData.map((item: ProductType) => {
+              {itemsData.map((item: ProductType, index: number) => {
                 return (
                   <CartItem
                     image={item.image}
@@ -170,6 +174,7 @@ const CheckoutGuest = () => {
                     price={item.price}
                     quantity={checkout.cart.get(item.id) ?? 0}
                     isShortened
+                    key={`cart-item-${index}`}
                   />
                 );
               })}
@@ -182,12 +187,12 @@ const CheckoutGuest = () => {
   );
 
   async function handleLogin() {
-    await userLogin(loginData.current.email, loginData.current.password)
+    await userLogin(loginData.current)
       .then((res) => {
         if (res.status !== 200 || !res.data) return toast.error(res.message);
 
         updLoggedIn(res.data);
-        redirect(`verify`);
+        navigate(`verify`);
         toast.success(res.message);
       })
       .catch((e: any) => {
@@ -202,7 +207,7 @@ const CheckoutGuest = () => {
     // Argument of type '{ [x: string]: any; }' is not assignable to parameter of type UserProfileType
     // @ts-expect-error -> IMPOSSIBLE due to zod schema validation
     updCheckoutCustomer(tempUser.current);
-    redirect(`verify`);
+    navigate(`verify`);
   }
 };
 

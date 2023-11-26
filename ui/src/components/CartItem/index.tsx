@@ -4,7 +4,7 @@ import { ProductShort, sessionStore } from '../../consts';
 import { useNavigate } from 'react-router-dom';
 import QuantityPanel from '../QuantityPanel';
 
-const CartItem = ({ image, name, content, id, price, isShortened }: Props) => {
+const CartItem = ({ image, name, content, id, price, quantity, isShortened }: Props) => {
   const navigate = useNavigate();
   const [currency, removeCartItem] = sessionStore((state) => [
     state.currency,
@@ -35,12 +35,12 @@ const CartItem = ({ image, name, content, id, price, isShortened }: Props) => {
           </div>
           <span className={s.productInfo}>
             {currency}
-            {Math.floor(price * 0.2)}
+            {Math.floor(price * 0.2 * quantity)}
           </span>
           <div className={`${s.productInfo} ${s.delete}`}>
             <span>
               {currency}
-              {price}
+              {price * quantity}
             </span>
             <div className={s.iconWrapper} onClick={() => handleCartDel(id)}>
               <img src={crossIcon} alt='delete' />

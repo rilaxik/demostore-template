@@ -1,19 +1,23 @@
 import React, { useEffect, useRef } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import s from './style.module.scss';
 import { PageWrapper, Footer, Navbar, CartSummary } from '../../components';
 import { sessionStore } from '../../consts';
 import { ShopCheckoutShipping, ShopCheckoutPayment } from '@ecommerce/shared/types';
+import postCheckout from '../../api/checkout.ts';
 
 const CheckoutLoggedIn = () => {
   const navigate = useNavigate();
-  const [checkout, updCheckoutBilling, updCheckoutPaid, clearCart] = sessionStore((state) => [
-    state.checkout,
-    state.updCheckoutBilling,
-    state.updCheckoutPaid,
-    state.clearCart
-  ]);
+  const [checkout, updCheckoutBilling, updCheckoutPaid, updCheckoutUser, clearCart, loggedIn] =
+    sessionStore((state) => [
+      state.checkout,
+      state.updCheckoutBilling,
+      state.updCheckoutPaid,
+      state.updCheckoutUser,
+      state.clearCart,
+      state.loggedIn
+    ]);
   const selectedPayment: React.MutableRefObject<ShopCheckoutPayment> = useRef(
     ShopCheckoutPayment.CREDIT_CARD
   );
@@ -23,8 +27,8 @@ const CheckoutLoggedIn = () => {
   const checkedPolicy: React.MutableRefObject<boolean> = useRef(false);
 
   useEffect(() => {
-    if (!checkout.customer) redirect('/cart');
-  }, [checkout.customer]);
+    if (!checkout.customer) navigate('/cart');
+  }, [checkout.customer, navigate]);
 
   return (
     <PageWrapper>
@@ -78,9 +82,10 @@ const CheckoutLoggedIn = () => {
                         id={item}
                         name='UserBillingPayment'
                         value={item}
+                        defaultChecked={selectedPayment.current === ShopCheckoutPayment[item]}
                         onChange={() => handleChangePayment(ShopCheckoutPayment[item])}
                       />
-                      <label htmlFor={item}>{item}</label>
+                      <label htmlFor={item}>{ShopCheckoutPayment[item]}</label>
                     </div>
                   );
                 }
@@ -97,6 +102,7 @@ const CheckoutLoggedIn = () => {
                         id={item}
                         name='UserBillingShipping'
                         value={item}
+                        defaultChecked={selectedShipping.current === ShopCheckoutShipping[item]}
                         onChange={() => handleChangeBilling(ShopCheckoutShipping[item])}
                       />
                       <label htmlFor={item}>{ShopCheckoutShipping[item]}</label>
@@ -132,19 +138,28 @@ const CheckoutLoggedIn = () => {
       return toast.error('Please select payment and shipping types');
     if (!checkedPolicy) return toast.error('Please get acknowledged with our policy');
 
-    // todo refactor to db
+    if (loggedIn) updCheckoutUser(loggedIn.id);
     updCheckoutBilling({
       shipping: selectedShipping.current,
       payment: selectedPayment.current
     });
     updCheckoutPaid();
-    clearCart();
-    toast.success('Your order was submitted!');
-
     console.log(checkout);
-    setTimeout(() => {
-      navigate('/');
-    }, 3000);
+
+    try {
+      postCheckout(checkout).then((res) => {
+        if (res.status !== 201) return toast.error(res.message);
+
+        toast.success('Your order was submitted successfully');
+        toast.success('Waiting for redirect..');
+        clearCart();
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
+      });
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   }
 };
 

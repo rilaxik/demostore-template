@@ -1,16 +1,16 @@
 import s from './style.module.scss';
 import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
-import { useState } from 'react';
+import React, { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { userLogin } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { sessionStore } from '../../consts';
-import { UsersLoginSchema } from '@ecommerce/shared/types';
+import { UsersLoginSchema, UsersLoginType } from '@ecommerce/shared/types';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [setLoggedIn] = sessionStore((state) => [state.updLoggedIn]);
-  const [creds, setCreds] = useState({ login: '', pass: '' });
+  const creds: React.MutableRefObject<UsersLoginType> = useRef({});
 
   return (
     <PageWrapper>
@@ -25,13 +25,13 @@ const LoginPage = () => {
             placeholder='Email or login'
             type={'email'}
             callbackOnChange
-            callback={(v) => setCreds({ ...creds, login: v.trim() })}
+            callback={(v) => (creds.current.email = v.trim())}
           />
           <Input
             placeholder='Password'
             type={'password'}
             callbackOnChange
-            callback={(v) => setCreds({ ...creds, pass: v.trim() })}
+            callback={(v) => (creds.current.password = v.trim())}
           />
           <Button label={'Login'} callback={handleLogin} />
         </section>
@@ -41,10 +41,10 @@ const LoginPage = () => {
   );
 
   async function handleLogin() {
-    if (!UsersLoginSchema.safeParse(creds).success)
+    if (!UsersLoginSchema.safeParse(creds.current).success)
       return toast.error('Please fill all the fields');
 
-    await userLogin(creds.login, creds.pass)
+    await userLogin(creds.current)
       .then((res) => {
         if (!res.data) {
           return toast.error('The password is wrong');

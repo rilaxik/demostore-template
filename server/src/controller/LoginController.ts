@@ -21,6 +21,7 @@ export class LoginController {
     const user: User = await this.userRepository
       .createQueryBuilder('user')
       .where({ email })
+      .addSelect('user.password')
       .getOne();
 
     if (!user) return { status: 404, message: 'User was not found' };

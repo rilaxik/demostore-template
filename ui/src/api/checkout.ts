@@ -16,15 +16,17 @@ export default async function postCheckout(
   checkoutObj.cart = mapToObject<number>(checkoutObj.cart);
 
   return await axios
-    .post(`${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/checkout`, {
+    .post(
+      `${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/checkout`,
       checkoutObj
-    })
+    )
     .then(({ data }: AxiosResponse<DB_Response<never>, any>) => {
       if (data.status !== 201) throw new Error(data.message);
 
       return data;
     })
-    .catch((error) => {
-      throw error;
+    .catch((error: any) => {
+      console.log(error);
+      return { status: 400, message: error.message, error };
     });
 }

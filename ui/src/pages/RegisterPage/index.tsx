@@ -8,17 +8,7 @@ import userRegister from '../../api/userRegister.ts';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const [creds, setCreds] = useState<UsersType>({
-    login: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-    street: '',
-    city: '',
-    state: '',
-    country: '',
-    zip: ''
-  });
+  const [creds, setCreds] = useState<UsersType>({});
   const [passR, setPassR] = useState<string>('');
 
   return (
@@ -31,23 +21,23 @@ const RegisterPage = () => {
             I already have an account
           </span>
           <Input
-            placeholder='Login'
-            type={'text'}
+            placeholder='Email'
+            type={'email'}
             callbackOnChange
-            callback={(v) => setCreds({ ...creds, login: v.trim() })}
+            callback={(v) => setCreds({ ...creds, email: v })}
           />
           <div className={s.row}>
             <Input
               placeholder='First name'
               type={'text'}
               callbackOnChange
-              callback={(v) => setCreds({ ...creds, firstName: v.trim() })}
+              callback={(v) => setCreds({ ...creds, firstName: v })}
             />
             <Input
               placeholder='Last name'
               type={'text'}
               callbackOnChange
-              callback={(v) => setCreds({ ...creds, lastName: v.trim() })}
+              callback={(v) => setCreds({ ...creds, lastName: v })}
             />
           </div>
           <div className={s.row}>
@@ -55,13 +45,13 @@ const RegisterPage = () => {
               placeholder='Password'
               type={'password'}
               callbackOnChange
-              callback={(v) => setCreds({ ...creds, password: v.trim() })}
+              callback={(v) => setCreds({ ...creds, password: v })}
             />
             <Input
               placeholder='Password'
               type={'password'}
               callbackOnChange
-              callback={(v) => setPassR(v.trim())}
+              callback={(v) => setPassR(v)}
             />
           </div>
           <div className={s.row}>
@@ -69,13 +59,13 @@ const RegisterPage = () => {
               placeholder='Street'
               type={'text'}
               callbackOnChange
-              callback={(v) => setCreds({ ...creds, street: v.trim() })}
+              callback={(v) => setCreds({ ...creds, street: v })}
             />
             <Input
               placeholder='City'
               type={'text'}
               callbackOnChange
-              callback={(v) => setCreds({ ...creds, city: v.trim() })}
+              callback={(v) => setCreds({ ...creds, city: v })}
             />
           </div>
           <div className={s.row}>
@@ -83,20 +73,20 @@ const RegisterPage = () => {
               placeholder='State'
               type={'text'}
               callbackOnChange
-              callback={(v) => setCreds({ ...creds, state: v.trim() })}
+              callback={(v) => setCreds({ ...creds, state: v })}
             />
             <Input
               placeholder='Country'
               type={'text'}
               callbackOnChange
-              callback={(v) => setCreds({ ...creds, country: v.trim() })}
+              callback={(v) => setCreds({ ...creds, country: v })}
             />
           </div>
           <Input
             placeholder='Zip'
             type={'text'}
             callbackOnChange
-            callback={(v) => setCreds({ ...creds, zip: v.trim() })}
+            callback={(v) => setCreds({ ...creds, zip: v })}
           />
           <Button label={'Register'} callback={handleRegister} />
         </section>
@@ -109,6 +99,7 @@ const RegisterPage = () => {
     try {
       UsersRegisterSchema.parse(creds);
     } catch (err: any) {
+      console.log(err);
       return toast.error(err.issues[0].message ?? 'Please fill all the fields');
     } finally {
       if (creds.password.trim() !== passR.trim()) toast.error('Passwords do not match');

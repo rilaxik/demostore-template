@@ -1,4 +1,4 @@
-import s from '../../pages/CartPage/style.module.scss';
+import s from './style.module.scss';
 import { infoIcon } from '../../assets';
 
 type Props = {
