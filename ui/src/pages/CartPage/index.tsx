@@ -1,9 +1,17 @@
 import toast from 'react-hot-toast';
 import { redirect } from 'react-router-dom';
-import { PageWrapper, Navbar, Footer, CartSummary, CartItem, Input } from '../../components';
+import {
+  PageWrapper,
+  Navbar,
+  Footer,
+  CartSummary,
+  CartItem,
+  Input,
+  Warning
+} from '../../components';
 import s from './style.module.scss';
 import { sessionStore, products, shopInfo } from '../../consts';
-import { checkmarkIcon, infoIcon } from '../../assets';
+import { checkmarkIcon } from '../../assets';
 
 const CartPage = () => {
   const [cart, incCart] = sessionStore((state) => [state.cart, state.incCart]);
@@ -13,12 +21,7 @@ const CartPage = () => {
       <PageWrapper container>
         <Navbar />
         {!cart || !cart.size ? (
-          <div className={s.warningWrapper}>
-            <div className={s.iconWrapper}>
-              <img src={infoIcon} alt='(i)' />
-            </div>
-            <span className={s.message}>Your shopping cart is empty</span>
-          </div>
+          <Warning label={'Your shopping cart is empty'} />
         ) : (
           <main className={s.cartWrapper}>
             <span className={s.title}>Shopping cart</span>

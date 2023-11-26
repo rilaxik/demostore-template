@@ -10,6 +10,7 @@ import Input from './Input';
 import QuantityPanel from './QuantityPanel';
 import CheckoutField from './CheckoutField';
 import Breadcrumbs from './Breadcrumbs';
+import Warning from './Warning';
 
 export {
   Navbar,
@@ -23,5 +24,6 @@ export {
   Input,
   QuantityPanel,
   CheckoutField,
-  Breadcrumbs
+  Breadcrumbs,
+  Warning
 };
