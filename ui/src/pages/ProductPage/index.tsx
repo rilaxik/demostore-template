@@ -1,14 +1,14 @@
 import { useParams } from 'react-router-dom';
 import s from './style.module.scss';
 import { PageWrapper, Navbar, Footer, Button, QuantityPanel, Breadcrumbs } from '../../components';
-import { products, store } from '../../consts';
+import { products, sessionStore } from '../../consts';
 import { useState } from 'react';
 
 const ProductPage = () => {
   const params = useParams();
   // todo refactor to db
   const item = products[String(params.id)];
-  const [currency, incCart] = store((state) => [state.currency, state.incCart]);
+  const [currency, incCart] = sessionStore((state) => [state.currency, state.incCart]);
   const [selectedVariant, setSelectedVariant] = useState(item.variants ? item.variants[0] : '');
 
   return (

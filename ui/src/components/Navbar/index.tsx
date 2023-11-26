@@ -1,5 +1,5 @@
 import s from './style.module.scss';
-import { shopInfo, store } from '../../consts';
+import { shopInfo, sessionStore } from '../../consts';
 import { ShopCategoriesEnum as ShopCategories } from '@ecommerce/shared/types';
 import { Button, Input } from '../';
 import {
@@ -18,7 +18,11 @@ const Navbar = ({ isShortened }: Props) => {
   const navigate = useNavigate();
   const [query, setQuery] = useState<string>();
   const [category, setCategory] = useState<ShopCategories>();
-  const [currency, cart, loggedIn] = store((state) => [state.currency, state.cart, state.loggedIn]);
+  const [currency, cart, loggedIn] = sessionStore((state) => [
+    state.currency,
+    state.cart,
+    state.loggedIn
+  ]);
 
   return isShortened ? (
     <header className={s.header} style={{ padding: '1rem' }}>

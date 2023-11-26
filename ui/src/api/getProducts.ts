@@ -3,7 +3,7 @@ import { SERVER_CONFIG } from '@ecommerce/shared/types';
 import { DB_Response } from '@ecommerce/shared/types';
 import { ProductType } from '@ecommerce/shared/types';
 
-export default async function getProducts(
+export default async function productsGetAll(
   searchQuery: string
 ): Promise<DB_Response<ProductType[]>> {
   const url = `${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/products${searchQuery}`;

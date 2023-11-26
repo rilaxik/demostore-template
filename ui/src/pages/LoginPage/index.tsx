@@ -4,12 +4,12 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { userLogin } from '../../api';
 import { useNavigate } from 'react-router-dom';
-import { store } from '../../consts';
+import { sessionStore } from '../../consts';
 import { UsersLoginSchema } from '@ecommerce/shared/types';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [setLoggedIn] = store((state) => [state.updLoggedIn]);
+  const [setLoggedIn] = sessionStore((state) => [state.updLoggedIn]);
   const [creds, setCreds] = useState({ login: '', pass: '' });
 
   return (

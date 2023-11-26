@@ -23,14 +23,15 @@ export const UsersLoginSchema: z.ZodObject<any> = z.object({
   password: z.string(),
 });
 
-export type UserProfileType = {
-  id?: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  street: string;
-  city: string;
-  state: string;
-  country: string;
-  zip: string;
-};
+export const UserProfileSchema: z.ZodObject<any> = z.object({
+  email: z.string().email(),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  street: z.string().min(1),
+  city: z.string().min(1),
+  state: z.string().min(1),
+  country: z.string().min(1),
+  zip: z.string().min(1),
+});
+
+export type UserProfileType = z.infer<typeof UserProfileSchema>;

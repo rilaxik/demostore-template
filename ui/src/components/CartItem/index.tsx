@@ -1,12 +1,15 @@
 import s from './style.module.scss';
 import { crossIcon } from '../../assets';
-import { ProductShort, store } from '../../consts';
+import { ProductShort, sessionStore } from '../../consts';
 import { useNavigate } from 'react-router-dom';
 import QuantityPanel from '../QuantityPanel';
 
 const CartItem = ({ image, name, content, id, price, isShortened }: Props) => {
   const navigate = useNavigate();
-  const [currency, removeCartItem] = store((state) => [state.currency, state.removeCartItem]);
+  const [currency, removeCartItem] = sessionStore((state) => [
+    state.currency,
+    state.removeCartItem
+  ]);
 
   return (
     <div className={s.cartItemWrapper}>
@@ -40,7 +43,7 @@ const CartItem = ({ image, name, content, id, price, isShortened }: Props) => {
               {price}
             </span>
             <div className={s.iconWrapper} onClick={() => handleCartDel(id)}>
-              <img src={crossIcon} alt="delete" />
+              <img src={crossIcon} alt='delete' />
             </div>
           </div>
         </>

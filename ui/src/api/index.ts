@@ -1,5 +1,5 @@
 import userLogin from './userLogin.ts';
 import userRegister from './userRegister.ts';
-import getProducts from './getProducts.ts';
+import productsGetAll from './getProducts.ts';
 
-export { userLogin, userRegister, getProducts };
+export { userLogin, userRegister, productsGetAll };

@@ -1,7 +1,7 @@
 import { ProductCard } from '../index.tsx';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import getProducts from '../../api/getProducts.ts';
+import productsGetAll from '../../api/getProducts.ts';
 import toast from 'react-hot-toast';
 import { DB_Response, ProductType } from '@ecommerce/shared/types';
 
@@ -11,7 +11,7 @@ const FilteredProducts = () => {
 
   useEffect(() => {
     try {
-      getProducts(searchQuery).then((data: DB_Response<ProductType[]>) => {
+      productsGetAll(searchQuery).then((data: DB_Response<ProductType[]>) => {
         setProducts(data.data);
       });
     } catch (e: any) {

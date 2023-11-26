@@ -46,23 +46,3 @@ export type CartDiscount = {
   systemReadable: string;
   expired: boolean;
 };
-
-export enum UserBillingShipping {
-  STANDARD = 'Standard',
-  EXPRESS = 'Express'
-}
-
-export enum UserBillingPayment {
-  ON_DELIVERY = 'Cash on delivery',
-  IN_ADVANCE = 'Paid in advance',
-  INVOICE = 'Invoice',
-  UPON_INVOICE = 'Pay upon invoice',
-  CREDIT_CARD = 'Credit or debit card'
-}
-
-export enum ShopCategories {
-  HOME = 'Home',
-  GARDEN = 'Garden',
-  TOOLS = 'Tools',
-  MISC = 'Misc'
-}

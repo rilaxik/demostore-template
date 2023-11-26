@@ -1,13 +1,12 @@
+import toast from 'react-hot-toast';
+import { redirect } from 'react-router-dom';
 import { PageWrapper, Navbar, Footer, CartSummary, CartItem, Input } from '../../components';
 import s from './style.module.scss';
-import { store, products, shopInfo } from '../../consts';
+import { sessionStore, products, shopInfo } from '../../consts';
 import { checkmarkIcon, infoIcon } from '../../assets';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
-  const navigate = useNavigate();
-  const [cart, incCart] = store((state) => [state.cart, state.incCart]);
+  const [cart, incCart] = sessionStore((state) => [state.cart, state.incCart]);
 
   return (
     <PageWrapper>
@@ -78,7 +77,7 @@ const CartPage = () => {
   }
 
   function handleContinue() {
-    navigate('/checkout');
+    redirect('/checkout');
   }
 };
 

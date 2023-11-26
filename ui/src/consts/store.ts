@@ -12,12 +12,21 @@ type State = {
   currency: string;
   searchPrompt: string;
   loggedIn: UserProfileType | null;
-  cart: Map<string, number>; // todo refactor to record + methods
+  cart: Map<string, number>;
   checkout: {
-    id: string;
+    user: string | null;
     cart: State['cart'];
     discount: CheckoutDiscountType | null;
-    user: UserProfileType;
+    customer: {
+      email: string;
+      firstName: string;
+      lastName: string;
+      street: string;
+      city: string;
+      state: string;
+      country: string;
+      zip: string;
+    };
     billing: {
       shipping: ShopCheckoutShipping;
       payment: ShopCheckoutPayment;
@@ -36,10 +45,10 @@ type Action = {
   decCart: (key: string) => void;
   removeCartItem: (key: string) => void;
   clearCart: () => void;
-  updCheckoutId: (cart: State['checkout']['id']) => void;
+  updCheckoutUser: (cart: State['checkout']['user']) => void;
   updCheckoutCart: (cart: State['checkout']['cart']) => void;
   updCheckoutDiscount: (cart: State['checkout']['discount']) => void;
-  updCheckoutUser: (cart: State['checkout']['user']) => void;
+  updCheckoutCustomer: (cart: State['checkout']['customer']) => void;
   updCheckoutBilling: (cart: State['checkout']['billing']) => void;
   updCheckoutPaid: () => void;
   updCheckoutCompleted: () => void;
@@ -98,12 +107,8 @@ const store = create<State & Action>((set) => ({
   },
   removeCartItem: (key: string) => {
     set((state) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       if (state.cart.has(key)) {
         const upd = new Map(state.cart);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore wrong 'possibly undefined'
         upd.delete(key);
         toast.error('Item deleted from cart');
         return { cart: upd };
@@ -119,11 +124,10 @@ const store = create<State & Action>((set) => ({
     });
   },
   checkout: {
-    id: '',
+    user: null,
     cart: new Map(),
     discount: null,
-    user: {
-      id: undefined,
+    customer: {
       email: '',
       firstName: '',
       lastName: '',
@@ -140,13 +144,13 @@ const store = create<State & Action>((set) => ({
     isPaid: false,
     isCompleted: false
   },
-  updCheckoutId: (newId) => set((state) => ({ checkout: { ...state.checkout, id: newId } })),
+  updCheckoutUser: (newId) => set((state) => ({ checkout: { ...state.checkout, user: newId } })),
   updCheckoutCart: (newCart) =>
     set((state) => ({ checkout: { ...state.checkout, cart: newCart } })),
   updCheckoutDiscount: (newDiscount) =>
     set((state) => ({ checkout: { ...state.checkout, discount: newDiscount } })),
-  updCheckoutUser: (newUser) =>
-    set((state) => ({ checkout: { ...state.checkout, user: newUser } })),
+  updCheckoutCustomer: (newCustomer) =>
+    set((state) => ({ checkout: { ...state.checkout, customer: newCustomer } })),
   updCheckoutBilling: (newBilling) =>
     set((state) => ({ checkout: { ...state.checkout, billing: newBilling } })),
   updCheckoutPaid: () =>

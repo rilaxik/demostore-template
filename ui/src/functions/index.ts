@@ -1,3 +1,3 @@
-import { validateRegistrationEmail, validateRegistrationPassword } from './validate';
+import { mapToObject } from './mapToObject';
 
-export { validateRegistrationEmail, validateRegistrationPassword };
+export { mapToObject };

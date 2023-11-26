@@ -4,8 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import {
   CartPage,
-  CheckoutFinalPage,
-  CheckoutPage,
+  CheckoutLoggedIn,
+  CheckoutGuest,
   ListingPage,
   LoginPage,
   ProductPage,
@@ -42,11 +42,11 @@ const router = createBrowserRouter([
   },
   {
     path: 'checkout',
-    element: <CheckoutPage />
+    element: <CheckoutGuest />
   },
   {
-    path: 'checkout/:cartId',
-    element: <CheckoutFinalPage />
+    path: 'checkout/verify',
+    element: <CheckoutLoggedIn />
   }
 ]);
 

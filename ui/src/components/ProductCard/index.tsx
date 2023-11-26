@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './style.module.scss';
 import { Button } from '../../components';
-import { store, shopInfo, ProductShort } from '../../consts';
+import { sessionStore, shopInfo, ProductShort } from '../../consts';
 import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({
@@ -17,13 +17,13 @@ const ProductCard = ({
   image
 }: ProductShort) => {
   const navigate = useNavigate();
-  const [incCart] = store((state) => [state.incCart]);
+  const [incCart] = sessionStore((state) => [state.incCart]);
 
   return (
     <div className={s.productCardWrapper} onClick={() => handleViewProduct(id)}>
       <div className={s.topContent}>
         <div className={s.imageWrapper}>
-          <img src={image} alt="product" />
+          <img src={image} alt='product' />
         </div>
         <div className={s.title}>
           <span className={s.name}>{name}</span>
@@ -55,7 +55,7 @@ const ProductCard = ({
           {price}*
         </span>
         <Button
-          label="Add to shopping cart"
+          label='Add to shopping cart'
           isFullSize
           isDisabled={!isInStock}
           callback={(e) => handleButtonClick(e)}

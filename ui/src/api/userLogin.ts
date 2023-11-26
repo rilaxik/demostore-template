@@ -3,12 +3,12 @@ import { SERVER_CONFIG, UserProfileType } from '@ecommerce/shared/types';
 import { DB_Response } from '@ecommerce/shared/types';
 
 export default async function userLogin(
-  login: string,
+  email: string,
   password: string
 ): Promise<DB_Response<UserProfileType | null>> {
   return await axios
     .post(`${SERVER_CONFIG.PROTO}://${SERVER_CONFIG.PATH}:${SERVER_CONFIG.PORT}/login`, {
-      login,
+      email,
       password
     })
     .then(({ data }: AxiosResponse<DB_Response<UserProfileType | null>, any>) => {

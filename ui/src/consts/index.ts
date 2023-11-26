@@ -1,14 +1,6 @@
 import { shopInfo, discounts, products } from './data.ts';
-import {
-  Product,
-  ProductShort,
-  Discounts,
-  CartDiscount,
-  UserBillingShipping,
-  UserBillingPayment,
-  ShopCategories
-} from './types.ts';
-import store from './store.ts';
+import { Product, ProductShort, Discounts, CartDiscount } from './types.ts';
+import sessionStore from './store.ts';
 
 export {
   shopInfo,
@@ -18,8 +10,5 @@ export {
   type ProductShort,
   type Discounts,
   type CartDiscount,
-  UserBillingShipping,
-  UserBillingPayment,
-  ShopCategories,
-  store
+  sessionStore
 };
