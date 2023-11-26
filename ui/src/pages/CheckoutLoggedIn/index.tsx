@@ -3,13 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import s from './style.module.scss';
 import { PageWrapper, Footer, Navbar, CartSummary } from '../../components';
-import { store } from '../../consts';
+import { sessionStore } from '../../consts';
 import { ShopCheckoutShipping, ShopCheckoutPayment } from '@ecommerce/shared/types';
 
-const CheckoutFinalPage = () => {
+const CheckoutLoggedIn = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [checkout, updCheckoutBilling, updCheckoutPaid, clearCart] = store((state) => [
+  const [checkout, updCheckoutBilling, updCheckoutPaid, clearCart] = sessionStore((state) => [
     state.checkout,
     state.updCheckoutBilling,
     state.updCheckoutPaid,
@@ -150,4 +150,4 @@ const CheckoutFinalPage = () => {
   }
 };
 
-export default CheckoutFinalPage;
+export default CheckoutLoggedIn;

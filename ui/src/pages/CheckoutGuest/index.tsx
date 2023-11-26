@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
   Footer,
@@ -10,14 +10,20 @@ import {
   Button,
   CartItem
 } from '../../components';
-import { store, products } from '../../consts';
+import { sessionStore, products } from '../../consts';
+import { UserProfileSchema } from '@ecommerce/shared/types';
 import s from './style.module.scss';
+import userLogin from '../../api/userLogin.ts';
 
-const CheckoutPage = () => {
+const CheckoutGuest = () => {
   const navigate = useNavigate();
-  const [checkout, updCheckoutUser] = store((state) => [state.checkout, state.updCheckoutUser]);
+  const [updLoggedIn, checkout, updCheckoutCustomer] = sessionStore((state) => [
+    state.updLoggedIn,
+    state.checkout,
+    state.updCheckoutCustomer
+  ]);
   const [tempUser, setTempUser] = useState({
-    login: '',
+    email: '',
     firstName: '',
     lastName: '',
     street: '',
@@ -26,7 +32,10 @@ const CheckoutPage = () => {
     country: '',
     state: ''
   });
-  const [userData, setUserData] = useState({ email: '', password: '' });
+  const loginData: React.MutableRefObject<{ email: string; password: string }> = useRef({
+    email: '',
+    password: ''
+  });
 
   return (
     <PageWrapper>
@@ -42,14 +51,14 @@ const CheckoutPage = () => {
                 placeholder={'Email address'}
                 inputType={'email'}
                 isFullWidth
-                callback={(v) => setUserData({ ...userData, email: v })}
+                callback={(v) => (loginData.current.email = v.trim())}
               />
               <CheckoutField
                 title={'Your password'}
                 placeholder={'pass'}
                 inputType={'password'}
                 isFullWidth
-                callback={(v) => setUserData({ ...userData, password: v })}
+                callback={(v) => (loginData.current.password = v.trim())}
               />
             </div>
             <Button label={'Login'} callback={handleLogin} />
@@ -190,33 +199,26 @@ const CheckoutPage = () => {
     </PageWrapper>
   );
 
-  function handleLogin() {
-    // todo add login
-    console.log(userData);
+  async function handleLogin() {
+    await userLogin(loginData.current.email, loginData.current.password)
+      .then((res) => {
+        if (res.status !== 200 || !res.data) return toast.error(res.message);
+
+        updLoggedIn(res.data);
+        redirect(`verify`);
+        toast.success(res.message);
+      })
+      .catch((e: any) => {
+        return toast.error(e.message);
+      });
   }
 
   function handleContinueCheckout() {
-    if (allFieldsTaken(tempUser)) {
-      updCheckoutUser(tempUser);
-      navigate(`${checkout.id}`);
-    } else {
-      toast.error('Please fill all the fields to continue');
-    }
-  }
-
-  // todo refactor to zod validation
-  function allFieldsTaken(obj: { [key: string]: string | null | { [key: string]: string } }) {
-    for (const [key, value] of Object.entries(obj)) {
-      if (!value) {
-        console.log(key + ' = ' + value + ' (no value)');
-        return false;
-      }
-      if (typeof value === 'object') {
-        allFieldsTaken(value);
-      }
-    }
-    return true;
+    if (!UserProfileSchema.safeParse(tempUser).success)
+      return toast.error('Please fill all the fields to continue');
+    updCheckoutCustomer(tempUser);
+    navigate(`verify`);
   }
 };
 
-export default CheckoutPage;
+export default CheckoutGuest;
