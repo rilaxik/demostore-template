@@ -1,10 +1,10 @@
 import { ProductCard } from '../index.tsx';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import productsGetAll from '../../api/getProducts.ts';
+import { productsGetAll } from '../../api';
 import toast from 'react-hot-toast';
 import { DB_Response, ProductType } from '@ecommerce/shared/types';
-import Warning from '../Warning';
+import { Warning } from '../';
 
 const FilteredProducts = () => {
   const searchQuery = useLocation().search;

@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entity/Product';
 import {
@@ -68,19 +68,24 @@ export class ProductController {
       return { status: 400, message: 'Validation failed: body is not an array of UUIDs' };
 
     const ids: string[] = request.body;
-    const products: Product[] = [];
 
-    await Promise.all(
-      ids.map(async (id: string) => {
-        await this.productRepository
-          .createQueryBuilder('p')
-          .where({ id })
-          .getOne()
-          .then((product: Product) => products.push(product));
-      })
-    );
+    const products: Product[] = await this.productRepository.find({
+      where: {
+        id: In(ids),
+      },
+    });
 
-    if (!products.length) {
+    // await Promise.all(
+    //   ids.map(async (id: string) => {
+    //     await this.productRepository
+    //       .createQueryBuilder('p')
+    //       .where({ id })
+    //       .getOne()
+    //       .then((product: Product) => products.push(product));
+    //   })
+    // );
+
+    if (!products || !products.length) {
       return { status: 404, message: 'Products were not found' };
     }
 
