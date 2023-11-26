@@ -23,6 +23,8 @@ export const UsersLoginSchema: z.ZodObject<any> = z.object({
   password: z.string(),
 });
 
+export type UsersLoginType = z.infer<typeof UsersLoginSchema>;
+
 export const UserProfileSchema: z.ZodObject<any> = z.object({
   email: z.string().email(),
   firstName: z.string().min(1),

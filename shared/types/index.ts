@@ -11,6 +11,7 @@ import {
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
+  type UsersLoginType,
   UserProfileSchema,
   type UserProfileType,
 } from "./users";
@@ -31,6 +32,8 @@ import {
 
 import {
   CheckoutRegisterSchema,
+  CheckoutRawSchema,
+  type CheckoutRawType,
   CheckoutGetSchema,
   CheckoutDiscountSchema,
   type CheckoutDiscountType,
@@ -45,6 +48,7 @@ export {
   UsersRegisterSchema,
   type UsersType,
   UsersLoginSchema,
+  type UsersLoginType,
   UserProfileSchema,
   type UserProfileType,
   //
@@ -59,6 +63,8 @@ export {
   ShopQuerySchema,
   //
   CheckoutRegisterSchema,
+  CheckoutRawSchema,
+  type CheckoutRawType,
   CheckoutGetSchema,
   CheckoutDiscountSchema,
   type CheckoutDiscountType,

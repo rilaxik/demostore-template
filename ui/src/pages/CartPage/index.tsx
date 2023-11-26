@@ -10,11 +10,29 @@ import {
   Warning
 } from '../../components';
 import s from './style.module.scss';
-import { sessionStore, products, shopInfo } from '../../consts';
+import { sessionStore, shopInfo } from '../../consts';
 import { checkmarkIcon } from '../../assets';
+import { productsGetAll, productsGetMany } from '../../api';
+import { DB_Response, ProductType } from '@ecommerce/shared/types';
+import { isUUID } from '../../functions';
+import { useEffect, useState } from 'react';
 
 const CartPage = () => {
   const [cart, incCart] = sessionStore((state) => [state.cart, state.incCart]);
+  const [itemsData, setItemsData] = useState<ProductType[] | undefined>();
+
+  useEffect(() => {
+    if (!cart.size) return;
+
+    try {
+      productsGetMany([...cart.keys()]).then((data: DB_Response<ProductType[]>) => {
+        if (!data.data) return toast.error(data.message);
+        setItemsData(data.data);
+      });
+    } catch (e: any) {
+      toast.error(e.message);
+    }
+  }, [cart, incCart]);
 
   return (
     <PageWrapper>
@@ -22,6 +40,8 @@ const CartPage = () => {
         <Navbar />
         {!cart || !cart.size ? (
           <Warning label={'Your shopping cart is empty'} />
+        ) : !itemsData ? (
+          <Warning label={'Products from your cart could not be found'} />
         ) : (
           <main className={s.cartWrapper}>
             <span className={s.title}>Shopping cart</span>
@@ -34,16 +54,15 @@ const CartPage = () => {
                   <span className={s.title}>Subtotal</span>
                 </div>
                 <hr />
-                {Array.from(cart.keys()).map((id) => {
+                {itemsData.map((item: ProductType) => {
                   return (
-                    // todo refactor to db
                     <CartItem
-                      image={products[id].image}
-                      name={products[id].name}
-                      content={products[id].content}
-                      id={id}
-                      price={products[id].price}
-                      quantity={cart.get(id) ?? 0}
+                      image={item.image}
+                      name={item.name}
+                      content={item.content}
+                      id={item.id}
+                      price={item.price}
+                      quantity={cart.get(item.id) ?? 0}
                     />
                   );
                 })}
@@ -70,12 +89,17 @@ const CartPage = () => {
     </PageWrapper>
   );
 
-  // todo refactor to db
   function handleNewItem(val: string) {
-    if (Object.prototype.hasOwnProperty.call(products, val)) {
-      incCart(val);
-    } else {
-      toast.error(`Item ${val} could not be found`);
+    if (!isUUID(val)) return toast.error('Value is not a valid id');
+
+    try {
+      productsGetAll(val).then((data: DB_Response<ProductType[]>) => {
+        if (!data.data) return toast.error(`Item with this id could not be found`);
+
+        incCart(data.data[0].id);
+      });
+    } catch (e: any) {
+      toast.error(e.message);
     }
   }
 

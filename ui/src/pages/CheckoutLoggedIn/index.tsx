@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import s from './style.module.scss';
 import { PageWrapper, Footer, Navbar, CartSummary } from '../../components';
@@ -7,7 +7,6 @@ import { sessionStore } from '../../consts';
 import { ShopCheckoutShipping, ShopCheckoutPayment } from '@ecommerce/shared/types';
 
 const CheckoutLoggedIn = () => {
-  const params = useParams();
   const navigate = useNavigate();
   const [checkout, updCheckoutBilling, updCheckoutPaid, clearCart] = sessionStore((state) => [
     state.checkout,
@@ -15,12 +14,17 @@ const CheckoutLoggedIn = () => {
     state.updCheckoutPaid,
     state.clearCart
   ]);
-  const [selectedPayment, setSelectedPayment] = useState<keyof typeof ShopCheckoutPayment>();
-  const [selectedShipping, setSelectedShipping] = useState<keyof typeof ShopCheckoutShipping>();
-  const [checkedPolicy, setCheckedPolicy] = useState<boolean>(false);
+  const selectedPayment: React.MutableRefObject<ShopCheckoutPayment> = useRef(
+    ShopCheckoutPayment.CREDIT_CARD
+  );
+  const selectedShipping: React.MutableRefObject<ShopCheckoutShipping> = useRef(
+    ShopCheckoutShipping.STANDARD
+  );
+  const checkedPolicy: React.MutableRefObject<boolean> = useRef(false);
+
   useEffect(() => {
-    if (params.cartId !== checkout.id) navigate('/cart');
-  }, [params.cartId, checkout.id, navigate]);
+    if (!checkout.customer) redirect('/cart');
+  }, [checkout.customer]);
 
   return (
     <PageWrapper>
@@ -32,7 +36,7 @@ const CheckoutLoggedIn = () => {
             <div className={s.rowItem}>
               <span className={s.subtle}>Terms and conditions and cancellation policy</span>
               <div className={s.policyWrapper}>
-                <a href='link' className={s.link}>
+                <a href='#' className={s.link}>
                   Please note our cancellation policy.
                 </a>
                 <div className={s.checkboxWrapper}>
@@ -41,10 +45,10 @@ const CheckoutLoggedIn = () => {
                     name='policy-checkout'
                     id='policy-checkout'
                     onChange={handleCheckPolicy}
-                    defaultChecked={checkedPolicy}
+                    defaultChecked={checkedPolicy.current}
                   />
                   <label htmlFor='policy-checkout'>I have read and accepted the </label>
-                  <a href='link' className={s.link}>
+                  <a href='#' className={s.link}>
                     general terms and conditions.
                   </a>
                 </div>
@@ -55,10 +59,10 @@ const CheckoutLoggedIn = () => {
             <div className={s.rowItem}>
               <span className={s.subtle}>Shipping address</span>
               <span className={s.detail}>
-                {checkout.user.firstName}&nbsp;{checkout.user.lastName} <br />
-                {checkout.user.street} <br />
-                {checkout.user.zip},&nbsp;{checkout.user.city} <br />
-                {checkout.user.state},&nbsp;{checkout.user.country}
+                {checkout.customer.firstName}&nbsp;{checkout.customer.lastName} <br />
+                {checkout.customer.street} <br />
+                {checkout.customer.zip},&nbsp;{checkout.customer.city} <br />
+                {checkout.customer.state},&nbsp;{checkout.customer.country}
               </span>
             </div>
           </div>
@@ -74,9 +78,9 @@ const CheckoutLoggedIn = () => {
                         id={item}
                         name='UserBillingPayment'
                         value={item}
-                        onChange={() => handleChangePayment(item)}
+                        onChange={() => handleChangePayment(ShopCheckoutPayment[item])}
                       />
-                      <label htmlFor={item}>{ShopCheckoutPayment[item]}</label>
+                      <label htmlFor={item}>{item}</label>
                     </div>
                   );
                 }
@@ -93,7 +97,7 @@ const CheckoutLoggedIn = () => {
                         id={item}
                         name='UserBillingShipping'
                         value={item}
-                        onChange={() => handleChangeBilling(item)}
+                        onChange={() => handleChangeBilling(ShopCheckoutShipping[item])}
                       />
                       <label htmlFor={item}>{ShopCheckoutShipping[item]}</label>
                     </div>
@@ -112,36 +116,30 @@ const CheckoutLoggedIn = () => {
   );
 
   function handleCheckPolicy() {
-    setCheckedPolicy((prevState) => !prevState);
+    checkedPolicy.current = !checkedPolicy.current;
   }
 
-  function handleChangePayment(item: keyof typeof ShopCheckoutPayment) {
-    setSelectedPayment(item);
+  function handleChangePayment(item: ShopCheckoutPayment) {
+    selectedPayment.current = item;
   }
 
-  function handleChangeBilling(item: keyof typeof ShopCheckoutShipping) {
-    setSelectedShipping(item);
+  function handleChangeBilling(item: ShopCheckoutShipping) {
+    selectedShipping.current = item;
   }
 
   function handleContinue() {
-    if (!selectedPayment || !selectedShipping) {
-      toast.error('Please select payment and shipping types');
-      return;
-    }
-
-    if (!checkedPolicy) {
-      toast.error('Please get acknowledged with our policy');
-      return;
-    }
+    if (!selectedPayment || !selectedShipping)
+      return toast.error('Please select payment and shipping types');
+    if (!checkedPolicy) return toast.error('Please get acknowledged with our policy');
 
     // todo refactor to db
     updCheckoutBilling({
-      shipping: ShopCheckoutShipping[selectedShipping],
-      payment: ShopCheckoutPayment[selectedPayment]
+      shipping: selectedShipping.current,
+      payment: selectedPayment.current
     });
     updCheckoutPaid();
-    toast.success('Your order was submitted!');
     clearCart();
+    toast.success('Your order was submitted!');
 
     console.log(checkout);
     setTimeout(() => {
