@@ -1,7 +1,15 @@
+import { Input } from '#components';
 import s from './style.module.scss';
-import { Input } from '../';
 
-const CheckoutField = ({ title, placeholder, inputType, isFullWidth, callback }: Props) => {
+type Props = {
+  title: string;
+  placeholder: string;
+  inputType: 'text' | 'email' | 'password';
+  isFullWidth?: boolean;
+  callback: (value: string) => void;
+};
+
+const CheckoutField = ({ title, placeholder, inputType, isFullWidth = false, callback }: Props) => {
   return (
     <div className={s.checkoutFieldWrapper} style={isFullWidth ? { width: '30rem' } : {}}>
       <span className={s.title}>{title}</span>
@@ -18,11 +26,3 @@ const CheckoutField = ({ title, placeholder, inputType, isFullWidth, callback }:
 };
 
 export default CheckoutField;
-
-type Props = {
-  title: string;
-  placeholder: string;
-  inputType: string;
-  isFullWidth?: boolean;
-  callback: (value: string) => void;
-};

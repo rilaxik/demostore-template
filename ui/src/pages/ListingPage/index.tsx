@@ -1,6 +1,7 @@
-import s from './style.module.scss';
-import { PageWrapper, Navbar, Breadcrumbs, Footer } from '../../components';
 import { Outlet } from 'react-router-dom';
+
+import { PageWrapper, Navbar, Breadcrumbs, Footer } from '#components';
+import s from './style.module.scss';
 
 const ListingPage = () => {
   return (
@@ -8,9 +9,9 @@ const ListingPage = () => {
       <PageWrapper container>
         <Navbar />
         <Breadcrumbs />
-        <div className={s.productCardsWrapper}>
+        <main className={s.productCardsWrapper}>
           <Outlet />
-        </div>
+        </main>
       </PageWrapper>
       <Footer />
     </PageWrapper>

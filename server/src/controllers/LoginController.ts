@@ -1,8 +1,9 @@
 import type { Request } from 'express';
 import { Repository } from 'typeorm';
-import { type DB_Response, UsersLoginSchema, type UserProfileType } from '@ecommerce/shared/types';
 import { AppDataSource } from '../data-source';
-import { User } from '../entity/User';
+
+import { User } from '#entities';
+import { type DB_Response, UsersLoginSchema, type UserProfileType } from '@ecommerce/shared/types';
 import { encryptValidate } from '../functions/encrypt';
 
 export class LoginController {

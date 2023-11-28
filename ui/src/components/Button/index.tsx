@@ -1,7 +1,21 @@
-import s from './style.module.scss';
 import React from 'react';
+import s from './style.module.scss';
 
-const Button = ({ label, isDisabled, isFullSize, isUnfilled, callback }: Props) => {
+type Props = {
+  label: string;
+  isDisabled?: boolean;
+  isFullSize?: boolean;
+  isUnfilled?: boolean;
+  callback: (e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+};
+
+const Button = ({
+  label,
+  isDisabled = false,
+  isFullSize = false,
+  isUnfilled = false,
+  callback
+}: Props) => {
   return (
     <div
       className={`${isDisabled ? s.disabled : ''} ${isFullSize ? s.fullSize : ''} ${
@@ -15,11 +29,3 @@ const Button = ({ label, isDisabled, isFullSize, isUnfilled, callback }: Props) 
 };
 
 export default Button;
-
-type Props = {
-  label: string;
-  isDisabled?: boolean;
-  isFullSize?: boolean;
-  isUnfilled?: boolean;
-  callback: (e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-};

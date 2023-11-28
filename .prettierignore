@@ -1,0 +1,39 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Builds and packages
+node_modules/
+build/
+tmp/
+temp/
+dist/
+dist-ssr/
+*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+.git/
+!.vscode/extensions.json
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# DBs
+*.sqlite
+*.odb
+*.db
+
+#
+*.md
+package-lock.json
+vite-env.d.ts

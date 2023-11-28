@@ -9,8 +9,7 @@
   "scripts": {
     "dev": "nodemon",
     "start": "ts-node",
-    "typeorm": "typeorm-ts-node-commonjs",
-    "format": "prettier . --write"
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

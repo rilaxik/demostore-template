@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+
 import {
   Footer,
   Navbar,
@@ -10,8 +11,9 @@ import {
   Button,
   CartItem,
   Warning
-} from '../../components';
-import { sessionStore } from '../../consts';
+} from '#components';
+import s from './style.module.scss';
+
 import {
   DB_Response,
   ProductType,
@@ -19,20 +21,22 @@ import {
   type UserProfileType,
   UsersLoginType
 } from '@ecommerce/shared/types';
-import s from './style.module.scss';
-import userLogin from '../../api/userLogin.ts';
-import { productsGetMany } from '../../api';
+import { userLogin, productsGetMany } from '#api';
+import { sessionStore } from '#consts';
 
 const CheckoutGuest = () => {
   const navigate = useNavigate();
+
+  const [itemsData, setItemsData] = useState<ProductType[] | undefined>();
+
+  const tempUser: React.MutableRefObject<UserProfileType> = useRef({});
+  const loginData: React.MutableRefObject<UsersLoginType> = useRef({});
+
   const [updLoggedIn, checkout, updCheckoutCustomer] = sessionStore((state) => [
     state.updLoggedIn,
     state.checkout,
     state.updCheckoutCustomer
   ]);
-  const [itemsData, setItemsData] = useState<ProductType[] | undefined>();
-  const tempUser: React.MutableRefObject<UserProfileType> = useRef({});
-  const loginData: React.MutableRefObject<UsersLoginType> = useRef({});
 
   useEffect(() => {
     const { cart } = checkout;
@@ -59,7 +63,7 @@ const CheckoutGuest = () => {
         {!itemsData ? (
           <Warning label={'Could not load cart items, please, refresh the page if you see this'} />
         ) : (
-          <div className={s.checkoutWrapper}>
+          <main className={s.checkoutWrapper}>
             <section className={s.personalBlock}>
               <span className={s.title}>Shipping information</span>
               <span className={s.subtle}>Log in to existing account</span>
@@ -179,7 +183,7 @@ const CheckoutGuest = () => {
                 );
               })}
             </section>
-          </div>
+          </main>
         )}
       </PageWrapper>
       <Footer isShortened />

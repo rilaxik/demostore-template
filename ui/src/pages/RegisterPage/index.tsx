@@ -1,13 +1,16 @@
-import s from './style.module.scss';
-import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UsersType, UsersRegisterSchema } from '@ecommerce/shared/types';
 import toast from 'react-hot-toast';
-import userRegister from '../../api/userRegister.ts';
+
+import { PageWrapper, Navbar, Footer, Input, Button } from '#components';
+import s from './style.module.scss';
+
+import { UsersType, UsersRegisterSchema } from '@ecommerce/shared/types';
+import { userRegister } from '#api';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+
   const [creds, setCreds] = useState<UsersType>({});
   const [passR, setPassR] = useState<string>('');
 

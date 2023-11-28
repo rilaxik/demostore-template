@@ -1,7 +1,8 @@
 import { Request } from 'express';
 import { Repository, In } from 'typeorm';
 import { AppDataSource } from '../data-source';
-import { Product } from '../entity/Product';
+
+import { Product } from '#entities';
 import {
   type DB_Response,
   ProductGetManySchema,

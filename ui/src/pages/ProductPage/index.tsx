@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import s from './style.module.scss';
+import toast from 'react-hot-toast';
+
 import {
   PageWrapper,
   Navbar,
@@ -8,12 +10,12 @@ import {
   QuantityPanel,
   Breadcrumbs,
   Warning
-} from '../../components';
-import { sessionStore } from '../../consts';
-import { useEffect, useState } from 'react';
-import { productsGetAll } from '../../api';
-import toast from 'react-hot-toast';
+} from '#components';
+import s from './style.module.scss';
+
 import { DB_Response, ProductType } from '@ecommerce/shared/types';
+import { productsGetAll } from '#api';
+import { sessionStore } from '#consts';
 
 const ProductPage = () => {
   const params = useParams();

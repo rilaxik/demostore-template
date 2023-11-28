@@ -1,6 +1,11 @@
 import { JSX } from 'react';
 
-const PageWrapper = ({ children, container }: Props) => {
+type Props = {
+  children: JSX.Element | JSX.Element[];
+  container?: boolean;
+};
+
+const PageWrapper = ({ children, container = false }: Props) => {
   return (
     <div
       style={
@@ -28,8 +33,3 @@ const PageWrapper = ({ children, container }: Props) => {
 };
 
 export default PageWrapper;
-
-type Props = {
-  children: JSX.Element | JSX.Element[];
-  container?: boolean;
-};

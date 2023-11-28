@@ -1,7 +1,12 @@
 import s from './style.module.scss';
-import { shopInfo } from '../../consts';
 
-const Footer = ({ isShortened }: Props) => {
+import { shopInfo } from '#consts';
+
+type Props = {
+  isShortened?: boolean;
+};
+
+const Footer = ({ isShortened = false }: Props) => {
   return (
     <footer className={s.footerWrapper}>
       {!isShortened ? (
@@ -62,7 +67,3 @@ const Footer = ({ isShortened }: Props) => {
 };
 
 export default Footer;
-
-type Props = {
-  isShortened?: boolean;
-};

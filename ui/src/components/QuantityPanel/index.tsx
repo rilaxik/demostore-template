@@ -1,6 +1,11 @@
 import s from './style.module.scss';
-import { minusIcon, plusIcon } from '../../assets';
-import { sessionStore } from '../../consts';
+import { minusIcon, plusIcon } from '#assets';
+
+import { sessionStore } from '#consts';
+
+type Props = {
+  id: string;
+};
 
 const QuantityPanel = ({ id }: Props) => {
   const [cart, incCart, decCart] = sessionStore((state) => [
@@ -8,6 +13,7 @@ const QuantityPanel = ({ id }: Props) => {
     state.incCart,
     state.decCart
   ]);
+
   const quantity = cart.get(id) || 0;
 
   return (
@@ -32,7 +38,3 @@ const QuantityPanel = ({ id }: Props) => {
 };
 
 export default QuantityPanel;
-
-type Props = {
-  id: string;
-};

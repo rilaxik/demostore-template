@@ -20,7 +20,7 @@
     cursor: pointer;
     font-size: $login-navigation-fs;
     font-weight: $login-navigation-fw;
-    color: $bgcolor-accent
+    color: $bgcolor-accent;
   }
 
   .row {
@@ -28,6 +28,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 1rem
+    gap: 1rem;
   }
 }

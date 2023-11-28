@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["es5", "es6","ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["es5", "es6", "ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -29,7 +29,6 @@
       "#consts": ["./src/consts"],
       "#functions": ["./src/functions"]
     }
-
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -1,14 +1,26 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+
+import { PageWrapper, Footer, Navbar, CartSummary } from '#components';
 import s from './style.module.scss';
-import { PageWrapper, Footer, Navbar, CartSummary } from '../../components';
-import { sessionStore } from '../../consts';
+
 import { ShopCheckoutShipping, ShopCheckoutPayment } from '@ecommerce/shared/types';
-import postCheckout from '../../api/checkout.ts';
+import { postCheckout } from '#api';
+import { sessionStore } from '#consts';
 
 const CheckoutLoggedIn = () => {
   const navigate = useNavigate();
+
+  const selectedPayment: React.MutableRefObject<ShopCheckoutPayment> = useRef(
+    ShopCheckoutPayment.CREDIT_CARD
+  );
+
+  const selectedShipping: React.MutableRefObject<ShopCheckoutShipping> = useRef(
+    ShopCheckoutShipping.STANDARD
+  );
+  const checkedPolicy: React.MutableRefObject<boolean> = useRef(false);
+
   const [checkout, updCheckoutBilling, updCheckoutPaid, updCheckoutUser, clearCart, loggedIn] =
     sessionStore((state) => [
       state.checkout,
@@ -18,13 +30,6 @@ const CheckoutLoggedIn = () => {
       state.clearCart,
       state.loggedIn
     ]);
-  const selectedPayment: React.MutableRefObject<ShopCheckoutPayment> = useRef(
-    ShopCheckoutPayment.CREDIT_CARD
-  );
-  const selectedShipping: React.MutableRefObject<ShopCheckoutShipping> = useRef(
-    ShopCheckoutShipping.STANDARD
-  );
-  const checkedPolicy: React.MutableRefObject<boolean> = useRef(false);
 
   useEffect(() => {
     if (!checkout.customer) navigate('/cart');
@@ -34,9 +39,9 @@ const CheckoutLoggedIn = () => {
     <PageWrapper>
       <PageWrapper container>
         <Navbar isShortened />
-        <section className={s.checkoutFinalWrapper}>
+        <main className={s.checkoutFinalWrapper}>
           <span className={s.title}>Complete order</span>
-          <div className={s.rowBlock}>
+          <section className={s.rowBlock}>
             <div className={s.rowItem}>
               <span className={s.subtle}>Terms and conditions and cancellation policy</span>
               <div className={s.policyWrapper}>
@@ -58,8 +63,8 @@ const CheckoutLoggedIn = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className={s.rowBlock}>
+          </section>
+          <section className={s.rowBlock}>
             <div className={s.rowItem}>
               <span className={s.subtle}>Shipping address</span>
               <span className={s.detail}>
@@ -69,8 +74,8 @@ const CheckoutLoggedIn = () => {
                 {checkout.customer.state},&nbsp;{checkout.customer.country}
               </span>
             </div>
-          </div>
-          <div className={s.rowBlock}>
+          </section>
+          <section className={s.rowBlock}>
             <div className={s.rowItem}>
               <span className={s.subtle}>Payment method</span>
               {(Object.keys(ShopCheckoutPayment) as Array<keyof typeof ShopCheckoutPayment>).map(
@@ -111,11 +116,11 @@ const CheckoutLoggedIn = () => {
                 }
               )}
             </div>
-          </div>
+          </section>
           <div className={s.completeWrapper}>
             <CartSummary hasButton callback={() => handleContinue()} />
           </div>
-        </section>
+        </main>
       </PageWrapper>
       <Footer isShortened />
     </PageWrapper>

@@ -1,8 +1,24 @@
 import React from 'react';
-import s from './style.module.scss';
-import { Button } from '../../components';
-import { sessionStore, shopInfo, ProductShort } from '../../consts';
 import { useNavigate } from 'react-router-dom';
+
+import { Button } from '#components';
+import s from './style.module.scss';
+
+import { sessionStore, shopInfo, ProductShort } from '#consts';
+
+// type ProductShort = {
+//   id: string;
+//   name: string;
+//   sizingShort?: number | string;
+//   measurement?: string;
+//   description: string;
+//   content: number;
+//   pricePerPiece?: number;
+//   price: number;
+//   isInStock: boolean;
+//   image: string;
+//   variants?: string[];
+// };
 
 const ProductCard = ({
   id,
@@ -17,6 +33,7 @@ const ProductCard = ({
   image
 }: ProductShort) => {
   const navigate = useNavigate();
+
   const [incCart] = sessionStore((state) => [state.incCart]);
 
   return (

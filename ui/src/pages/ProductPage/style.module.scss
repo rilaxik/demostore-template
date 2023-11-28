@@ -40,7 +40,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
-      gap: .5rem;
+      gap: 0.5rem;
 
       .price {
         display: flex;
@@ -79,13 +79,13 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: flex-start;
-        gap: .5rem;
+        gap: 0.5rem;
 
         .variant {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding: .75rem;
+          padding: 0.75rem;
 
           font-size: $product-variant-fs;
           font-weight: $product-variant-fw;
@@ -108,7 +108,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: .5rem;
+        gap: 0.5rem;
       }
     }
   }
@@ -116,14 +116,14 @@
   .informationWrapper {
     display: flex;
     flex-direction: column;
-    gap: .625rem;
+    gap: 0.625rem;
 
     .title {
       display: flex;
 
       font-size: $product-info-title-fs;
       font-weight: $product-info-title-fw;
-      color: $color-main
+      color: $color-main;
     }
 
     .desc {
@@ -131,12 +131,13 @@
 
       font-size: $product-info-fs;
       font-weight: $product-info-fw;
-      color: $color-main
+      color: $color-main;
     }
 
     table tbody {
-      td, th {
-        padding: .5rem;
+      td,
+      th {
+        padding: 0.5rem;
       }
 
       tr:nth-child(odd) {

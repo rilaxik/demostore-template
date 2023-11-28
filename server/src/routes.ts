@@ -1,8 +1,10 @@
 import { type Route } from '@ecommerce/shared/types';
-import { UserController } from './controller/UserController';
-import { LoginController } from './controller/LoginController';
-import { ProductController } from './controller/ProductController';
-import { CheckoutController } from './controller/CheckoutController';
+import {
+  UserController,
+  LoginController,
+  ProductController,
+  CheckoutController,
+} from '#controllers';
 
 export const Routes: Route[] = [
   // users

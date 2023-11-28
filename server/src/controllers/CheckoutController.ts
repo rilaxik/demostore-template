@@ -1,13 +1,13 @@
 import type { Request } from 'express';
 import { Repository } from 'typeorm';
+import { AppDataSource } from '../data-source';
+
+import { Checkout, User } from '#entities';
 import {
   type DB_Response,
   CheckoutRegisterSchema,
   CheckoutGetSchema,
 } from '@ecommerce/shared/types';
-import { AppDataSource } from '../data-source';
-import { Checkout } from '../entity/Checkout';
-import { User } from '../entity/User';
 
 export class CheckoutController {
   private checkoutRepository: Repository<Checkout> = AppDataSource.getRepository(Checkout);

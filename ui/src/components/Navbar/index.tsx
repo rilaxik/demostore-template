@@ -1,7 +1,9 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+
+import { Button, Input } from '#components';
 import s from './style.module.scss';
-import { shopInfo, sessionStore } from '../../consts';
-import { ShopCategoriesEnum as ShopCategories } from '@ecommerce/shared/types';
-import { Button, Input } from '../';
 import {
   cartIcon,
   highlightedCartIcon,
@@ -9,15 +11,21 @@ import {
   highlightedProfileIcon,
   searchIcon,
   wishlistIcon
-} from '../../assets';
-import { useNavigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { useState } from 'react';
+} from '#assets';
 
-const Navbar = ({ isShortened }: Props) => {
+import { ShopCategoriesEnum as ShopCategories } from '@ecommerce/shared/types';
+import { shopInfo, sessionStore } from '#consts';
+
+type Props = {
+  isShortened?: boolean;
+};
+
+const Navbar = ({ isShortened = false }: Props) => {
   const navigate = useNavigate();
+
   const [query, setQuery] = useState<string>();
   const [category, setCategory] = useState<ShopCategories>();
+
   const [currency, cart, loggedIn] = sessionStore((state) => [
     state.currency,
     state.cart,
@@ -91,34 +99,28 @@ const Navbar = ({ isShortened }: Props) => {
   }
 
   function getCategories() {
-    {
-      return (Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
-        (item: keyof typeof ShopCategories) => {
-          return (
-            <div
-              className={`${s.category} ${category === ShopCategories[item] ? s.active : ''}`}
-              key={`category-${item}`}
-              onClick={() => {
-                if (category !== ShopCategories[item]) {
-                  setCategory(ShopCategories[item]);
-                  handleNavigate(query, ShopCategories[item]);
-                } else {
-                  setCategory(undefined);
-                  handleNavigate(query, undefined);
-                }
-              }}
-            >
-              {ShopCategories[item].charAt(0).toUpperCase() + ShopCategories[item].slice(1)}
-            </div>
-          );
-        }
-      );
-    }
+    return (Object.keys(ShopCategories) as Array<keyof typeof ShopCategories>).map(
+      (item: keyof typeof ShopCategories) => {
+        return (
+          <div
+            className={`${s.category} ${category === ShopCategories[item] ? s.active : ''}`}
+            key={`category-${item}`}
+            onClick={() => {
+              if (category !== ShopCategories[item]) {
+                setCategory(ShopCategories[item]);
+                handleNavigate(query, ShopCategories[item]);
+              } else {
+                setCategory(undefined);
+                handleNavigate(query, undefined);
+              }
+            }}
+          >
+            {ShopCategories[item].charAt(0).toUpperCase() + ShopCategories[item].slice(1)}
+          </div>
+        );
+      }
+    );
   }
 };
 
 export default Navbar;
-
-type Props = {
-  isShortened?: boolean;
-};

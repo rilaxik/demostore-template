@@ -1,6 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
-import { SERVER_CONFIG, UserProfileType, UsersLoginType } from '@ecommerce/shared/types';
-import { DB_Response } from '@ecommerce/shared/types';
+import {
+  SERVER_CONFIG,
+  DB_Response,
+  UserProfileType,
+  UsersLoginType
+} from '@ecommerce/shared/types';
 
 export default async function userLogin(
   userObj: UsersLoginType

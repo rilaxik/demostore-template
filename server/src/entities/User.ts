@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Checkout } from './Checkout';
+import { Checkout } from '#entities';
 
 @Entity()
 export class User {

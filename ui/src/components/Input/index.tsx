@@ -1,22 +1,34 @@
+import React, { useRef } from 'react';
+
 import s from './style.module.scss';
-import React, { useState } from 'react';
+
+type Props = {
+  placeholder: string;
+  type?: 'text' | 'email' | 'password';
+  icon?: string;
+  isIconFilled?: boolean;
+  width?: string;
+  blockStyle?: React.CSSProperties;
+  callbackOnChange?: boolean;
+  callback: (value: string) => void;
+};
 
 const Input = ({
   placeholder,
   type = 'text',
   icon,
-  isIconFilled,
-  width,
+  isIconFilled = false,
+  width = '20rem',
   blockStyle,
-  callbackOnChange,
+  callbackOnChange = false,
   callback
 }: Props) => {
-  const [searchValue, setSearchValue] = useState<string>('');
+  const searchValue = useRef<string>('');
 
   return (
     <search className={s.searchbar} style={blockStyle}>
       <input
-        style={!width ? { width: '20rem' } : { width: width }}
+        style={{ width: width }}
         type={type}
         onChange={(e) => handleSearchChange(e)}
         onKeyDown={(e) => handleSearch(e)}
@@ -27,14 +39,14 @@ const Input = ({
           className={`${s.iconWrapper} ${isIconFilled ? s.filled : ''}`}
           onClick={() => handleSearch()}
         >
-          <img src={icon} alt="icon" />
+          <img src={icon} alt='icon' />
         </div>
       ) : null}
     </search>
   );
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchValue(e.target.value.trim());
+    searchValue.current = e.target.value.trim();
     callbackOnChange ? callback(e.target.value.trim()) : null;
   }
 
@@ -45,22 +57,11 @@ const Input = ({
     if (prompt === '') return;
     if (e) {
       if (e.key !== 'Enter') return;
-      callback(searchValue);
+      callback(searchValue.current);
     } else {
-      callback(searchValue);
+      callback(searchValue.current);
     }
   }
 };
 
 export default Input;
-
-type Props = {
-  placeholder: string;
-  type?: string;
-  icon?: string;
-  isIconFilled?: boolean;
-  width?: string;
-  blockStyle?: React.CSSProperties;
-  callbackOnChange?: boolean;
-  callback: (value: string) => void;
-};

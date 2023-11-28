@@ -1,11 +1,24 @@
-import s from './style.module.scss';
-import { crossIcon } from '../../assets';
-import { ProductShort, sessionStore } from '../../consts';
 import { useNavigate } from 'react-router-dom';
-import QuantityPanel from '../QuantityPanel';
 
-const CartItem = ({ image, name, content, id, price, quantity, isShortened }: Props) => {
+import { QuantityPanel } from '#components';
+import s from './style.module.scss';
+import { crossIcon } from '#assets';
+
+import { ProductShort, sessionStore } from '#consts';
+
+type Props = {
+  image: ProductShort['image'];
+  name: ProductShort['name'];
+  content: ProductShort['content'];
+  id: ProductShort['id'];
+  price: ProductShort['price'];
+  quantity: number;
+  isShortened?: boolean;
+};
+
+const CartItem = ({ image, name, content, id, price, quantity, isShortened = false }: Props) => {
   const navigate = useNavigate();
+
   const [currency, removeCartItem] = sessionStore((state) => [
     state.currency,
     state.removeCartItem
@@ -61,13 +74,3 @@ const CartItem = ({ image, name, content, id, price, quantity, isShortened }: Pr
 };
 
 export default CartItem;
-
-type Props = {
-  image: ProductShort['image'];
-  name: ProductShort['name'];
-  content: ProductShort['content'];
-  id: ProductShort['id'];
-  price: ProductShort['price'];
-  quantity: number;
-  isShortened?: boolean;
-};

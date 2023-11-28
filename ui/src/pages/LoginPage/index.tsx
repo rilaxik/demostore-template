@@ -1,16 +1,20 @@
-import s from './style.module.scss';
-import { PageWrapper, Navbar, Footer, Input, Button } from '../../components';
 import React, { useRef } from 'react';
-import toast from 'react-hot-toast';
-import { userLogin } from '../../api';
 import { useNavigate } from 'react-router-dom';
-import { sessionStore } from '../../consts';
+import toast from 'react-hot-toast';
+
+import { PageWrapper, Navbar, Footer, Input, Button } from '#components';
+import s from './style.module.scss';
+
 import { UsersLoginSchema, UsersLoginType } from '@ecommerce/shared/types';
+import { userLogin } from '#api';
+import { sessionStore } from '#consts';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [setLoggedIn] = sessionStore((state) => [state.updLoggedIn]);
+
   const creds: React.MutableRefObject<UsersLoginType> = useRef({});
+
+  const [setLoggedIn] = sessionStore((state) => [state.updLoggedIn]);
 
   return (
     <PageWrapper>

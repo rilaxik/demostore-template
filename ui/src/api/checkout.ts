@@ -5,7 +5,7 @@ import {
   CheckoutRawSchema,
   type CheckoutRawType
 } from '@ecommerce/shared/types';
-import { mapToObject } from '../functions';
+import { mapToObject } from '#functions';
 
 export default async function postCheckout(
   checkoutObj: CheckoutRawType

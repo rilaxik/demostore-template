@@ -8,104 +8,104 @@
   justify-content: flex-start;
   gap: 3rem;
 
-    .title {
+  .title {
+    display: flex;
+
+    font-size: $checkout-title-fs;
+    font-weight: $checkout-title-fw;
+    color: $color-main;
+  }
+
+  .subtle {
+    display: flex;
+    align-self: stretch;
+    gap: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid $color-sec;
+
+    font-size: $checkout-subtle-fs;
+    font-weight: $checkout-subtle-fw;
+    color: $color-main;
+  }
+
+  .rowBlock {
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.5rem;
+
+    .rowItem {
       display: flex;
-
-      font-size: $checkout-title-fs;
-      font-weight: $checkout-title-fw;
-      color: $color-main;
-    }
-
-    .subtle {
-      display: flex;
-      align-self: stretch;
-      gap: .25rem;
-      padding-bottom: .25rem;
-      border-bottom: 1px solid $color-sec;
-
-      font-size: $checkout-subtle-fs;
-      font-weight: $checkout-subtle-fw;
-      color: $color-main;
-    }
-
-    .rowBlock {
-      display: flex;
-      flex-direction: row;
-      align-self: stretch;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
       align-items: flex-start;
-      justify-content: flex-start;
       gap: 1.5rem;
 
-      .rowItem {
+      .policyWrapper {
         display: flex;
-        flex: 1;
         flex-direction: column;
-        justify-content: center;
         align-items: flex-start;
+        justify-content: center;
         gap: 1.5rem;
-
-        .policyWrapper {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: center;
-          gap: 1.5rem;
-
-          font-size: $checkout-option-fs;
-          font-weight: $checkout-option-fw;
-
-          .link {
-            display: flex;
-            color: $bgcolor-accent;
-          }
-
-          .checkboxWrapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            gap: .25rem;
-
-            label {
-              cursor: pointer;
-            }
-
-            input[type=checkbox]:checked {
-              background-color: red;
-            }
-          }
-        }
-
-        .option {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: flex-start;
-          gap: .5rem;
-
-          label {
-            display: flex;
-
-            font-size: $checkout-option-fs;
-            font-weight: $checkout-optionBold-fw;
-            color: $color-main
-          }
-        }
-      }
-
-      .detail {
-        display: flex;
 
         font-size: $checkout-option-fs;
         font-weight: $checkout-option-fw;
-        color: $color-main;
+
+        .link {
+          display: flex;
+          color: $bgcolor-accent;
+        }
+
+        .checkboxWrapper {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 0.25rem;
+
+          label {
+            cursor: pointer;
+          }
+
+          input[type='checkbox']:checked {
+            background-color: red;
+          }
+        }
+      }
+
+      .option {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+
+        label {
+          display: flex;
+
+          font-size: $checkout-option-fs;
+          font-weight: $checkout-optionBold-fw;
+          color: $color-main;
+        }
       }
     }
 
-    .completeWrapper {
+    .detail {
       display: flex;
-      flex-direction: column;
-      align-self: stretch;
-      align-items: flex-end;
+
+      font-size: $checkout-option-fs;
+      font-weight: $checkout-option-fw;
+      color: $color-main;
     }
   }
+
+  .completeWrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    align-items: flex-end;
+  }
+}

@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { chevronRightIcon } from '../../assets';
+
 import s from './style.module.scss';
+import { chevronRightIcon } from '#assets';
 
 const Breadcrumbs = () => {
   const navigate = useNavigate();

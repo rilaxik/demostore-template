@@ -1,26 +1,22 @@
-import toast from 'react-hot-toast';
-import {
-  PageWrapper,
-  Navbar,
-  Footer,
-  CartSummary,
-  CartItem,
-  Input,
-  Warning
-} from '../../components';
-import s from './style.module.scss';
-import { sessionStore, shopInfo } from '../../consts';
-import { checkmarkIcon } from '../../assets';
-import { productsGetAll, productsGetMany } from '../../api';
-import { DB_Response, ProductType } from '@ecommerce/shared/types';
-import { isUUID } from '../../functions';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+
+import { PageWrapper, Navbar, Footer, CartSummary, CartItem, Input, Warning } from '#components';
+import s from './style.module.scss';
+import { checkmarkIcon } from '#assets';
+
+import { DB_Response, ProductType } from '@ecommerce/shared/types';
+import { productsGetAll, productsGetMany } from '#api';
+import { sessionStore, shopInfo } from '#consts';
+import { isUUID } from '#functions';
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const [cart, incCart] = sessionStore((state) => [state.cart, state.incCart]);
+
   const [itemsData, setItemsData] = useState<ProductType[] | undefined>();
+
+  const [cart, incCart] = sessionStore((state) => [state.cart, state.incCart]);
 
   useEffect(() => {
     if (!cart.size) return;

@@ -3,12 +3,13 @@ import type { Express, Request, Response } from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import { zodMW } from './middlewares/zod.middleware';
+import * as chalk from 'chalk';
+
 import { AppDataSource } from './data-source';
 import { Routes } from './routes';
 import { SERVER_CONFIG, Route } from '@ecommerce/shared/types';
-import * as chalk from 'chalk';
 
-// todo proper error handling
+// todo proper error handling, frontend error handling
 AppDataSource.initialize()
   .then(async (): Promise<void> => {
     /*

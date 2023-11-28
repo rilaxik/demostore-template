@@ -1,8 +1,8 @@
 @import '../../consts/fonts.module';
-    .productCardsWrapper {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-    }
+.productCardsWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}

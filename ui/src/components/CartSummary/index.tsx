@@ -1,13 +1,21 @@
-import toast from 'react-hot-toast';
-import { DB_Response, ProductType } from '@ecommerce/shared/types';
-import { Input, Button } from '../';
-import { sessionStore } from '../../consts';
-import { productsGetMany } from '../../api';
-import s from './style.module.scss';
-import { checkmarkIcon } from '../../assets';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
-const CartSummary = ({ hasCodeField, hasButton, callback }: Props) => {
+import { Input, Button } from '#components';
+import s from './style.module.scss';
+import { checkmarkIcon } from '#assets';
+
+import { DB_Response, ProductType } from '@ecommerce/shared/types';
+import { productsGetMany } from '#api';
+import { sessionStore } from '#consts';
+
+type Props = {
+  hasCodeField?: boolean;
+  hasButton?: boolean;
+  callback: () => void;
+};
+
+const CartSummary = ({ hasCodeField = false, hasButton = false, callback }: Props) => {
   const [currency, cart, updCheckoutCart, updCheckoutDiscount] = sessionStore((state) => [
     state.currency,
     state.cart,
@@ -24,7 +32,7 @@ const CartSummary = ({ hasCodeField, hasButton, callback }: Props) => {
       toast.error('Unable to calculate cart summary');
       console.log(err);
     }
-  }, [calcTotal, cart]);
+  }, [cart]);
 
   return (
     <section className={s.summaryWrapper}>
@@ -120,9 +128,3 @@ const CartSummary = ({ hasCodeField, hasButton, callback }: Props) => {
 };
 
 export default CartSummary;
-
-type Props = {
-  hasCodeField?: boolean;
-  hasButton?: boolean;
-  callback: () => void;
-};
