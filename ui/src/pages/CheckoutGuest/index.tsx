@@ -32,7 +32,8 @@ const CheckoutGuest = () => {
   const tempUser: React.MutableRefObject<UserProfileType> = useRef({});
   const loginData: React.MutableRefObject<UsersLoginType> = useRef({});
 
-  const [updLoggedIn, checkout, updCheckoutCustomer] = sessionStore((state) => [
+  const [loggedIn, updLoggedIn, checkout, updCheckoutCustomer] = sessionStore((state) => [
+    state.loggedIn,
     state.updLoggedIn,
     state.checkout,
     state.updCheckoutCustomer
@@ -45,6 +46,11 @@ const CheckoutGuest = () => {
       return;
     }
 
+    if (loggedIn) {
+      navigate('verify');
+      return;
+    }
+
     try {
       productsGetMany([...cart.keys()]).then((data: DB_Response<ProductType[]>) => {
         if (!data.data) return toast.error(data.message);
@@ -54,7 +60,7 @@ const CheckoutGuest = () => {
       navigate('/cart');
       toast.error(e.message);
     }
-  }, [checkout, navigate]);
+  }, [checkout, loggedIn, navigate]);
 
   return (
     <PageWrapper>
@@ -208,8 +214,6 @@ const CheckoutGuest = () => {
     if (!UserProfileSchema.safeParse(tempUser.current).success)
       return toast.error('Please fill all the fields to continue');
 
-    // Argument of type '{ [x: string]: any; }' is not assignable to parameter of type UserProfileType
-    // @ts-expect-error -> IMPOSSIBLE due to zod schema validation
     updCheckoutCustomer(tempUser.current);
     navigate(`verify`);
   }

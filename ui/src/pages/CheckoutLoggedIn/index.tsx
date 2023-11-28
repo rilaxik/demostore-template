@@ -21,17 +21,26 @@ const CheckoutLoggedIn = () => {
   );
   const checkedPolicy: React.MutableRefObject<boolean> = useRef(false);
 
-  const [checkout, updCheckoutBilling, updCheckoutPaid, updCheckoutUser, clearCart, loggedIn] =
-    sessionStore((state) => [
-      state.checkout,
-      state.updCheckoutBilling,
-      state.updCheckoutPaid,
-      state.updCheckoutUser,
-      state.clearCart,
-      state.loggedIn
-    ]);
+  const [
+    checkout,
+    updCheckoutUser,
+    updCheckoutCustomer,
+    updCheckoutBilling,
+    updCheckoutPaid,
+    clearCart,
+    loggedIn
+  ] = sessionStore((state) => [
+    state.checkout,
+    state.updCheckoutUser,
+    state.updCheckoutCustomer,
+    state.updCheckoutBilling,
+    state.updCheckoutPaid,
+    state.clearCart,
+    state.loggedIn
+  ]);
 
   useEffect(() => {
+    if (loggedIn) updCheckoutCustomer(loggedIn);
     if (!checkout.customer) navigate('/cart');
   }, [checkout.customer, navigate]);
 

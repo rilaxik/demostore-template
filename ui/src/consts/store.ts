@@ -17,16 +17,7 @@ type State = {
     user: string | null;
     cart: State['cart'];
     discount: CheckoutDiscountType | null;
-    customer: {
-      email: string;
-      firstName: string;
-      lastName: string;
-      street: string;
-      city: string;
-      state: string;
-      country: string;
-      zip: string;
-    };
+    customer: UserProfileType;
     billing: {
       shipping: ShopCheckoutShipping;
       payment: ShopCheckoutPayment;
