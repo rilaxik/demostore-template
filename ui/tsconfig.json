@@ -21,13 +21,14 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Aliases */
-    "baseUrl": "./",
+    "rootDir": ".",
+    "baseUrl": "./src",
     "paths": {
-      "#api": ["./src/api"],
-      "#assets": ["./src/assets"],
-      "#components": ["./src/components"],
-      "#consts": ["./src/consts"],
-      "#functions": ["./src/functions"]
+      "#api": ["api"],
+      "#assets": ["assets"],
+      "#components": ["components"],
+      "#consts": ["consts"],
+      "#functions": ["functions"]
     }
   },
   "include": ["src"],

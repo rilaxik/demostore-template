@@ -1,9 +1,9 @@
-import * as express from 'express';
+import express from 'express';
 import type { Express, Request, Response } from 'express';
-import * as bodyParser from 'body-parser';
-import * as cors from 'cors';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import { zodMW } from './middlewares/zod.middleware';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 import { AppDataSource } from './data-source';
 import { Routes } from './routes';

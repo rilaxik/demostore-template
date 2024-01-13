@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    // Do not forget to `npm i -D tsconfig-paths`
+    "require": ["tsconfig-paths/register"]
+  },
   "compilerOptions": {
     "lib": ["es5", "es6"],
     "target": "es5",
@@ -7,11 +11,13 @@
     "outDir": "./build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "sourceMap": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "#entities": ["./src/entities"],
-      "#controllers": ["./src/controllers"]
+      "#entities": ["entities"],
+      "#controllers": ["controllers"],
     }
-  }
+  },
+  "include": ["src/**/*"]
 }
